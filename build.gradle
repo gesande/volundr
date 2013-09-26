@@ -1,0 +1,7 @@
+//set some initial variables for the build
+ext {
+    buildScripts="$projectDir/buildSrc"
+    buildPlugins="$buildScripts/plugins"
+}
+//applying the root stuff from gradle file that exists in buildSrc
+apply from: "$buildPlugins/völundr.gradle"

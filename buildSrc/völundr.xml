@@ -1,0 +1,46 @@
+<!-- NOTE this is generated but versioned file -->
+<project name="gradle" default="licenseToCommit" basedir="..\">
+	<description description="Build entrypoints">
+	</description>
+	<!-- set global properties for this build -->
+	<property environment="env" />
+	<condition property="gradle-exec" value="gradle.bat" else="gradle">
+		<os family="windows" />
+	</condition>
+	<property name="gradle.executable" location="${env.GRADLE_HOME}/bin/${gradle-exec}" />
+	<target name="licenseToCommit">
+		<exec executable="${gradle.executable}" dir=".">
+			<arg value="licenseToCommit" />
+		</exec>
+	</target>
+	<target name="continousBuild">
+		<exec executable="${gradle.executable}" dir=".">
+			<arg value="continousBuild" />
+		</exec>
+	</target>
+	<target name="distributionPackage">
+		<exec executable="${gradle.executable}" dir=".">
+			<arg value="distributionPackage" />
+		</exec>
+	</target>
+	<target name="eclipseSettings">
+		<exec executable="${gradle.executable}" dir=".">
+			<arg value="eclipseSettings" />
+		</exec>
+	</target>
+	<target name="exportAntBuildFile">
+		<exec executable="${gradle.executable}" dir=".">
+			<arg value="exportAntBuildFile" />
+		</exec>
+	</target>
+	<target name="exportBacklog">
+		<exec executable="${gradle.executable}" dir=".">
+			<arg value="exportBacklog" />
+		</exec>
+	</target>
+	<target name="tasks">
+		<exec executable="${gradle.executable}" dir=".">
+			<arg value="tasks" />
+		</exec>
+	</target>
+</project>
