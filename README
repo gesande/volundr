@@ -1,5 +1,10 @@
-Völundr - java tools
+völundr - java tools
 
-line-reader
+asynchronous-stream-reader
+classhelper
+concurrent
+fileutil
+junit-utils
+linereader
 stream-reader
-asyncronous-stream-reader
+stronglytyped-sortedbag
