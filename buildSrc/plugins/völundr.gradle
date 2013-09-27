@@ -2,7 +2,7 @@
 import net.sf.mygradlebuild.plugins.DefaultContinousBuildPlugin
 import net.sf.mygradlebuild.plugins.EclipseSettingsPlugin
 import net.sf.mygradlebuild.plugins.EnvironmentVariablesPlugin
-import net.sf.mygradlebuild.plugins.JavaDistributionPlugin
+import net.sf.völundr.JavaDistributionPlugin
 import net.sf.mygradlebuild.plugins.MavenCentral
 import net.sf.mygradlebuild.plugins.ReportingPlugin
 import net.sf.völundr.ExportAntBuildFilePlugin
@@ -20,7 +20,7 @@ ext {
 
     emmaPlugin="${buildScripts}/plugins/emma.gradle"
 
-    artifactVersion='1.0'
+    artifactVersion='1.0.0'
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
