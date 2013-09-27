@@ -16,7 +16,6 @@ class ExportAntBuildFilePlugin implements Plugin<Project> {
             task.buildFilename= "völundr.xml"
             task.defaultTarget= "licenseToCommit"
             task.targets = [
-                "continousBuild",
                 "distributionPackage",
                 "eclipseSettings",
                 "exportAntBuildFile",

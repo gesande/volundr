@@ -28,27 +28,9 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'aggregateFindbugsReport'
             tasks << 'archiveAggregateReports'
 
-            doLast { println "Continous build without acceptance tests passed, good work!" }
+            doLast { println "You've now license to commit, good work!" }
         }
-        project.task("continousBuild", type: GradleBuild) { Task task ->
-            group = 'Verification'
-            description ='Continous build for the whole thing.'
-            buildFile = 'build.gradle'
-            tasks << 'concurrent:continous'
-            tasks << 'stronglytyped-sortedbag:continous'
-            tasks << 'linereader:continous'
-            tasks << 'fileutil:continous'
-            tasks << 'junit-utils:continous'
-            tasks << 'classhelper:continous'
-            tasks << 'exportAntBuildFile'
-            tasks << 'aggregateTestReport'
-            tasks << 'aggregateJDependReport'
-            tasks << 'aggregateCoverageReport'
-            tasks << 'aggregateFindbugsReport'
-            tasks << 'archiveAggregateReports'
 
-            doLast { println "Continous build passed, good work!" }
-        }
         project.task("distributionPackage", type: GradleBuild, dependsOn: ['continousBuild']) { Task task ->
             group = 'Distribution'
             description = 'Distribution package for the whole thing including continous build.'
