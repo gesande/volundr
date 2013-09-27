@@ -7,7 +7,7 @@ import net.sf.mygradlebuild.plugins.MavenCentral
 import net.sf.mygradlebuild.plugins.ReportingPlugin
 import net.sf.völundr.ExportAntBuildFilePlugin
 import net.sf.völundr.BuildPlugin
-
+import net.sf.völundr.NewJavaProjectPlugin
 
 ext {
     //make sure these files exist
@@ -29,6 +29,7 @@ ext {
 version = '1.0.1'
 
 apply plugin : MavenCentral
+apply plugin : NewJavaProjectPlugin
 apply plugin : ReportingPlugin
 apply plugin : JavaDistributionPlugin
 apply plugin : EnvironmentVariablesPlugin
