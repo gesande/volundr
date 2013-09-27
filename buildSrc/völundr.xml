@@ -13,11 +13,6 @@
 			<arg value="licenseToCommit" />
 		</exec>
 	</target>
-	<target name="continousBuild">
-		<exec executable="${gradle.executable}" dir=".">
-			<arg value="continousBuild" />
-		</exec>
-	</target>
 	<target name="distributionPackage">
 		<exec executable="${gradle.executable}" dir=".">
 			<arg value="distributionPackage" />
