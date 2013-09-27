@@ -1,6 +1,7 @@
 package net.sf.völundr.io;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -42,8 +43,17 @@ public class AsynchronousStreamReaderTest {
 				emptyLines.set(true);
 			}
 		};
+		final AtomicBoolean failed = new AtomicBoolean(false);
 		final AsynchronousStreamReader multipleStreamReader = new AsynchronousStreamReader(
-				visitor, Charset.defaultCharset());
+				visitor, Charset.defaultCharset(),
+				new StreamReadFailedNotifier() {
+
+					@Override
+					public void readFailed(final InputStream stream,
+							final Throwable t) {
+						failed.set(true);
+					}
+				});
 		try {
 			multipleStreamReader.readFrom(stream1, stream2, stream3);
 			multipleStreamReader.waitUntilDone();
@@ -52,6 +62,7 @@ public class AsynchronousStreamReaderTest {
 			closeStream(stream2);
 			closeStream(stream3);
 		}
+		assertFalse(failed.get());
 		assertTrue(emptyLines.get());
 		assertEquals(4, visited.size());
 	}
@@ -69,22 +80,33 @@ public class AsynchronousStreamReaderTest {
 	public void readFailed() throws InterruptedException {
 		final InputStream stream1 = new ByteArrayInputStream(
 				"line1\n".getBytes());
+		final FailIHave failIHave = new FailIHave();
+		final AtomicBoolean failed = new AtomicBoolean(false);
 		final AsynchronousStreamReader multipleStreamReader = new AsynchronousStreamReader(
 				new LineVisitor() {
 
 					@Override
 					public void visit(String line) {
 						assertEquals("line1", line);
-						throw new FailIHave();
+						throw failIHave;
 					}
 
 					@Override
 					public void emptyLine() {
 						//
 					}
-				}, Charset.defaultCharset());
+				}, Charset.defaultCharset(), new StreamReadFailedNotifier() {
+
+					@Override
+					public void readFailed(InputStream stream, Throwable t) {
+						assertEquals(stream1, stream);
+						assertEquals(failIHave, t);
+						failed.set(true);
+					}
+				});
 		multipleStreamReader.readFrom(stream1);
 		multipleStreamReader.waitUntilDone();
+		assertTrue(failed.get());
 	}
 
 	private final static class FailIHave extends RuntimeException {

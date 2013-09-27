@@ -1,5 +1,6 @@
 package net.sf.völundr.io;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
@@ -15,11 +16,7 @@ public final class StreamReader {
 		this.lineReader = new LineReader(charset);
 	}
 
-	public void readFrom(final InputStream stream) {
-		try {
-			this.lineReader.read(stream, this.visitor);
-		} catch (final Exception e) {
-			throw new RuntimeException("Reading the stats stream failed!", e);
-		}
+	public void readFrom(final InputStream stream) throws IOException {
+		this.lineReader.read(stream, this.visitor);
 	}
 }

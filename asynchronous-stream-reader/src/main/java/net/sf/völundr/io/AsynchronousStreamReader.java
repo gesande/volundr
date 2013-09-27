@@ -19,10 +19,12 @@ public class AsynchronousStreamReader {
 	private final List<Thread> tasks = new ArrayList<Thread>();
 	private final ThreadFactory threadFactory;
 	private final Charset charset;
+	private StreamReadFailedNotifier failNotifier;
 
 	public AsynchronousStreamReader(final LineVisitor visitor,
-			final Charset charset) {
+			final Charset charset, final StreamReadFailedNotifier failNotifier) {
 		this.visitor = visitor;
+		this.failNotifier = failNotifier;
 		this.threadFactory = NamedThreadFactory
 				.forNamePrefix("async-stream-reader-thread-");
 		this.charset = charset;
@@ -40,8 +42,7 @@ public class AsynchronousStreamReader {
 						LOGGER.info("Stream has been read successfully.");
 					} catch (Throwable t) {
 						LOGGER.error("Reading the stream failed!", t);
-						throw new RuntimeException(
-								"Reading the stream failed!", t);
+						readFailNotifier().readFailed(stream, t);
 					}
 				}
 
@@ -49,6 +50,10 @@ public class AsynchronousStreamReader {
 			tasks().add(thread);
 			thread.start();
 		}
+	}
+
+	private StreamReadFailedNotifier readFailNotifier() {
+		return this.failNotifier;
 	}
 
 	private Charset charset() {

@@ -1,8 +1,12 @@
 DONE
 - my-gradle-build if no other system available
 - introduce projects
+- publish to public
+- projects stream-reader, asynchronous-stream-reader published
 
 IN PROGRESS 
 
 WAITING
-- publish to public
+- introduce inputstream-to-string project
+- introduce string-to-outputstream project
+- introduce visiting-inputstreams project

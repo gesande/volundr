@@ -20,7 +20,9 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'fileutil:continous'
             tasks << 'junit-utils:continous'
             tasks << 'classhelper:continous'
-            
+            tasks << 'asynchronous-stream-reader:continous'
+            tasks << 'stream-reader:continous'
+
             tasks << 'exportAntBuildFile'
             tasks << 'aggregateTestReport'
             tasks << 'aggregateJDependReport'
@@ -42,6 +44,8 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'classhelper:clean'
             tasks << 'linereader:clean'
             tasks << 'fileutil:clean'
+            tasks << 'asynchronous-stream-reader:clean'
+            tasks << 'stream-reader:clean'
             
             tasks << 'concurrent:release'
             tasks << 'stronglytyped-sortedbag:release'
@@ -49,6 +53,8 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'classhelper:release'
             tasks << 'linereader:release'
             tasks << 'fileutil:release'
+            tasks << 'asynchronous-stream-reader:release'
+            tasks << 'stream-reader:release'
             
             tasks << 'makeDistributionPackage'
 

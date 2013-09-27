@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class StreamReaderTest {
 
 	@SuppressWarnings("static-method")
 	@Test
-	public void visit() {
+	public void visit() throws IOException {
 		final String lines = "line1\nline2\nline3";
 		final List<String> values = new ArrayList<String>();
 		new StreamReader(new LineVisitor() {
@@ -43,7 +44,7 @@ public class StreamReaderTest {
 
 	@SuppressWarnings("static-method")
 	@Test
-	public void visitEmptyLines() {
+	public void visitEmptyLines() throws IOException {
 		final String lines = "line1\nline2\n\nline3";
 		final List<String> values = new ArrayList<String>();
 		new StreamReader(new LineVisitor() {
@@ -71,7 +72,7 @@ public class StreamReaderTest {
 
 	@SuppressWarnings("static-method")
 	@Test(expected = RuntimeException.class)
-	public void whenSomethingGoesWrongVisitingLine() {
+	public void whenSomethingGoesWrongVisitingLine() throws IOException {
 		final String lines = "line1\nline2\nline3";
 		new StreamReader(new LineVisitor() {
 
@@ -89,7 +90,7 @@ public class StreamReaderTest {
 
 	@SuppressWarnings("static-method")
 	@Test(expected = RuntimeException.class)
-	public void whenSomethingGoesWrongVisitingEmptyLine() {
+	public void whenSomethingGoesWrongVisitingEmptyLine() throws IOException {
 		final String lines = "line1\n\nline2\nline3";
 		new StreamReader(new LineVisitor() {
 
