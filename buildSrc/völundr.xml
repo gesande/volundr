@@ -33,11 +33,6 @@
 			<arg value="exportAntBuildFile" />
 		</exec>
 	</target>
-	<target name="exportBacklog">
-		<exec executable="${gradle.executable}" dir=".">
-			<arg value="exportBacklog" />
-		</exec>
-	</target>
 	<target name="tasks">
 		<exec executable="${gradle.executable}" dir=".">
 			<arg value="tasks" />
