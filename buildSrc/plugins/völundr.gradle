@@ -7,8 +7,8 @@ import net.sf.mygradlebuild.plugins.MavenCentral
 import net.sf.mygradlebuild.plugins.NewJavaProjectToSvnPlugin
 import net.sf.mygradlebuild.plugins.ReportingPlugin
 import net.sf.mygradlebuild.plugins.SvnPlugin
-import net.sf.völundr.build.ExportAntBuildFilePlugin
-import net.sf.völundr.build.VölundrBuildPlugin
+import net.sf.völundr.ExportAntBuildFilePlugin
+import net.sf.völundr.BuildPlugin
 
 
 ext {
@@ -39,7 +39,7 @@ apply plugin : EclipseSettingsPlugin
 apply plugin : SvnPlugin
 apply plugin : ExportAntBuildFilePlugin
 
-apply plugin : VölundrBuildPlugin
+apply plugin : BuildPlugin
 
 reportingSettings {
     toolsDirectory = "${toolsDir}"
