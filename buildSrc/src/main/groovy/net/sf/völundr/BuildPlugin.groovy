@@ -31,7 +31,7 @@ public class BuildPlugin implements Plugin<Project> {
             doLast { println "You've now license to commit, good work!" }
         }
 
-        project.task("distributionPackage", type: GradleBuild, dependsOn: ['continousBuild']) { Task task ->
+        project.task("distributionPackage", type: GradleBuild, dependsOn: ['licenseToCommit']) { Task task ->
             group = 'Distribution'
             description = 'Distribution package for the whole thing including continous build.'
             buildFile = 'build.gradle'
