@@ -1,8 +1,8 @@
 DONE
+- my-gradle-build if no other system available
+- introduce projects
 
 IN PROGRESS 
 
 WAITING
-- my-gradle-build if no other system available
-- introduce projects
 - publish to public
