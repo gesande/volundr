@@ -5,9 +5,9 @@ DONE
 - projects stream-reader, asynchronous-stream-reader published
 - introduced string-to-outputstream project
 - introduced inputstream-to-string project
+- introduced visiting-inputstreams project
 
 IN PROGRESS 
-- introduce visiting-inputstreams project
 
 WAITING
 
