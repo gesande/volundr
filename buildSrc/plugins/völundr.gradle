@@ -20,7 +20,7 @@ ext {
 
     emmaPlugin="${buildScripts}/plugins/emma.gradle"
 
-    artifactVersion='1.0.3'
+    artifactVersion='1.0.4'
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
@@ -43,7 +43,7 @@ reportingSettings {
 }
 
 subprojects {
-    version = '1.0.3'
+    version = '1.0.4'
     apply plugin : DefaultContinousBuildPlugin
     forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
 }
