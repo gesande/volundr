@@ -3,10 +3,10 @@ DONE
 - introduce projects
 - publish to public
 - projects stream-reader, asynchronous-stream-reader published
+- introduced string-to-outputstream project
 
 IN PROGRESS 
 
 WAITING
 - introduce inputstream-to-string project
-- introduce string-to-outputstream project
 - introduce visiting-inputstreams project
