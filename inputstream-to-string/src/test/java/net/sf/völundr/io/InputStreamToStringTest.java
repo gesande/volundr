@@ -15,7 +15,8 @@ public class InputStreamToStringTest {
     @Test
     public void streamToString() throws IOException {
         final InputStream inputStream = new ByteArrayInputStream(
-                "stuff on input stream\nstuff end".getBytes());
+                "stuff on input stream\nstuff end".getBytes(Charset
+                        .defaultCharset()));
         assertEquals("stuff on input stream\nstuff end", toString(inputStream));
     }
 

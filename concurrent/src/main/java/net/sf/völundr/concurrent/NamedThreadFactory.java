@@ -9,34 +9,34 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public final class NamedThreadFactory implements ThreadFactory {
 
-	private final AtomicInteger id = new AtomicInteger(0);
-	private final String namePrefix;
+    private final AtomicInteger id = new AtomicInteger(0);
+    private final String namePrefix;
 
-	private NamedThreadFactory(final String namePrefix) {
-		this.namePrefix = namePrefix;
-	}
+    private NamedThreadFactory(final String namePrefix) {
+        this.namePrefix = namePrefix;
+    }
 
-	/**
-	 * A Thread with named prefix and index number will be returned here.
-	 */
-	@Override
-	public Thread newThread(final Runnable runnable) {
-		return new Thread(runnable, prefix() + id().getAndIncrement());
-	}
+    /**
+     * A Thread with named prefix and index number will be returned here.
+     */
+    @Override
+    public Thread newThread(final Runnable runnable) {
+        return new Thread(runnable, prefix() + id().getAndIncrement());
+    }
 
-	private String prefix() {
-		return this.namePrefix;
-	}
+    private String prefix() {
+        return this.namePrefix;
+    }
 
-	private AtomicInteger id() {
-		return this.id;
-	}
+    private AtomicInteger id() {
+        return this.id;
+    }
 
-	/**
-	 * Factory method for creating NamedThreadFactory.
-	 */
-	public static ThreadFactory forNamePrefix(final String namePrefix) {
-		return new NamedThreadFactory(namePrefix);
-	}
+    /**
+     * Factory method for creating NamedThreadFactory.
+     */
+    public static ThreadFactory forNamePrefix(final String namePrefix) {
+        return new NamedThreadFactory(namePrefix);
+    }
 
 }

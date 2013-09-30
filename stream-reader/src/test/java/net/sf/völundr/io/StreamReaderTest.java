@@ -16,109 +16,110 @@ import org.junit.Test;
 
 public class StreamReaderTest {
 
-	@SuppressWarnings("static-method")
-	@Test
-	public void visit() throws IOException {
-		final String lines = "line1\nline2\nline3";
-		final List<String> values = new ArrayList<String>();
-		new StreamReader(new LineVisitor() {
-			@Override
-			public void visit(final String line) {
-				values.add(line);
-			}
+    @SuppressWarnings("static-method")
+    @Test
+    public void visit() throws IOException {
+        final String lines = "line1\nline2\nline3";
+        final List<String> values = new ArrayList<String>();
+        new StreamReader(new LineVisitor() {
+            @Override
+            public void visit(final String line) {
+                values.add(line);
+            }
 
-			@Override
-			public void emptyLine() {
-				throw new FailIHave("You shouldn't come here!");
-			}
-		}, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
+            @Override
+            public void emptyLine() {
+                throw new FailIHave("You shouldn't come here!");
+            }
+        }, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
 
-		assertEquals(3, values.size());
-		assertTrue(values.contains("line1"));
-		assertTrue(values.contains("line2"));
-		assertTrue(values.contains("line3"));
-		assertEquals("line1", values.get(0));
-		assertEquals("line2", values.get(1));
-		assertEquals("line3", values.get(2));
-	}
+        assertEquals(3, values.size());
+        assertTrue(values.contains("line1"));
+        assertTrue(values.contains("line2"));
+        assertTrue(values.contains("line3"));
+        assertEquals("line1", values.get(0));
+        assertEquals("line2", values.get(1));
+        assertEquals("line3", values.get(2));
+    }
 
-	@SuppressWarnings("static-method")
-	@Test
-	public void visitEmptyLines() throws IOException {
-		final String lines = "line1\nline2\n\nline3";
-		final List<String> values = new ArrayList<String>();
-		new StreamReader(new LineVisitor() {
-			@Override
-			public void visit(final String line) {
-				values.add(line);
-			}
+    @SuppressWarnings("static-method")
+    @Test
+    public void visitEmptyLines() throws IOException {
+        final String lines = "line1\nline2\n\nline3";
+        final List<String> values = new ArrayList<String>();
+        new StreamReader(new LineVisitor() {
+            @Override
+            public void visit(final String line) {
+                values.add(line);
+            }
 
-			@Override
-			public void emptyLine() {
-				values.add("empty line");
-			}
-		}, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
+            @Override
+            public void emptyLine() {
+                values.add("empty line");
+            }
+        }, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
 
-		assertEquals(4, values.size());
-		assertTrue(values.contains("line1"));
-		assertTrue(values.contains("line2"));
-		assertTrue(values.contains("empty line"));
-		assertTrue(values.contains("line3"));
-		assertEquals("line1", values.get(0));
-		assertEquals("line2", values.get(1));
-		assertEquals("empty line", values.get(2));
-		assertEquals("line3", values.get(3));
-	}
+        assertEquals(4, values.size());
+        assertTrue(values.contains("line1"));
+        assertTrue(values.contains("line2"));
+        assertTrue(values.contains("empty line"));
+        assertTrue(values.contains("line3"));
+        assertEquals("line1", values.get(0));
+        assertEquals("line2", values.get(1));
+        assertEquals("empty line", values.get(2));
+        assertEquals("line3", values.get(3));
+    }
 
-	@SuppressWarnings("static-method")
-	@Test(expected = RuntimeException.class)
-	public void whenSomethingGoesWrongVisitingLine() throws IOException {
-		final String lines = "line1\nline2\nline3";
-		new StreamReader(new LineVisitor() {
+    @SuppressWarnings("static-method")
+    @Test(expected = RuntimeException.class)
+    public void whenSomethingGoesWrongVisitingLine() throws IOException {
+        final String lines = "line1\nline2\nline3";
+        new StreamReader(new LineVisitor() {
 
-			@Override
-			public void visit(final String line) {
-				throw new FailIHave();
-			}
+            @Override
+            public void visit(final String line) {
+                throw new FailIHave();
+            }
 
-			@Override
-			public void emptyLine() {
-				//
-			}
-		}, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
-	}
+            @Override
+            public void emptyLine() {
+                //
+            }
+        }, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
+    }
 
-	@SuppressWarnings("static-method")
-	@Test(expected = RuntimeException.class)
-	public void whenSomethingGoesWrongVisitingEmptyLine() throws IOException {
-		final String lines = "line1\n\nline2\nline3";
-		new StreamReader(new LineVisitor() {
+    @SuppressWarnings("static-method")
+    @Test(expected = RuntimeException.class)
+    public void whenSomethingGoesWrongVisitingEmptyLine() throws IOException {
+        final String lines = "line1\n\nline2\nline3";
+        new StreamReader(new LineVisitor() {
 
-			@Override
-			public void visit(final String line) {
-				//
-			}
+            @Override
+            public void visit(final String line) {
+                //
+            }
 
-			@Override
-			public void emptyLine() {
-				throw new FailIHave();
+            @Override
+            public void emptyLine() {
+                throw new FailIHave();
 
-			}
-		}, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
-	}
+            }
+        }, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
+    }
 
-	private final static class FailIHave extends RuntimeException {
+    private final static class FailIHave extends RuntimeException {
 
-		public FailIHave() {
-		}
+        public FailIHave() {
+        }
 
-		public FailIHave(final String msg) {
-			super(msg);
-		}
-	}
+        public FailIHave(final String msg) {
+            super(msg);
+        }
+    }
 
-	private static InputStream toByteArrayStream(final String value) {
-		return new ByteArrayInputStream(value.getBytes());
-	}
+    private static InputStream toByteArrayStream(final String value) {
+        return new ByteArrayInputStream(
+                value.getBytes(Charset.defaultCharset()));
+    }
 
 }
