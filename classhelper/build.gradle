@@ -2,8 +2,6 @@ project(':classhelper') {
     apply from:"$emmaPlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
-    version ='1.0'
-
     dependencies {
         testCompile project(':slf4j-api-1.6.1')
         testCompile project(':junit-4.10')
