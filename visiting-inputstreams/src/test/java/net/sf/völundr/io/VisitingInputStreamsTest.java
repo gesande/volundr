@@ -3,9 +3,12 @@ package net.sf.völundr.io;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import net.sf.völundr.LineVisitor;
@@ -13,6 +16,44 @@ import net.sf.völundr.LineVisitor;
 import org.junit.Test;
 
 public class VisitingInputStreamsTest {
+
+    @SuppressWarnings("static-method")
+    @Test
+    public void visitStreams() {
+        final Charset charset = Charset.forName("UTF-8");
+        final List<String> lines = new ArrayList<String>();
+        final InputStream stream1 = new ByteArrayInputStream(
+                "1first line\n1second line\n".getBytes(charset));
+        final InputStream stream2 = new ByteArrayInputStream(
+                "2first line\n2second line\n2third line".getBytes(charset));
+        new VisitingInputStreams(VisitingInputStreamsHandler.DEFAULT_HANDLER,
+                charset, new StreamReadFailedNotifier() {
+
+                    @Override
+                    public void readFailed(InputStream stream, Throwable t) {
+                        throw new RuntimeException(t);
+                    }
+                }).readStreams(new LineVisitor() {
+
+            @Override
+            public void visit(String line) {
+                synchronized (lines) {
+                    lines.add(line);
+                }
+            }
+
+            @Override
+            public void emptyLine() {
+                throw new RuntimeException("no empty lines expected");
+            }
+        }, stream1, stream2);
+        assertEquals(5, lines.size());
+        assertTrue(lines.contains("1first line"));
+        assertTrue(lines.contains("1second line"));
+        assertTrue(lines.contains("2first line"));
+        assertTrue(lines.contains("2second line"));
+        assertTrue(lines.contains("2third line"));
+    }
 
     @SuppressWarnings("static-method")
     @Test
