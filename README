@@ -8,3 +8,6 @@ junit-utils
 linereader
 stream-reader
 stronglytyped-sortedbag
+visiting-inputstreams
+string-to-outputstream
+inputstream-to-string
