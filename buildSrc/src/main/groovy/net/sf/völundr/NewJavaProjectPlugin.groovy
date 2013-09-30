@@ -5,7 +5,6 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.GradleBuild
 import org.gradle.logging.StyledTextOutputFactory
 import org.gradle.logging.StyledTextOutput.Style
-import net.sf.mygradlebuild.plugins.NewJavaSubProjectUsingSvnPlugin
 
 class NewJavaProjectPlugin implements Plugin<Project> {
 
@@ -13,7 +12,7 @@ class NewJavaProjectPlugin implements Plugin<Project> {
     public void apply(final Project project) {
         project.plugins.apply("java");
 
-        project.subprojects { apply plugin: NewJavaSubProjectUsingSvnPlugin  }
+        project.subprojects { apply plugin: NewJavaSubProject  }
 
         project.task("newJavaProject", type: GradleBuild) { GradleBuild task ->
             group ='Development'

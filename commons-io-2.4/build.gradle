@@ -1,0 +1,8 @@
+project(':commons-io-2.4') { prj ->
+    apply plugin : net.sf.mygradlebuild.plugins.JavaLibraryProject
+
+    version = 'lib'
+
+    prj.ext.library = 'commons-io-2.4.jar'
+    prj.ext.librarySources = 'commons-io-2.4-sources.jar'
+}
