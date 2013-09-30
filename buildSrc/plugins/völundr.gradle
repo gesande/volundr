@@ -26,7 +26,6 @@ ext {
     distributionBasename = 'völundr-distribution'
 }
 
-version = '1.0.3'
 
 apply plugin : MavenCentral
 apply plugin : NewJavaProjectPlugin
@@ -44,6 +43,7 @@ reportingSettings {
 }
 
 subprojects {
+    version = '1.0.3'
     apply plugin : DefaultContinousBuildPlugin
     forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
 }
