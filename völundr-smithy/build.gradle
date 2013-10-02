@@ -1,0 +1,18 @@
+project(':völundr-smithy') {
+    apply from : "$emmaPlugin"
+    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+
+    dependencies {
+        compile project(':asynchronous-stream-reader')
+        compile project(':classhelper')
+        compile project(':concurrent')
+        compile project(':fileutil')
+        compile project(':inputstream-to-string')
+        compile project(':junit-utils')
+        compile project(':linereader')
+        compile project(':stream-reader')
+        compile project(':string-to-outputstream')
+        compile project(':stronglytyped-sortedbag')
+        compile project(':visiting-inputstreams')
+    }
+}
