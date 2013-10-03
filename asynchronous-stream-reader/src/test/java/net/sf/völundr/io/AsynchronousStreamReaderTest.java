@@ -43,7 +43,8 @@ public class AsynchronousStreamReaderTest {
         };
         final AtomicBoolean failed = new AtomicBoolean(false);
         final AsynchronousStreamReader multipleStreamReader = new AsynchronousStreamReader(
-                visitor, Charset.defaultCharset(),
+                visitor,
+                new InputStreamReaderFactory(Charset.defaultCharset()),
                 new StreamReadFailedNotifier() {
 
                     @Override
@@ -92,7 +93,8 @@ public class AsynchronousStreamReaderTest {
                     public void emptyLine() {
                         //
                     }
-                }, Charset.defaultCharset(), new StreamReadFailedNotifier() {
+                }, new InputStreamReaderFactory(Charset.defaultCharset()),
+                new StreamReadFailedNotifier() {
 
                     @Override
                     public void readFailed(InputStream stream, Throwable t) {

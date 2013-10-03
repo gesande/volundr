@@ -2,12 +2,14 @@
 import net.sf.mygradlebuild.plugins.DefaultContinousBuildPlugin
 import net.sf.mygradlebuild.plugins.EclipseSettingsPlugin
 import net.sf.mygradlebuild.plugins.EnvironmentVariablesPlugin
-import net.sf.völundr.JavaDistributionPlugin
 import net.sf.mygradlebuild.plugins.MavenCentral
 import net.sf.mygradlebuild.plugins.ReportingPlugin
-import net.sf.völundr.ExportAntBuildFilePlugin
 import net.sf.völundr.BuildPlugin
+import net.sf.völundr.ExportAntBuildFilePlugin
+import net.sf.völundr.JavaDistributionPlugin
 import net.sf.völundr.NewJavaProjectPlugin
+
+import org.gradle.api.JavaVersion
 
 ext {
     //make sure these files exist
@@ -43,8 +45,10 @@ reportingSettings {
 }
 
 subprojects {
-    version = '1.0.4'
     apply plugin : DefaultContinousBuildPlugin
     forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
+    version = '1.0.4'
+    sourceCompatibility = JavaVersion.VERSION_1_6
+    targetCompatibility = JavaVersion.VERSION_1_6
 }
 

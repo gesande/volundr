@@ -21,7 +21,7 @@ public class StreamReaderTest {
     public void visit() throws IOException {
         final String lines = "line1\nline2\nline3";
         final List<String> values = new ArrayList<String>();
-        new StreamReader(new LineVisitor() {
+        new InputStreamToLines(new LineVisitor() {
             @Override
             public void visit(final String line) {
                 values.add(line);
@@ -47,7 +47,7 @@ public class StreamReaderTest {
     public void visitEmptyLines() throws IOException {
         final String lines = "line1\nline2\n\nline3";
         final List<String> values = new ArrayList<String>();
-        new StreamReader(new LineVisitor() {
+        new InputStreamToLines(new LineVisitor() {
             @Override
             public void visit(final String line) {
                 values.add(line);
@@ -74,7 +74,7 @@ public class StreamReaderTest {
     @Test(expected = RuntimeException.class)
     public void whenSomethingGoesWrongVisitingLine() throws IOException {
         final String lines = "line1\nline2\nline3";
-        new StreamReader(new LineVisitor() {
+        new InputStreamToLines(new LineVisitor() {
 
             @Override
             public void visit(final String line) {
@@ -92,7 +92,7 @@ public class StreamReaderTest {
     @Test(expected = RuntimeException.class)
     public void whenSomethingGoesWrongVisitingEmptyLine() throws IOException {
         final String lines = "line1\n\nline2\nline3";
-        new StreamReader(new LineVisitor() {
+        new InputStreamToLines(new LineVisitor() {
 
             @Override
             public void visit(final String line) {

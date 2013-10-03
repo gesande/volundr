@@ -1,7 +1,6 @@
 package net.sf.völundr.io;
 
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
@@ -12,22 +11,23 @@ import net.sf.völundr.concurrent.NamedThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AsynchronousStreamReader {
+public final class AsynchronousStreamReader {
     private final static Logger LOGGER = LoggerFactory
             .getLogger(AsynchronousStreamReader.class);
     private final LineVisitor visitor;
     private final List<Thread> tasks = new ArrayList<Thread>();
     private final ThreadFactory threadFactory;
-    private final Charset charset;
-    private StreamReadFailedNotifier failNotifier;
+    private final StreamReadFailedNotifier failNotifier;
+    private final StreamReaderFactory streamReaderFactory;
 
     public AsynchronousStreamReader(final LineVisitor visitor,
-            final Charset charset, final StreamReadFailedNotifier failNotifier) {
+            final StreamReaderFactory streamReaderFactory,
+            final StreamReadFailedNotifier failNotifier) {
         this.visitor = visitor;
+        this.streamReaderFactory = streamReaderFactory;
         this.failNotifier = failNotifier;
         this.threadFactory = NamedThreadFactory
                 .forNamePrefix("async-stream-reader-thread-");
-        this.charset = charset;
     }
 
     public void readFrom(final InputStream... streams) {
@@ -38,7 +38,8 @@ public class AsynchronousStreamReader {
                 public void run() {
                     try {
                         LOGGER.info("Reading the stream...");
-                        new StreamReader(visitor(), charset()).readFrom(stream);
+                        streamReaderFactory().streamReader(visitor()).readFrom(
+                                stream);
                         LOGGER.info("Stream has been read successfully.");
                     } catch (Throwable t) {
                         LOGGER.error("Reading the stream failed!", t);
@@ -56,8 +57,8 @@ public class AsynchronousStreamReader {
         return this.failNotifier;
     }
 
-    private Charset charset() {
-        return this.charset;
+    private StreamReaderFactory streamReaderFactory() {
+        return this.streamReaderFactory;
     }
 
     private ThreadFactory threadFactory() {

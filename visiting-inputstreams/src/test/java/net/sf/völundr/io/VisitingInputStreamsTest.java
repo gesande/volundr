@@ -27,7 +27,8 @@ public class VisitingInputStreamsTest {
         final InputStream stream2 = new ByteArrayInputStream(
                 "2first line\n2second line\n2third line".getBytes(charset));
         new VisitingInputStreams(VisitingInputStreamsHandler.DEFAULT_HANDLER,
-                charset, new StreamReadFailedNotifier() {
+                new InputStreamReaderFactory(charset),
+                new StreamReadFailedNotifier() {
 
                     @Override
                     public void readFailed(InputStream stream, Throwable t) {
@@ -84,14 +85,15 @@ public class VisitingInputStreamsTest {
             public void closeStreamFailed(IOException e) {
                 closeFailed.set(true);
             }
-        }, Charset.defaultCharset(), new StreamReadFailedNotifier() {
+        }, new InputStreamReaderFactory(Charset.defaultCharset()),
+                new StreamReadFailedNotifier() {
 
-            @Override
-            public void readFailed(InputStream stream, Throwable t) {
-                readFailed.set(true);
-                assertEquals(closeFailedStream, stream);
-            }
-        }).readStreams(new LineVisitor() {
+                    @Override
+                    public void readFailed(InputStream stream, Throwable t) {
+                        readFailed.set(true);
+                        assertEquals(closeFailedStream, stream);
+                    }
+                }).readStreams(new LineVisitor() {
 
             @Override
             public void visit(String line) {
@@ -127,7 +129,8 @@ public class VisitingInputStreamsTest {
         try {
             new VisitingInputStreams(
                     VisitingInputStreamsHandler.DEFAULT_HANDLER,
-                    Charset.defaultCharset(), new StreamReadFailedNotifier() {
+                    new InputStreamReaderFactory(Charset.defaultCharset()),
+                    new StreamReadFailedNotifier() {
 
                         @Override
                         public void readFailed(InputStream stream, Throwable t) {

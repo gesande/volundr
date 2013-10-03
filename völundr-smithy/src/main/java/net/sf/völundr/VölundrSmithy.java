@@ -5,9 +5,12 @@ import java.nio.charset.Charset;
 
 import net.sf.völundr.bag.StronglyTypedSortedBag;
 import net.sf.völundr.io.AsynchronousStreamReader;
+import net.sf.völundr.io.InputStreamReaderFactory;
+import net.sf.völundr.io.InputStreamToLines;
 import net.sf.völundr.io.InputStreamToString;
 import net.sf.völundr.io.StreamReadFailedNotifier;
 import net.sf.völundr.io.StreamReader;
+import net.sf.völundr.io.StreamReaderFactory;
 import net.sf.völundr.io.VisitingInputStreams;
 import net.sf.völundr.io.VisitingInputStreamsHandler;
 
@@ -23,14 +26,17 @@ public final class VölundrSmithy {
         return new LineReader(charset());
     }
 
-    public StreamReader streamReader(final LineVisitor visitor) {
-        return new StreamReader(visitor, charset());
+    public StreamReader inputStreamToLines(final LineVisitor visitor) {
+        return new InputStreamToLines(visitor, charset());
     }
 
+    @SuppressWarnings("static-method")
     public AsynchronousStreamReader asynchronousStreamReader(
             final LineVisitor visitor,
-            final StreamReadFailedNotifier failNotifier) {
-        return new AsynchronousStreamReader(visitor, charset(), failNotifier);
+            final StreamReadFailedNotifier failNotifier,
+            final StreamReaderFactory streamReaderFactory) {
+        return new AsynchronousStreamReader(visitor, streamReaderFactory,
+                failNotifier);
     }
 
     public StringToOutputStream stringToOutputStream(
@@ -45,7 +51,8 @@ public final class VölundrSmithy {
     public VisitingInputStreams visitinInputStreams(
             final VisitingInputStreamsHandler handler,
             final StreamReadFailedNotifier readFailedNotifier) {
-        return new VisitingInputStreams(handler, charset(), readFailedNotifier);
+        return new VisitingInputStreams(handler, new InputStreamReaderFactory(
+                charset()), readFailedNotifier);
     }
 
     @SuppressWarnings("static-method")

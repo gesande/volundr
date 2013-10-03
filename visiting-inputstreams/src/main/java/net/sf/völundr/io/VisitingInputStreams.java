@@ -2,21 +2,20 @@ package net.sf.völundr.io;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 
 import net.sf.völundr.LineVisitor;
 
 public final class VisitingInputStreams {
 
     private final VisitingInputStreamsHandler handler;
-    private final Charset charset;
     private final StreamReadFailedNotifier readFailedNotifier;
+    private final StreamReaderFactory streamReaderFactory;
 
     public VisitingInputStreams(final VisitingInputStreamsHandler handler,
-            final Charset charset,
+            final StreamReaderFactory streamReaderFactory,
             final StreamReadFailedNotifier readFailedNotifier) {
         this.handler = handler;
-        this.charset = charset;
+        this.streamReaderFactory = streamReaderFactory;
         this.readFailedNotifier = readFailedNotifier;
     }
 
@@ -24,7 +23,7 @@ public final class VisitingInputStreams {
             final InputStream... streams) {
         try {
             readStreamsAndWaitUntilDone(new AsynchronousStreamReader(visitor,
-                    this.charset, this.readFailedNotifier), streams);
+                    this.streamReaderFactory, this.readFailedNotifier), streams);
         } finally {
             closeStreams(streams);
         }
