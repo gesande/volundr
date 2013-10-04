@@ -13,7 +13,7 @@ public class BuildPlugin implements Plugin<Project> {
             group = 'Verification'
             description ='If this passed you have license to commit your changes.'
             buildFile = 'build.gradle'
-           
+
             tasks << 'concurrent:continous'
             tasks << 'stronglytyped-sortedbag:continous'
             tasks << 'linereader:continous'
@@ -26,8 +26,9 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'inputstream-to-string:continous'
             tasks << 'visiting-inputstreams:continous'
             tasks << 'string-to-bytes:continous'
+            tasks << 'string-to-inputstream:continous'
             tasks << 'völundr-smithy:continous'
-            
+
             tasks << 'exportAntBuildFile'
             tasks << 'aggregateTestReport'
             tasks << 'aggregateJDependReport'
@@ -55,8 +56,9 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'inputstream-to-string:clean'
             tasks << 'visiting-inputstreams:clean'
             tasks << 'string-to-bytes:clean'
+            tasks << 'string-to-inputstream:clean'
             tasks << 'völundr-smithy:clean'
-            
+
             tasks << 'concurrent:release'
             tasks << 'stronglytyped-sortedbag:release'
             tasks << 'junit-utils:release'
@@ -69,8 +71,9 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'inputstream-to-string:release'
             tasks << 'visiting-inputstreams:release'
             tasks << 'string-to-bytes:release'
+            tasks << 'string-to-inputstream:release'
             tasks << 'völundr-smithy:release'
-            
+
             tasks << 'makeDistributionPackage'
 
             doLast { println "Distribution package ready to be uploaded to the repository." }
