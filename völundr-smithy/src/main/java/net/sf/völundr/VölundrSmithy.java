@@ -48,7 +48,7 @@ public final class VölundrSmithy {
         return InputStreamToString.forCharset(charset());
     }
 
-    public VisitingInputStreams visitinInputStreams(
+    public VisitingInputStreams visitingInputStreams(
             final VisitingInputStreamsHandler handler,
             final StreamReadFailedNotifier readFailedNotifier) {
         return new VisitingInputStreams(handler, new InputStreamReaderFactory(
