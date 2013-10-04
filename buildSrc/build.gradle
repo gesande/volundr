@@ -11,7 +11,8 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'java'
 
-repositories {  flatDir { dirs 'lib' }  }
+repositories {  flatDir { dirs 'lib'
+    }  }
 
 dependencies {
     compile gradleApi()
@@ -19,7 +20,7 @@ dependencies {
     compile project.fileTree(dir: 'lib', include: '*.jar', exclude: '*-sources.jar')
 }
 
-version = '1.0'
+version = '1.0.3'
 
 eclipse.classpath.defaultOutputDir = file('target/classes')
 
