@@ -1,10 +1,13 @@
 package net.sf.völundr.fileio;
 
-final public class FileAppender {
-    private final FileAppendHandler handler;
-    private final ToBytes toBytes;
+import net.sf.völundr.io.StringToBytes;
 
-    public FileAppender(final ToBytes toBytes, final FileAppendHandler handler) {
+public final class FileAppender {
+    private final FileAppendHandler handler;
+    private final StringToBytes toBytes;
+
+    public FileAppender(final StringToBytes toBytes,
+            final FileAppendHandler handler) {
         this.toBytes = toBytes;
         this.handler = handler;
     }

@@ -22,7 +22,6 @@ public class InputStreamToStringTest {
 
     private static String toString(final InputStream inputStream)
             throws IOException {
-        return InputStreamToString.forCharset(Charset.forName("UTF-8"))
-                .toString(inputStream);
+        return InputStreamToString.forDefaultCharset().toString(inputStream);
     }
 }

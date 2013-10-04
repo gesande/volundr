@@ -19,7 +19,7 @@ public final class InputStreamToString {
     }
 
     public static InputStreamToString forDefaultCharset() {
-        return new InputStreamToString(Charset.defaultCharset());
+        return forCharset(Charset.defaultCharset());
     }
 
     public static InputStreamToString forCharset(final Charset charset) {

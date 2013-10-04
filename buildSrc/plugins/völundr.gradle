@@ -22,7 +22,7 @@ ext {
 
     emmaPlugin="${buildScripts}/plugins/emma.gradle"
 
-    artifactVersion='1.1.0'
+    artifactVersion='1.1.1'
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
@@ -44,10 +44,10 @@ reportingSettings {
     onlyAnalyze = 'net.sf.völundr'
 }
 
-subprojects {
+subprojects { prj ->
     apply plugin : DefaultContinousBuildPlugin
     forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
-    version = '1.1.0'
+    version = prj.parent.artifactVersion
     sourceCompatibility = JavaVersion.VERSION_1_6
     targetCompatibility = JavaVersion.VERSION_1_6
 }

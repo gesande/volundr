@@ -1,12 +1,11 @@
-package net.sf.völundr.fileio;
+package net.sf.völundr.io;
 
 import java.nio.charset.Charset;
 
-//TODO: extract to module
-public final class ToBytes {
+public final class StringToBytes {
     private final Charset charset;
 
-    public ToBytes(final Charset charset) {
+    public StringToBytes(final Charset charset) {
         this.charset = charset;
     }
 
@@ -18,7 +17,7 @@ public final class ToBytes {
         return this.charset;
     }
 
-    public static ToBytes withDefaultCharset() {
-        return new ToBytes(Charset.defaultCharset());
+    public static StringToBytes withDefaultCharset() {
+        return new StringToBytes(Charset.defaultCharset());
     }
 }
