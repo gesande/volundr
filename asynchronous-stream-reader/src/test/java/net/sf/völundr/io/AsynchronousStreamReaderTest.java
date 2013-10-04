@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -108,10 +107,9 @@ public class AsynchronousStreamReaderTest {
         assertTrue(failed.get());
     }
 
-    // TODO: refactor, extract module
     private static InputStream toInputStream(final String string) {
-        return new ByteArrayInputStream(string.getBytes(Charset
-                .defaultCharset()));
+        return new StringToByteArrayInputStream(new StringToBytes(
+                Charset.defaultCharset())).fromString(string);
     }
 
     private final static class FailIHave extends RuntimeException {

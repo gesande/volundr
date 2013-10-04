@@ -5,5 +5,6 @@ project(':stream-reader') {
     dependencies {
         compile project(':linereader')
         testCompile project(':junit-4.10')
+        testCompile project(':string-to-inputstream')
     }
 }

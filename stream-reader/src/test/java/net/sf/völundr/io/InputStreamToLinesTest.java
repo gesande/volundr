@@ -128,7 +128,8 @@ public class InputStreamToLinesTest {
 
     private static InputStream toByteArrayStream(final String value,
             final Charset charset) {
-        return new ToByteArrayStream(charset).toByteArrayStream(value);
+        return new StringToByteArrayInputStream(new StringToBytes(charset))
+                .fromString(value);
     }
 
 }
