@@ -4,11 +4,7 @@ project(':völundr-smithy') {
 
     dependencies {
         compile project(':asynchronous-stream-reader')
-        compile project(':classhelper')
-        compile project(':concurrent')
-        compile project(':fileutil')
         compile project(':inputstream-to-string')
-        compile project(':junit-utils')
         compile project(':linereader')
         compile project(':stream-reader')
         compile project(':string-to-outputstream')

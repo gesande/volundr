@@ -2,6 +2,7 @@ package net.sf.völundr.fileio;
 
 import java.nio.charset.Charset;
 
+//TODO: extract to module
 public final class ToBytes {
     private final Charset charset;
 

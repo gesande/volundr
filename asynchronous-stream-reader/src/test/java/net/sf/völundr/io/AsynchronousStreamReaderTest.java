@@ -108,7 +108,8 @@ public class AsynchronousStreamReaderTest {
         assertTrue(failed.get());
     }
 
-    private static ByteArrayInputStream toInputStream(final String string) {
+    // TODO: refactor, extract module
+    private static InputStream toInputStream(final String string) {
         return new ByteArrayInputStream(string.getBytes(Charset
                 .defaultCharset()));
     }
