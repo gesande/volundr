@@ -3,23 +3,25 @@ package net.sf.völundr.io;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import net.sf.völundr.LineVisitor;
 
 import org.junit.Test;
 
-public class StreamReaderTest {
+public class InputStreamToLinesTest {
 
     @SuppressWarnings("static-method")
     @Test
     public void visit() throws IOException {
         final String lines = "line1\nline2\nline3";
+        final Charset charset = Charset.defaultCharset();
+        final InputStream inputStream = toByteArrayStream(lines, charset);
         final List<String> values = new ArrayList<String>();
         new InputStreamToLines(new LineVisitor() {
             @Override
@@ -31,7 +33,7 @@ public class StreamReaderTest {
             public void emptyLine() {
                 throw new FailIHave("You shouldn't come here!");
             }
-        }, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
+        }, charset).readFrom(inputStream);
 
         assertEquals(3, values.size());
         assertTrue(values.contains("line1"));
@@ -47,6 +49,7 @@ public class StreamReaderTest {
     public void visitEmptyLines() throws IOException {
         final String lines = "line1\nline2\n\nline3";
         final List<String> values = new ArrayList<String>();
+        final Charset charset = Charset.defaultCharset();
         new InputStreamToLines(new LineVisitor() {
             @Override
             public void visit(final String line) {
@@ -57,7 +60,7 @@ public class StreamReaderTest {
             public void emptyLine() {
                 values.add("empty line");
             }
-        }, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
+        }, charset).readFrom(toByteArrayStream(lines, charset));
 
         assertEquals(4, values.size());
         assertTrue(values.contains("line1"));
@@ -71,29 +74,38 @@ public class StreamReaderTest {
     }
 
     @SuppressWarnings("static-method")
-    @Test(expected = RuntimeException.class)
-    public void whenSomethingGoesWrongVisitingLine() throws IOException {
+    @Test
+    public void whenSomethingGoesWrongVisitingLine() {
         final String lines = "line1\nline2\nline3";
-        new InputStreamToLines(new LineVisitor() {
+        AtomicBoolean failed = new AtomicBoolean(false);
+        Charset charset = Charset.defaultCharset();
+        final StreamReader reader = new InputStreamToLines(new LineVisitor() {
 
             @Override
             public void visit(final String line) {
-                throw new FailIHave();
+                throw new FailIHave("Visiting line:" + line + " failed!");
             }
 
             @Override
             public void emptyLine() {
-                //
+                throw new FailIHave("You shouldn't come here!");
             }
-        }, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
+        }, charset);
+        try {
+            reader.readFrom(toByteArrayStream(lines, charset));
+        } catch (Exception ex) {
+            failed.set(true);
+            assertEquals(FailIHave.class, ex.getClass());
+            assertEquals("Visiting line:line1 failed!", ex.getMessage());
+        }
     }
 
     @SuppressWarnings("static-method")
-    @Test(expected = RuntimeException.class)
-    public void whenSomethingGoesWrongVisitingEmptyLine() throws IOException {
+    public void whenSomethingGoesWrongVisitingEmptyLine() {
+        final AtomicBoolean failed = new AtomicBoolean(false);
         final String lines = "line1\n\nline2\nline3";
-        new InputStreamToLines(new LineVisitor() {
-
+        Charset charset = Charset.defaultCharset();
+        final StreamReader reader = new InputStreamToLines(new LineVisitor() {
             @Override
             public void visit(final String line) {
                 //
@@ -101,25 +113,22 @@ public class StreamReaderTest {
 
             @Override
             public void emptyLine() {
-                throw new FailIHave();
-
+                throw new FailIHave("Empty line fails");
             }
-        }, Charset.defaultCharset()).readFrom(toByteArrayStream(lines));
+        }, charset);
+        try {
+            reader.readFrom(toByteArrayStream(lines, charset));
+        } catch (Exception ex) {
+            failed.set(true);
+            assertEquals("Empty line fails", ex.getMessage());
+            assertEquals(FailIHave.class, ex.getClass());
+        }
+        assertTrue(failed.get());
     }
 
-    private final static class FailIHave extends RuntimeException {
-
-        public FailIHave() {
-        }
-
-        public FailIHave(final String msg) {
-            super(msg);
-        }
-    }
-
-    private static InputStream toByteArrayStream(final String value) {
-        return new ByteArrayInputStream(
-                value.getBytes(Charset.defaultCharset()));
+    private static InputStream toByteArrayStream(final String value,
+            final Charset charset) {
+        return new ToByteArrayStream(charset).toByteArrayStream(value);
     }
 
 }
