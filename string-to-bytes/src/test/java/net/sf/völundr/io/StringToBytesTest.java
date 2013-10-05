@@ -8,10 +8,10 @@ import org.junit.Test;
 
 public class StringToBytesTest {
 
-    @SuppressWarnings("static-method")
-    @Test
-    public void convertToBytes() {
-        assertTrue(Arrays.equals(new byte[] { 100, 97, 116, 97 }, StringToBytes
-                .withDefaultCharset().convert("data")));
-    }
+	@SuppressWarnings("static-method")
+	@Test
+	public void convertToBytes() {
+		assertTrue(Arrays.equals(new byte[] { 100, 97, 116, 97 }, StringToBytes
+				.withDefaultCharset().convert("data")));
+	}
 }
