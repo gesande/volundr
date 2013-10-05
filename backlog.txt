@@ -1,11 +1,15 @@
 DONE
-- my-gradle-build if no other system available
-- introduce projects
-- publish to public
-- projects stream-reader, asynchronous-stream-reader published
-- introduced string-to-outputstream project
-- introduced inputstream-to-string project
-- introduced visiting-inputstreams project
++ my-gradle-build if no other system available
++ introduce projects
++ publish to public
++ projects stream-reader, asynchronous-stream-reader published
++ introduced string-to-outputstream project
++ introduced inputstream-to-string project
++ introduced visiting-inputstreams project
++ völundr-smithy
++ string-to-bytes
++ release 1.1
++ string-to-inputstream
 
 IN PROGRESS 
 
