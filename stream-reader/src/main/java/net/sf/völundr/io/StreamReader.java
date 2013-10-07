@@ -5,6 +5,6 @@ import java.io.InputStream;
 
 public interface StreamReader {
 
-    void readFrom(final InputStream stream) throws IOException;
+	void readFrom(final InputStream stream) throws IOException;
 
 }

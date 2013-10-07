@@ -17,58 +17,58 @@ import org.junit.Test;
 
 public class GZipStreamToLinesTest {
 
-    @Test
-    public void read() throws IOException {
-        final List<String> values = new ArrayList<String>();
-        new GZipStreamToLines(new InputStreamToLines(new LineVisitor() {
-            @Override
-            public void visit(final String line) {
-                values.add(line);
-            }
+	@Test
+	public void read() throws IOException {
+		final List<String> values = new ArrayList<String>();
+		new GZipStreamToLines(new InputStreamToLines(new LineVisitor() {
+			@Override
+			public void visit(final String line) {
+				values.add(line);
+			}
 
-            @Override
-            public void emptyLine() {
-                throw new FailIHave("You shouldn't come here!");
-            }
-        }, Charset.defaultCharset())).readFrom(gzipStream());
-        assertEquals(3, values.size());
-        assertTrue(values.contains("line1"));
-        assertTrue(values.contains("line2"));
-        assertTrue(values.contains("line3"));
-        assertEquals("line1", values.get(0));
-        assertEquals("line2", values.get(1));
-        assertEquals("line3", values.get(2));
-    }
+			@Override
+			public void emptyLine() {
+				throw new FailIHave("You shouldn't come here!");
+			}
+		}, Charset.defaultCharset())).readFrom(gzipStream());
+		assertEquals(3, values.size());
+		assertTrue(values.contains("line1"));
+		assertTrue(values.contains("line2"));
+		assertTrue(values.contains("line3"));
+		assertEquals("line1", values.get(0));
+		assertEquals("line2", values.get(1));
+		assertEquals("line3", values.get(2));
+	}
 
-    @Test
-    public void whenSomethingGoesWrongVisitingEmptyLine() {
-        final AtomicBoolean emptyLines = new AtomicBoolean(false);
-        final AtomicBoolean failed = new AtomicBoolean(false);
-        final GZipStreamToLines reader = new GZipStreamToLines(
-                new InputStreamToLines(new LineVisitor() {
+	@Test
+	public void whenSomethingGoesWrongVisitingEmptyLine() {
+		final AtomicBoolean emptyLines = new AtomicBoolean(false);
+		final AtomicBoolean failed = new AtomicBoolean(false);
+		final GZipStreamToLines reader = new GZipStreamToLines(
+				new InputStreamToLines(new LineVisitor() {
 
-                    @Override
-                    public void visit(final String line) {
-                        throw new FailIHave("Failed to process line:" + line);
-                    }
+					@Override
+					public void visit(final String line) {
+						throw new FailIHave("Failed to process line:" + line);
+					}
 
-                    @Override
-                    public void emptyLine() {
-                        emptyLines.set(true);
-                    }
-                }, Charset.defaultCharset()));
-        try {
-            reader.readFrom(gzipStream());
-        } catch (Exception ex) {
-            failed.set(true);
-            assertEquals(FailIHave.class, ex.getClass());
-            assertEquals("Failed to process line:line1", ex.getMessage());
-        }
-        assertFalse(emptyLines.get());
-        assertTrue(failed.get());
-    }
+					@Override
+					public void emptyLine() {
+						emptyLines.set(true);
+					}
+				}, Charset.defaultCharset()));
+		try {
+			reader.readFrom(gzipStream());
+		} catch (Exception ex) {
+			failed.set(true);
+			assertEquals(FailIHave.class, ex.getClass());
+			assertEquals("Failed to process line:line1", ex.getMessage());
+		}
+		assertFalse(emptyLines.get());
+		assertTrue(failed.get());
+	}
 
-    private InputStream gzipStream() {
-        return this.getClass().getResourceAsStream("/file.gz");
-    }
+	private InputStream gzipStream() {
+		return this.getClass().getResourceAsStream("/file.gz");
+	}
 }

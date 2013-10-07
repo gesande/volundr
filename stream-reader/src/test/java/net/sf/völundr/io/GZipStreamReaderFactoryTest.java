@@ -13,29 +13,29 @@ import org.junit.Test;
 
 public class GZipStreamReaderFactoryTest {
 
-    @Test
-    public void reader() throws IOException {
-        final Charset charset = Charset.defaultCharset();
-        final AtomicInteger lines = new AtomicInteger();
-        final AtomicInteger emptyLines = new AtomicInteger();
-        new GZipStreamReaderFactory(charset).streamReader(new LineVisitor() {
+	@Test
+	public void reader() throws IOException {
+		final Charset charset = Charset.defaultCharset();
+		final AtomicInteger lines = new AtomicInteger();
+		final AtomicInteger emptyLines = new AtomicInteger();
+		new GZipStreamReaderFactory(charset).streamReader(new LineVisitor() {
 
-            @Override
-            public void visit(String line) {
-                lines.incrementAndGet();
-            }
+			@Override
+			public void visit(String line) {
+				lines.incrementAndGet();
+			}
 
-            @Override
-            public void emptyLine() {
-                emptyLines.incrementAndGet();
-            }
-        }).readFrom(gzipStream());
-        assertEquals(2, lines.get());
-        assertEquals(1, emptyLines.get());
-    }
+			@Override
+			public void emptyLine() {
+				emptyLines.incrementAndGet();
+			}
+		}).readFrom(gzipStream());
+		assertEquals(2, lines.get());
+		assertEquals(1, emptyLines.get());
+	}
 
-    private InputStream gzipStream() {
-        return this.getClass().getResourceAsStream("/emptylines.gz");
-    }
+	private InputStream gzipStream() {
+		return this.getClass().getResourceAsStream("/emptylines.gz");
+	}
 
 }

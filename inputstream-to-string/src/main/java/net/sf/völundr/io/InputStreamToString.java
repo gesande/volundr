@@ -8,21 +8,21 @@ import org.apache.commons.io.IOUtils;
 
 public final class InputStreamToString {
 
-    private Charset charset;
+	private Charset charset;
 
-    private InputStreamToString(final Charset charset) {
-        this.charset = charset;
-    }
+	private InputStreamToString(final Charset charset) {
+		this.charset = charset;
+	}
 
-    public String toString(final InputStream inputStream) throws IOException {
-        return new String(IOUtils.toByteArray(inputStream), this.charset);
-    }
+	public String toString(final InputStream inputStream) throws IOException {
+		return new String(IOUtils.toByteArray(inputStream), this.charset);
+	}
 
-    public static InputStreamToString forDefaultCharset() {
-        return forCharset(Charset.defaultCharset());
-    }
+	public static InputStreamToString forDefaultCharset() {
+		return forCharset(Charset.defaultCharset());
+	}
 
-    public static InputStreamToString forCharset(final Charset charset) {
-        return new InputStreamToString(charset);
-    }
+	public static InputStreamToString forCharset(final Charset charset) {
+		return new InputStreamToString(charset);
+	}
 }

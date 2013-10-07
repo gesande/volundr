@@ -13,27 +13,27 @@ import org.junit.Test;
 
 public class InputStreamReaderFactoryTest {
 
-    @SuppressWarnings("static-method")
-    @Test
-    public void reader() throws IOException {
-        final Charset charset = Charset.defaultCharset();
-        final InputStream stream = new StringToByteArrayInputStream(
-                new StringToBytes(charset)).fromString("line1\n\nline3");
-        final AtomicInteger lines = new AtomicInteger();
-        final AtomicInteger emptyLines = new AtomicInteger();
-        new InputStreamReaderFactory(charset).streamReader(new LineVisitor() {
+	@SuppressWarnings("static-method")
+	@Test
+	public void reader() throws IOException {
+		final Charset charset = Charset.defaultCharset();
+		final InputStream stream = new StringToByteArrayInputStream(
+				new StringToBytes(charset)).fromString("line1\n\nline3");
+		final AtomicInteger lines = new AtomicInteger();
+		final AtomicInteger emptyLines = new AtomicInteger();
+		new InputStreamReaderFactory(charset).streamReader(new LineVisitor() {
 
-            @Override
-            public void visit(String line) {
-                lines.incrementAndGet();
-            }
+			@Override
+			public void visit(String line) {
+				lines.incrementAndGet();
+			}
 
-            @Override
-            public void emptyLine() {
-                emptyLines.incrementAndGet();
-            }
-        }).readFrom(stream);
-        assertEquals(2, lines.get());
-        assertEquals(1, emptyLines.get());
-    }
+			@Override
+			public void emptyLine() {
+				emptyLines.incrementAndGet();
+			}
+		}).readFrom(stream);
+		assertEquals(2, lines.get());
+		assertEquals(1, emptyLines.get());
+	}
 }

@@ -16,57 +16,57 @@ import net.sf.völundr.io.VisitingInputStreamsHandler;
 
 public final class VölundrSmithy {
 
-    private final Charset charset;
+	private final Charset charset;
 
-    public VölundrSmithy(final Charset charset) {
-        this.charset = charset;
-    }
+	public VölundrSmithy(final Charset charset) {
+		this.charset = charset;
+	}
 
-    public LineReader lineReader() {
-        return new LineReader(charset());
-    }
+	public LineReader lineReader() {
+		return new LineReader(charset());
+	}
 
-    public StreamReader inputStreamToLines(final LineVisitor visitor) {
-        return new InputStreamToLines(visitor, charset());
-    }
+	public StreamReader inputStreamToLines(final LineVisitor visitor) {
+		return new InputStreamToLines(visitor, charset());
+	}
 
-    @SuppressWarnings("static-method")
-    public AsynchronousStreamReader asynchronousStreamReader(
-            final LineVisitor visitor,
-            final StreamReadFailedNotifier failNotifier,
-            final StreamReaderFactory streamReaderFactory) {
-        return new AsynchronousStreamReader(visitor, streamReaderFactory,
-                failNotifier);
-    }
+	@SuppressWarnings("static-method")
+	public AsynchronousStreamReader asynchronousStreamReader(
+			final LineVisitor visitor,
+			final StreamReadFailedNotifier failNotifier,
+			final StreamReaderFactory streamReaderFactory) {
+		return new AsynchronousStreamReader(visitor, streamReaderFactory,
+				failNotifier);
+	}
 
-    public StringToOutputStream stringToOutputStream(
-            final OutputStream streamToWrite) {
-        return StringToOutputStream.forCharset(streamToWrite, charset());
-    }
+	public StringToOutputStream stringToOutputStream(
+			final OutputStream streamToWrite) {
+		return StringToOutputStream.forCharset(streamToWrite, charset());
+	}
 
-    public InputStreamToString inputStreamToString() {
-        return InputStreamToString.forCharset(charset());
-    }
+	public InputStreamToString inputStreamToString() {
+		return InputStreamToString.forCharset(charset());
+	}
 
-    public VisitingInputStreams visitingInputStreams(
-            final VisitingInputStreamsHandler handler,
-            final StreamReadFailedNotifier readFailedNotifier) {
-        return new VisitingInputStreams(handler, new InputStreamReaderFactory(
-                charset()), readFailedNotifier);
-    }
+	public VisitingInputStreams visitingInputStreams(
+			final VisitingInputStreamsHandler handler,
+			final StreamReadFailedNotifier readFailedNotifier) {
+		return new VisitingInputStreams(handler, new InputStreamReaderFactory(
+				charset()), readFailedNotifier);
+	}
 
-    @SuppressWarnings("static-method")
-    public <TYPE> StronglyTypedSortedBag<TYPE> synchronizedTreeBag() {
-        return StronglyTypedSortedBag.synchronizedTreeBag();
-    }
+	@SuppressWarnings("static-method")
+	public <TYPE> StronglyTypedSortedBag<TYPE> synchronizedTreeBag() {
+		return StronglyTypedSortedBag.synchronizedTreeBag();
+	}
 
-    @SuppressWarnings("static-method")
-    public <TYPE> StronglyTypedSortedBag<TYPE> treeBag() {
-        return StronglyTypedSortedBag.treeBag();
+	@SuppressWarnings("static-method")
+	public <TYPE> StronglyTypedSortedBag<TYPE> treeBag() {
+		return StronglyTypedSortedBag.treeBag();
 
-    }
+	}
 
-    private Charset charset() {
-        return this.charset;
-    }
+	private Charset charset() {
+		return this.charset;
+	}
 }

@@ -5,15 +5,15 @@ import java.io.InputStream;
 
 public class StringToByteArrayInputStream implements StringToInputStream {
 
-    private final StringToBytes stringToBytes;
+	private final StringToBytes stringToBytes;
 
-    public StringToByteArrayInputStream(final StringToBytes stringToBytes) {
-        this.stringToBytes = stringToBytes;
-    }
+	public StringToByteArrayInputStream(final StringToBytes stringToBytes) {
+		this.stringToBytes = stringToBytes;
+	}
 
-    @Override
-    public InputStream fromString(final String value) {
-        return new ByteArrayInputStream(this.stringToBytes.convert(value));
-    }
+	@Override
+	public InputStream fromString(final String value) {
+		return new ByteArrayInputStream(this.stringToBytes.convert(value));
+	}
 
 }
