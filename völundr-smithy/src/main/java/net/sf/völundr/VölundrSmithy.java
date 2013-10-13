@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 
 import net.sf.völundr.bag.StronglyTypedSortedBag;
 import net.sf.völundr.io.AsynchronousStreamReader;
+import net.sf.völundr.io.GZipStreamReaderFactory;
 import net.sf.völundr.io.InputStreamReaderFactory;
 import net.sf.völundr.io.InputStreamToLines;
 import net.sf.völundr.io.InputStreamToString;
@@ -52,6 +53,13 @@ public final class VölundrSmithy {
 			final VisitingInputStreamsHandler handler,
 			final StreamReadFailedNotifier readFailedNotifier) {
 		return new VisitingInputStreams(handler, new InputStreamReaderFactory(
+				charset()), readFailedNotifier);
+	}
+
+	public VisitingInputStreams visitingGzipInputStreams(
+			final VisitingInputStreamsHandler handler,
+			final StreamReadFailedNotifier readFailedNotifier) {
+		return new VisitingInputStreams(handler, new GZipStreamReaderFactory(
 				charset()), readFailedNotifier);
 	}
 
