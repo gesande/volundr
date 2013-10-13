@@ -28,6 +28,7 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'string-to-bytes:continous'
             tasks << 'string-to-inputstream:continous'
             tasks << 'völundr-smithy:continous'
+            tasks << 'statistics:continous'
 
             tasks << 'exportAntBuildFile'
             tasks << 'aggregateTestReport'
@@ -58,6 +59,7 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'string-to-bytes:clean'
             tasks << 'string-to-inputstream:clean'
             tasks << 'völundr-smithy:clean'
+            tasks << 'statistics:clean'
 
             tasks << 'concurrent:release'
             tasks << 'stronglytyped-sortedbag:release'
@@ -73,6 +75,7 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'string-to-bytes:release'
             tasks << 'string-to-inputstream:release'
             tasks << 'völundr-smithy:release'
+            tasks << 'statistics:release'
 
             tasks << 'makeDistributionPackage'
 
