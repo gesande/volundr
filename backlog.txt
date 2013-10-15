@@ -10,6 +10,8 @@ DONE
 + string-to-bytes
 + release 1.1
 + string-to-inputstream
++ statistics
++ string-splitter
 
 IN PROGRESS 
 
