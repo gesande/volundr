@@ -1,4 +1,6 @@
 project(':as-expected') {
-    apply from : "$emmaPlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+	apply from : "$emmaPlugin"
+	apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+
+	dependencies { compile project(':junit-4.10') }
 }

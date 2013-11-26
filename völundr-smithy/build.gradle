@@ -13,5 +13,6 @@ project(':völundr-smithy') {
 		compile project(':visiting-inputstreams')
 		compile project(':bytes-to-string')
 		testCompile project(':junit-4.10')
+		testCompile project(':as-expected')
 	}
 }

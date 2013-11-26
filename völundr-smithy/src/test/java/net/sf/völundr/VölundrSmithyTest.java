@@ -4,12 +4,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import net.sf.völundr.asexpected.AsExpected;
 import net.sf.völundr.bag.StronglyTypedSortedBag;
 import net.sf.völundr.concurrent.ThreadEngineApi;
+import net.sf.völundr.io.AsynchronousStreamReader;
+import net.sf.völundr.io.InputStreamReaderFactory;
+import net.sf.völundr.io.StreamReadFailedNotifier;
+import net.sf.völundr.io.VisitingInputStreamsHandler;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -76,27 +86,199 @@ public class VölundrSmithyTest {
 	@Test
 	public void lineReader() throws IOException {
 		final StringBuilder result = new StringBuilder();
-		smithy().lineReader()
-				.read(VölundrSmithyTest.class
-						.getResourceAsStream("/file-with-lines"),
-						new LineVisitor() {
+		smithy().lineReader().read(resourceAsStream("file-with-lines"),
+				new LineVisitor() {
 
-							@Override
-							public void visit(final String line) {
-								result.append(line).append("\n");
-							}
+					@Override
+					public void visit(final String line) {
+						result.append(line).append("\n");
+					}
 
-							@Override
-							public void emptyLine() {
-								throw new RuntimeException(
-										"No empty lines should have been there!");
-							}
-						});
+					@Override
+					public void emptyLine() {
+						throw new RuntimeException(
+								"No empty lines should have been there!");
+					}
+				});
 
-		assertEquals("line1\n" + "line2\n" + "line3\n" + "", result.toString());
+		final AsExpected<Void> expected = expected(result.toString());
+		expected.line("line1");
+		expected.line("line2");
+		expected.line("line3");
+		expected.end();
+	}
+
+	@Test
+	public void inputStreamToString() throws IOException {
+		final AsExpected<Void> expected = expected(smithy()
+				.inputStreamToString().toString(
+						resourceAsStream("file-with-lines")));
+		expected.line("line1");
+		expected.line("line2");
+		expected.line("line3");
+		expected.end();
+	}
+
+	@Test
+	public void stringToOutputStream() throws IOException {
+		final OutputStream streamToWrite = new ByteArrayOutputStream();
+		smithy().stringToOutputStream(streamToWrite).write("völundr");
+		final AsExpected<Void> expected = expected(streamToWrite.toString());
+		expected.string("völundr").end();
+	}
+
+	@Test
+	public void inputStreamToLines() throws IOException {
+		final StringBuilder result = new StringBuilder();
+		smithy().inputStreamToLines(new LineVisitor() {
+
+			@Override
+			public void visit(final String line) {
+				result.append(line).append("\n");
+			}
+
+			@Override
+			public void emptyLine() {
+				throw new RuntimeException(
+						"No empty lines should have been there!");
+			}
+		}).readFrom(resourceAsStream("file-with-lines"));
+		final AsExpected<Void> expected = expected(result.toString());
+		expected.line("line1");
+		expected.line("line2");
+		expected.line("line3");
+		expected.end();
+	}
+
+	@Test
+	public void visitingInputStreams() {
+		final StringBuilder result = new StringBuilder();
+		smithy().visitingInputStreams(new VisitingInputStreamsHandler() {
+
+			@Override
+			public void interruptedWhileWaitingUntilDone(
+					final InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+
+			@Override
+			public void closeStreamFailed(final IOException e) {
+				throw new RuntimeException(e);
+			}
+		}, new StreamReadFailedNotifier() {
+
+			@Override
+			public void readFailed(final InputStream stream, final Throwable t) {
+				throw new RuntimeException(t);
+			}
+		}).readStreams(new LineVisitor() {
+
+			@Override
+			public void visit(final String line) {
+				result.append(line).append("\n");
+			}
+
+			@Override
+			public void emptyLine() {
+				throw new RuntimeException(
+						"No empty lines should have been there!");
+			}
+		}, resourceAsStream("file-with-lines"));
+		final AsExpected<Void> expected = expected(result.toString());
+		expected.line("line1");
+		expected.line("line2");
+		expected.line("line3");
+		expected.end();
+	}
+
+	@Test
+	public void visitingGzipInputStreams() {
+		final StringBuilder result = new StringBuilder();
+		smithy().visitingGzipInputStreams(new VisitingInputStreamsHandler() {
+
+			@Override
+			public void interruptedWhileWaitingUntilDone(
+					final InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+
+			@Override
+			public void closeStreamFailed(final IOException e) {
+				throw new RuntimeException(e);
+			}
+		}, new StreamReadFailedNotifier() {
+
+			@Override
+			public void readFailed(final InputStream stream, final Throwable t) {
+				throw new RuntimeException(t);
+			}
+		}).readStreams(new LineVisitor() {
+
+			@Override
+			public void visit(final String line) {
+				result.append(line).append("\n");
+			}
+
+			@Override
+			public void emptyLine() {
+				throw new RuntimeException(
+						"No empty lines should have been there!");
+			}
+		}, resourceAsStream("file-with-lines.gz"));
+		final AsExpected<Void> expected = expected(result.toString());
+		expected.line("line1");
+		expected.line("line2");
+		expected.line("line3");
+		expected.end();
+	}
+
+	@Test
+	public void asynchronousStreamReader() throws InterruptedException {
+		final List<String> result = new ArrayList<String>();
+		final AsynchronousStreamReader reader = smithy()
+				.asynchronousStreamReader(new LineVisitor() {
+
+					@Override
+					public void visit(final String line) {
+						synchronized (result) {
+							result.add(line);
+						}
+					}
+
+					@Override
+					public void emptyLine() {
+						throw new RuntimeException(
+								"No empty lines should have been there!");
+
+					}
+				}, new StreamReadFailedNotifier() {
+
+					@Override
+					public void readFailed(InputStream stream, Throwable t) {
+						throw new RuntimeException(t);
+					}
+				}, new InputStreamReaderFactory(Charset.forName("UTF-8")));
+		reader.readFrom(resourceAsStream("file-with-lines"),
+				resourceAsStream("second-file-with-lines"));
+		reader.waitUntilDone();
+		assertEquals(6, result.size());
+		assertTrue(result.contains("line1"));
+		assertTrue(result.contains("line2"));
+		assertTrue(result.contains("line3"));
+		assertTrue(result.contains("line4"));
+		assertTrue(result.contains("line5"));
+		assertTrue(result.contains("line6"));
+	}
+
+	private static AsExpected<Void> expected(final String actual) {
+		return AsExpected.expected(actual);
 	}
 
 	private VölundrSmithy smithy() {
 		return this.völundrSmithy;
+	}
+
+	private static InputStream resourceAsStream(final String resource) {
+		return VölundrSmithyTest.class.getResourceAsStream("/" + resource);
 	}
 }
