@@ -30,6 +30,8 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'völundr-smithy:continous'
             tasks << 'statistics:continous'
 			tasks << 'string-splitter:continous'
+			tasks << 'bytes-to-string:continous'
+			tasks << 'as-expected:continous'
 			
             tasks << 'exportAntBuildFile'
             tasks << 'aggregateTestReport'
@@ -62,7 +64,9 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'völundr-smithy:clean'
             tasks << 'statistics:clean'
 			tasks << 'string-splitter:clean'
-			
+			tasks << 'bytes-to-string:clean'
+			tasks << 'as-expected:clean'
+
             tasks << 'concurrent:release'
             tasks << 'stronglytyped-sortedbag:release'
             tasks << 'junit-utils:release'
@@ -79,7 +83,9 @@ public class BuildPlugin implements Plugin<Project> {
             tasks << 'völundr-smithy:release'
             tasks << 'statistics:release'
 			tasks << 'string-splitter:release'
-			
+			tasks << 'bytes-to-string:release'
+			tasks << 'as-expected:release'
+
             tasks << 'makeDistributionPackage'
 
             doLast { println "Distribution package ready to be uploaded to the repository." }
