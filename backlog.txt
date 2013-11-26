@@ -12,6 +12,7 @@ DONE
 + string-to-inputstream
 + statistics
 + string-splitter
++ bytes-to-string
 
 IN PROGRESS 
 
