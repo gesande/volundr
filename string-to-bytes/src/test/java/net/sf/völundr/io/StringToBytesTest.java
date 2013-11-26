@@ -18,6 +18,14 @@ public class StringToBytesTest {
 						.convert("völundr"))));
 	}
 
+	@SuppressWarnings("static-method")
+	@Test
+	public void convertToBytesDefaultCharset() {
+		assertTrue(Arrays.equals(println(new byte[] { 118, -61, -74, 108, 117,
+				110, 100, 114 }), println(StringToBytes.withDefaultCharset()
+				.convert("völundr"))));
+	}
+
 	private static byte[] println(byte[] a) {
 		System.out.println(Arrays.toString(a));
 		return a;

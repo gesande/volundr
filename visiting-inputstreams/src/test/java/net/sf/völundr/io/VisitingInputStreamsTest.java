@@ -31,7 +31,8 @@ public class VisitingInputStreamsTest {
 				new StreamReadFailedNotifier() {
 
 					@Override
-					public void readFailed(InputStream stream, Throwable t) {
+					public void readFailed(final InputStream stream,
+							final Throwable t) {
 						throw new RuntimeException(t);
 					}
 				}).readStreams(new LineVisitor() {
