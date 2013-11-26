@@ -1,0 +1,4 @@
+project(':as-expected') {
+    apply from : "$emmaPlugin"
+    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+}
