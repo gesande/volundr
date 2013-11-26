@@ -13,6 +13,8 @@ DONE
 + statistics
 + string-splitter
 + bytes-to-string
++ e2e tests for völundr-smithy
++ as-expected
 
 IN PROGRESS 
 
