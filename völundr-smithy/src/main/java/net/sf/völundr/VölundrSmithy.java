@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 
 import net.sf.völundr.bag.StronglyTypedSortedBag;
 import net.sf.völundr.io.AsynchronousStreamReader;
+import net.sf.völundr.io.BytesToString;
 import net.sf.völundr.io.GZipStreamReaderFactory;
 import net.sf.völundr.io.InputStreamReaderFactory;
 import net.sf.völundr.io.InputStreamToLines;
@@ -66,6 +67,10 @@ public final class VölundrSmithy {
 
 	public StringToBytes stringToBytes() {
 		return StringToBytes.forCharset(charset());
+	}
+
+	public BytesToString bytesToString() {
+		return BytesToString.forCharset(charset());
 	}
 
 	@SuppressWarnings("static-method")
