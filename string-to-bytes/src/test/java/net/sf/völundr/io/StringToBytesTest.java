@@ -2,6 +2,7 @@ package net.sf.völundr.io;
 
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -11,7 +12,14 @@ public class StringToBytesTest {
 	@SuppressWarnings("static-method")
 	@Test
 	public void convertToBytes() {
-		assertTrue(Arrays.equals(new byte[] { 100, 97, 116, 97 }, StringToBytes
-				.withDefaultCharset().convert("data")));
+		assertTrue(Arrays.equals(println(new byte[] { 118, -61, -74, 108, 117,
+				110, 100, 114 }),
+				println(StringToBytes.forCharset(Charset.forName("UTF-8"))
+						.convert("völundr"))));
+	}
+
+	private static byte[] println(byte[] a) {
+		System.out.println(Arrays.toString(a));
+		return a;
 	}
 }

@@ -108,8 +108,9 @@ public class AsynchronousStreamReaderTest {
 	}
 
 	private static InputStream toInputStream(final String string) {
-		return new StringToByteArrayInputStream(new StringToBytes(
-				Charset.defaultCharset())).fromString(string);
+		return new StringToByteArrayInputStream(
+				StringToBytes.forCharset(Charset.defaultCharset()))
+				.fromString(string);
 	}
 
 	private final static class FailIHave extends RuntimeException {

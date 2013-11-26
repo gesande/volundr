@@ -12,6 +12,7 @@ import net.sf.völundr.io.InputStreamToString;
 import net.sf.völundr.io.StreamReadFailedNotifier;
 import net.sf.völundr.io.StreamReader;
 import net.sf.völundr.io.StreamReaderFactory;
+import net.sf.völundr.io.StringToBytes;
 import net.sf.völundr.io.VisitingInputStreams;
 import net.sf.völundr.io.VisitingInputStreamsHandler;
 
@@ -61,6 +62,10 @@ public final class VölundrSmithy {
 			final StreamReadFailedNotifier readFailedNotifier) {
 		return new VisitingInputStreams(handler, new GZipStreamReaderFactory(
 				charset()), readFailedNotifier);
+	}
+
+	public StringToBytes stringToBytes() {
+		return StringToBytes.forCharset(charset());
 	}
 
 	@SuppressWarnings("static-method")

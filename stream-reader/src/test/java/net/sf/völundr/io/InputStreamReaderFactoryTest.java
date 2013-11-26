@@ -18,7 +18,7 @@ public class InputStreamReaderFactoryTest {
 	public void reader() throws IOException {
 		final Charset charset = Charset.defaultCharset();
 		final InputStream stream = new StringToByteArrayInputStream(
-				new StringToBytes(charset)).fromString("line1\n\nline3");
+				StringToBytes.forCharset(charset)).fromString("line1\n\nline3");
 		final AtomicInteger lines = new AtomicInteger();
 		final AtomicInteger emptyLines = new AtomicInteger();
 		new InputStreamReaderFactory(charset).streamReader(new LineVisitor() {

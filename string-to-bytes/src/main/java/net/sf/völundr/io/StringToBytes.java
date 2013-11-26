@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 public final class StringToBytes {
 	private final Charset charset;
 
-	public StringToBytes(final Charset charset) {
+	private StringToBytes(final Charset charset) {
 		this.charset = charset;
 	}
 
@@ -18,6 +18,10 @@ public final class StringToBytes {
 	}
 
 	public static StringToBytes withDefaultCharset() {
-		return new StringToBytes(Charset.defaultCharset());
+		return forCharset(Charset.defaultCharset());
+	}
+
+	public static StringToBytes forCharset(final Charset charset) {
+		return new StringToBytes(charset);
 	}
 }
