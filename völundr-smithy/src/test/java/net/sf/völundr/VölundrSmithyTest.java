@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,9 +120,10 @@ public class VölundrSmithyTest {
 
 	@Test
 	public void stringToOutputStream() throws IOException {
-		final OutputStream streamToWrite = new ByteArrayOutputStream();
+		final ByteArrayOutputStream streamToWrite = new ByteArrayOutputStream();
 		smithy().stringToOutputStream(streamToWrite).write("völundr");
-		final AsExpected<Void> expected = expected(streamToWrite.toString());
+		final AsExpected<Void> expected = expected(streamToWrite
+				.toString("UTF-8"));
 		expected.string("völundr").end();
 	}
 
