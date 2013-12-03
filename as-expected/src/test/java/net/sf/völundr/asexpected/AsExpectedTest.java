@@ -35,4 +35,19 @@ public class AsExpectedTest {
 		}
 		assertTrue(failed.get());
 	}
+
+	@Test
+	public void asExpectedWithSpecialCharacters() {
+		final AsExpected<Void> expected = AsExpected.expected("actuál\n");
+		final AtomicBoolean failed = new AtomicBoolean(false);
+		try {
+			expected.line("actual").end();
+		} catch (final Throwable t) {
+			assertEquals(
+					"expected:<actu[a]l\n" + "> but was:<actu[á]l\n" + ">",
+					t.getMessage());
+			failed.set(true);
+		}
+		assertTrue(failed.get());
+	}
 }

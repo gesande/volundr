@@ -12,20 +12,20 @@ import net.sf.völundr.NewJavaProjectPlugin
 import org.gradle.api.JavaVersion
 
 ext {
-    //make sure these files exist
-    jdtInputFile="${buildScripts}/template/for/eclipse/org.eclipse.jdt.core.prefs"
-    pmdSettings="${buildScripts}/template/for/pmd/.pmd"
+	//make sure these files exist
+	jdtInputFile="${buildScripts}/template/for/eclipse/org.eclipse.jdt.core.prefs"
+	pmdSettings="${buildScripts}/template/for/pmd/.pmd"
 
-    distributionDir="$buildDir/distributions"
+	distributionDir="$buildDir/distributions"
 
-    toolsDir="${projectDir}/tools"
+	toolsDir="${projectDir}/tools"
 
-    emmaPlugin="${buildScripts}/plugins/emma.gradle"
+	emmaPlugin="${buildScripts}/plugins/emma.gradle"
 
-    artifactVersion='1.1.2'
+	artifactVersion='1.1.3'
 
-    distributionExcludes = ["*-lib.jar"]
-    distributionBasename = 'völundr-distribution'
+	distributionExcludes = ["*-lib.jar"]
+	distributionBasename = 'völundr-distribution'
 }
 
 
@@ -40,15 +40,15 @@ apply plugin : ExportAntBuildFilePlugin
 apply plugin : BuildPlugin
 
 reportingSettings {
-    toolsDirectory = "${toolsDir}"
-    onlyAnalyze = 'net.sf.völundr'
+	toolsDirectory = "${toolsDir}"
+	onlyAnalyze = 'net.sf.völundr'
 }
 
 subprojects { prj ->
-    apply plugin : DefaultContinousBuildPlugin
-    forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
-    version = prj.parent.artifactVersion
-    sourceCompatibility = JavaVersion.VERSION_1_6
-    targetCompatibility = JavaVersion.VERSION_1_6
+	apply plugin : DefaultContinousBuildPlugin
+	forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
+	version = prj.parent.artifactVersion
+	sourceCompatibility = JavaVersion.VERSION_1_6
+	targetCompatibility = JavaVersion.VERSION_1_6
 }
 
