@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class StatisticsCalculator {
+public final class StatisticsCalculator implements MaxValueProvider<Integer>,
+		MinValueProvider<Integer>, MeanProvider<Double>,
+		MedianProvider<Integer>, PercentileProvider<Integer> {
 
 	private final List<Integer> values;
 
@@ -22,45 +24,28 @@ public final class StatisticsCalculator {
 		return sortedLatencies;
 	}
 
-	public int percentileValue(final int percentileValue) {
-		return this.values.isEmpty() ? 0 : this.values
-				.get(percentile(percentileValue) - 1);
+	@Override
+	public Integer percentile(final int percentile) {
+		return values().isEmpty() ? 0 : values().get(
+				percentileRank(percentile) - 1);
 	}
 
-	private int percentile(final int percentile) {
-		final double i = percentile / 100.00 * this.values.size() + 0.5;
-		return (int) (i);
+	@Override
+	public Integer median() {
+		return values().isEmpty() ? 0 : MedianCalculator
+				.calculateFrom(values());
 	}
 
-	public int median() {
-		return this.values.isEmpty() ? 0 : calculateMedian();
-	}
-
-	private Integer calculateMedian() {
-		Integer result = 0;
-		final int size = this.values.size();
-		if (size % 2 == 1) { // If the number of entries in the list is not
-								// even.
-			result = this.values.get(size / 2); // Get the middle
-												// value.
-		} else { // If the number of entries in the list are even.
-			final Integer lowerMiddle = this.values.get(size / 2);
-			final Integer upperMiddle = this.values.get(size / 2 - 1);
-			// Get the middle two values and average them.
-			result = (lowerMiddle + upperMiddle) / 2;
-		}
-		return result;
-	}
-
-	public double mean() {
-		if (this.values.size() == 0) {
-			return 0;
+	@Override
+	public Double mean() {
+		if (values().size() == 0) {
+			return 0.0;
 		}
 		long sum = 0;
-		for (final Integer latency : this.values) {
+		for (final Integer latency : values()) {
 			sum += latency;
 		}
-		return (double) sum / this.values.size();
+		return (double) sum / values().size();
 	}
 
 	public double standardDeviation() {
@@ -72,7 +57,7 @@ public final class StatisticsCalculator {
 		double mean = 0;
 		double s = 0.0;
 
-		for (Integer x : this.values) {
+		for (Integer x : values()) {
 			n++;
 			final double delta = x - mean;
 			mean += delta / n;
@@ -83,13 +68,23 @@ public final class StatisticsCalculator {
 		return (s / n);
 	}
 
-	public int max() {
-		return this.values.isEmpty() ? 0 : this.values
-				.get(this.values.size() - 1);
+	@Override
+	public Integer max() {
+		return values().isEmpty() ? 0 : values().get(values().size() - 1);
 	}
 
-	public int min() {
-		return this.values.isEmpty() ? 0 : this.values.get(0);
+	@Override
+	public Integer min() {
+		return values().isEmpty() ? 0 : values().get(0);
+	}
+
+	private int percentileRank(final int percentile) {
+		return (int) PercentileRankCalculator.calculate(percentile, values()
+				.size());
+	}
+
+	private List<Integer> values() {
+		return this.values;
 	}
 
 }
