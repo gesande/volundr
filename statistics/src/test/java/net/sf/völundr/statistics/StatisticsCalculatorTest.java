@@ -54,7 +54,8 @@ public class StatisticsCalculatorTest {
 		assertEquals("96 percentile doesn't match!", 97, stat.percentile(96), 0);
 		assertEquals("97 percentile doesn't match!", 98, stat.percentile(97), 0);
 		assertEquals("98 percentile doesn't match!", 99, stat.percentile(98), 0);
-		assertEquals("99 percentile doesn't match!", 100, stat.percentile(99), 0);
+		assertEquals("99 percentile doesn't match!", 100, stat.percentile(99),
+				0);
 		assertEquals("Standard deviation doesn't match!", 28.86607004772212,
 				stat.standardDeviation(), 0);
 		assertEquals("Standard deviation doesn't match!", 833.25,
