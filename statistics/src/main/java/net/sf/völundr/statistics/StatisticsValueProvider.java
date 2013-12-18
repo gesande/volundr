@@ -1,18 +1,20 @@
 package net.sf.völundr.statistics;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.sf.völundr.bag.StronglyTypedSortedBag;
 
-public class StatisticValuesProvider implements PercentileProvider<Integer>,
+public class StatisticsValueProvider implements PercentileProvider<Integer>,
 		MaxValueProvider<Integer>, MinValueProvider<Integer>,
 		MeanProvider<Double>, MedianProvider<Integer> {
 
 	private final StronglyTypedSortedBag<Integer> latencies;
 	private long totalLatency;
+	private List<Integer> valuesToList;
 
-	public StatisticValuesProvider() {
+	public StatisticsValueProvider() {
 		this.latencies = StronglyTypedSortedBag.<Integer> synchronizedTreeBag();
 	}
 
@@ -52,12 +54,15 @@ public class StatisticValuesProvider implements PercentileProvider<Integer>,
 		if (!hasSamples()) {
 			return 0;
 		}
+		if (this.valuesToList == null) {
+			this.valuesToList = valuesToList();
+		}
 		final double nearestRank = PercentileRankCalculator.nearestRank(
 				percentile, sampleCount());
 		final long rounded = Math.round(nearestRank);
 		final int index = (int) (rounded - 1);
-		return valuesToList().get(
-				(int) (index >= sampleCount() ? sampleCount() - 1 : index));
+		return this.valuesToList
+				.get((int) (index >= sampleCount() ? sampleCount() - 1 : index));
 	}
 
 	@Override
@@ -68,13 +73,17 @@ public class StatisticValuesProvider implements PercentileProvider<Integer>,
 
 	@Override
 	public Integer median() {
-		return hasSamples() ? MedianResolver.resolveFrom(valuesToList()) : 0;
+		if (this.valuesToList == null) {
+			this.valuesToList = valuesToList();
+		}
+		return hasSamples() ? MedianResolver.resolveFrom(this.valuesToList) : 0;
 	}
 
 	private List<Integer> valuesToList() {
 		final List<Integer> values = new ArrayList<Integer>();
-		for (int value = min(); value <= max(); value++) {
-			final int count = countFor(value);
+		final Collection<Integer> uniqueSamples = latencies().uniqueSamples();
+		for (final Integer value : uniqueSamples) {
+			int count = countFor(value);
 			for (int i = 0; i < count; i++) {
 				values.add(value);
 			}
