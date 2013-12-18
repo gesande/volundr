@@ -2,9 +2,18 @@ package net.sf.völundr.statistics;
 
 import java.util.List;
 
-public class MedianCalculator {
+public final class MedianResolver {
 
-	public static int calculateFrom(final List<Integer> list) {
+	/**
+	 * Resolve median value
+	 * <p>
+	 * http://en.wikipedia.org/wiki/Median
+	 * 
+	 * @param list
+	 * @return the middle value if number of entries is not even in the list
+	 *         otherwise the middle two values and an average of them
+	 */
+	public static int resolveFrom(final List<Integer> list) {
 		Integer result = 0;
 		final int size = list.size();
 		// If the number of entries in the list is not even.

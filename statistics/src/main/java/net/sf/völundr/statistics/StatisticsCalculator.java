@@ -26,14 +26,17 @@ public final class StatisticsCalculator implements MaxValueProvider<Integer>,
 
 	@Override
 	public Integer percentile(final int percentile) {
-		return values().isEmpty() ? 0 : values().get(
-				percentileRank(percentile) - 1);
+		final double d = PercentileRankCalculator.nearestRank(percentile,
+				values().size());
+		final long rounded = Math.round(d);
+		final int index = (int) (rounded - 1);
+		return values().isEmpty() ? Integer.valueOf(0) : values().get(
+				index >= values().size() ? values().size() - 1 : index);
 	}
 
 	@Override
 	public Integer median() {
-		return values().isEmpty() ? 0 : MedianCalculator
-				.calculateFrom(values());
+		return values().isEmpty() ? 0 : MedianResolver.resolveFrom(values());
 	}
 
 	@Override
@@ -70,17 +73,13 @@ public final class StatisticsCalculator implements MaxValueProvider<Integer>,
 
 	@Override
 	public Integer max() {
-		return values().isEmpty() ? 0 : values().get(values().size() - 1);
+		return values().isEmpty() ? Integer.valueOf(0) : values().get(
+				values().size() - 1);
 	}
 
 	@Override
 	public Integer min() {
-		return values().isEmpty() ? 0 : values().get(0);
-	}
-
-	private int percentileRank(final int percentile) {
-		return (int) PercentileRankCalculator.calculate(percentile, values()
-				.size());
+		return values().isEmpty() ? Integer.valueOf(0) : values().get(0);
 	}
 
 	private List<Integer> values() {

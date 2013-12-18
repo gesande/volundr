@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class StatisticsCalculatorTest {
@@ -23,13 +22,13 @@ public class StatisticsCalculatorTest {
 		assertEquals("Max doesn't match!", 100, stat.max(), 0);
 		assertEquals("Mean doesn't match!", 50, stat.mean(), 0);
 		assertEquals("Median doesn't match!", 50, stat.median(), 0);
-		assertEquals("50 percentile doesn't match!", 49, stat.percentile(50), 0);
-		assertEquals("90 percentile doesn't match!", 89, stat.percentile(90), 0);
-		assertEquals("95 percentile doesn't match!", 94, stat.percentile(95), 0);
-		assertEquals("96 percentile doesn't match!", 95, stat.percentile(96), 0);
-		assertEquals("97 percentile doesn't match!", 96, stat.percentile(97), 0);
-		assertEquals("98 percentile doesn't match!", 97, stat.percentile(98), 0);
-		assertEquals("99 percentile doesn't match!", 98, stat.percentile(99), 0);
+		assertEquals("50 percentile doesn't match!", 50, stat.percentile(50), 0);
+		assertEquals("90 percentile doesn't match!", 90, stat.percentile(90), 0);
+		assertEquals("95 percentile doesn't match!", 95, stat.percentile(95), 0);
+		assertEquals("96 percentile doesn't match!", 96, stat.percentile(96), 0);
+		assertEquals("97 percentile doesn't match!", 97, stat.percentile(97), 0);
+		assertEquals("98 percentile doesn't match!", 98, stat.percentile(98), 0);
+		assertEquals("99 percentile doesn't match!", 99, stat.percentile(99), 0);
 		assertEquals("Standard deviation doesn't match!", 29.154759474226502,
 				stat.standardDeviation(), 0);
 		assertEquals("Standard deviation doesn't match!", 850.0,
@@ -49,13 +48,13 @@ public class StatisticsCalculatorTest {
 		assertEquals("Max doesn't match!", 100, stat.max(), 0);
 		assertEquals("Mean doesn't match!", 50.5, stat.mean(), 0);
 		assertEquals("Median doesn't match!", 50, stat.median(), 0);
-		assertEquals("50 percentile doesn't match!", 50, stat.percentile(50), 0);
-		assertEquals("90 percentile doesn't match!", 90, stat.percentile(90), 0);
-		assertEquals("95 percentile doesn't match!", 95, stat.percentile(95), 0);
-		assertEquals("96 percentile doesn't match!", 96, stat.percentile(96), 0);
-		assertEquals("97 percentile doesn't match!", 97, stat.percentile(97), 0);
-		assertEquals("98 percentile doesn't match!", 98, stat.percentile(98), 0);
-		assertEquals("99 percentile doesn't match!", 99, stat.percentile(99), 0);
+		assertEquals("50 percentile doesn't match!", 51, stat.percentile(50), 0);
+		assertEquals("90 percentile doesn't match!", 91, stat.percentile(90), 0);
+		assertEquals("95 percentile doesn't match!", 96, stat.percentile(95), 0);
+		assertEquals("96 percentile doesn't match!", 97, stat.percentile(96), 0);
+		assertEquals("97 percentile doesn't match!", 98, stat.percentile(97), 0);
+		assertEquals("98 percentile doesn't match!", 99, stat.percentile(98), 0);
+		assertEquals("99 percentile doesn't match!", 100, stat.percentile(99), 0);
 		assertEquals("Standard deviation doesn't match!", 28.86607004772212,
 				stat.standardDeviation(), 0);
 		assertEquals("Standard deviation doesn't match!", 833.25,
@@ -124,7 +123,6 @@ public class StatisticsCalculatorTest {
 		return list;
 	}
 
-	@Ignore
 	@SuppressWarnings("static-method")
 	@Test
 	public void percentileTest() {

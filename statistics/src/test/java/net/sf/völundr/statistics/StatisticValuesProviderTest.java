@@ -53,7 +53,7 @@ public class StatisticValuesProviderTest {
 		}
 		assertEquals("Min doesn't match!", 1, stat.min(), 0);
 		assertEquals("Max doesn't match!", 100, stat.max(), 0);
-		assertEquals("Mean doesn't match!", 50, stat.mean(), 0);
+		assertEquals("Mean doesn't match!", 50.5, stat.mean(), 0);
 		assertEquals("Median doesn't match!", 50, stat.median(), 0);
 		assertEquals("50 percentile doesn't match!", 51, stat.percentile(50), 0);
 		assertEquals("90 percentile doesn't match!", 91, stat.percentile(90), 0);

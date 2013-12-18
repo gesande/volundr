@@ -52,27 +52,23 @@ public class StatisticValuesProvider implements PercentileProvider<Integer>,
 		if (!hasSamples()) {
 			return 0;
 		}
-		final double targetCount = PercentileRankCalculator.calculate(
+		final double nearestRank = PercentileRankCalculator.nearestRank(
 				percentile, sampleCount());
-		long count = 0;
-		for (int value = min(); value <= max(); value++) {
-			count += countFor(value);
-			if (count >= targetCount) {
-				return value;
-			}
-		}
-		return max();
+		final long rounded = Math.round(nearestRank);
+		final int index = (int) (rounded - 1);
+		return valuesToList().get(
+				(int) (index >= sampleCount() ? sampleCount() - 1 : index));
 	}
 
 	@Override
 	public Double mean() {
-		return hasSamples() ? this.totalLatency / sampleCount() : 0.0;
+		return hasSamples() ? this.totalLatency / (double) sampleCount()
+				: 0.0000;
 	}
 
 	@Override
 	public Integer median() {
-		return hasSamples() ? MedianCalculator.calculateFrom(valuesToList())
-				: 0;
+		return hasSamples() ? MedianResolver.resolveFrom(valuesToList()) : 0;
 	}
 
 	private List<Integer> valuesToList() {
