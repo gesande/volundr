@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class StatisticsCalculator implements MaxValueProvider<Integer>,
+public final class StatisticsCalculator extends
+		AbstractStandardDeviationProvider implements MaxValueProvider<Integer>,
 		MinValueProvider<Integer>, MeanProvider<Double>,
 		MedianProvider<Integer>, PercentileProvider<Integer> {
 
@@ -51,24 +52,18 @@ public final class StatisticsCalculator implements MaxValueProvider<Integer>,
 		return (double) sum / values().size();
 	}
 
-	public double standardDeviation() {
-		return Math.sqrt(variance());
-	}
-
+	@Override
 	public double variance() {
 		long n = 0;
 		double mean = 0;
 		double s = 0.0;
-
-		for (Integer x : values()) {
+		for (final Integer x : values()) {
 			n++;
 			final double delta = x - mean;
 			mean += delta / n;
 			s += delta * (x - mean);
 		}
-		// if you want to calculate std deviation
-		// of a sample change this to (s/(n-1))
-		return (s / n);
+		return std(s, n);
 	}
 
 	@Override
