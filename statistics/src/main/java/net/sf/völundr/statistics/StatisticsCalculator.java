@@ -27,12 +27,19 @@ public final class StatisticsCalculator extends
 
 	@Override
 	public Integer percentile(final int percentile) {
-		final double d = PercentileRankCalculator.nearestRank(percentile,
-				values().size());
-		final long rounded = Math.round(d);
+		final long rounded = round(nearestRank(percentile));
 		final int index = (int) (rounded - 1);
 		return values().isEmpty() ? Integer.valueOf(0) : values().get(
 				index >= values().size() ? values().size() - 1 : index);
+	}
+
+	private static long round(final double nearestRank) {
+		return Math.round(nearestRank);
+	}
+
+	private double nearestRank(final int percentile) {
+		return PercentileRankCalculator
+				.nearestRank(percentile, values().size());
 	}
 
 	@Override
