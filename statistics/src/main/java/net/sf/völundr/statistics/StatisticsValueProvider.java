@@ -1,21 +1,16 @@
 package net.sf.völundr.statistics;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import net.sf.völundr.bag.StronglyTypedSortedBag;
 
 public class StatisticsValueProvider implements PercentileProvider<Integer>,
 		MaxValueProvider<Integer>, MinValueProvider<Integer>,
 		MeanProvider<Double>, MedianProvider<Integer> {
 
-	private final StronglyTypedSortedBag<Integer> latencies;
+	private final StronglyTypedSortedBag<Integer> values;
 	private long totalLatency;
-	private List<Integer> valuesToList;
 
 	public StatisticsValueProvider() {
-		this.latencies = StronglyTypedSortedBag.<Integer> synchronizedTreeBag();
+		this.values = StronglyTypedSortedBag.<Integer> synchronizedTreeBag();
 	}
 
 	public boolean hasSamples() {
@@ -23,16 +18,16 @@ public class StatisticsValueProvider implements PercentileProvider<Integer>,
 	}
 
 	public synchronized void addSample(final int latency) {
-		latencies().add(latency);
+		values().add(latency);
 		this.totalLatency += latency;
 	}
 
 	public int countFor(final int latency) {
-		return latencies().count(latency);
+		return values().count(latency);
 	}
 
-	private StronglyTypedSortedBag<Integer> latencies() {
-		return this.latencies;
+	private StronglyTypedSortedBag<Integer> values() {
+		return this.values;
 	}
 
 	@Override
@@ -46,7 +41,7 @@ public class StatisticsValueProvider implements PercentileProvider<Integer>,
 	}
 
 	public long sampleCount() {
-		return latencies().size();
+		return values().size();
 	}
 
 	@Override
@@ -54,15 +49,23 @@ public class StatisticsValueProvider implements PercentileProvider<Integer>,
 		if (!hasSamples()) {
 			return 0;
 		}
-		if (this.valuesToList == null) {
-			this.valuesToList = valuesToList();
-		}
 		final double nearestRank = PercentileRankCalculator.nearestRank(
 				percentile, sampleCount());
 		final long rounded = Math.round(nearestRank);
-		final int index = (int) (rounded - 1);
-		return this.valuesToList
-				.get((int) (index >= sampleCount() ? sampleCount() - 1 : index));
+		final long index = rounded - 1;
+		return valueFor(index);
+	}
+
+	private Integer valueFor(final long index) {
+		int sum = -1;
+		for (final Integer value : values().uniqueSamples()) {
+			final int count = countFor(value);
+			sum += count;
+			if (index <= sum) {
+				return value;
+			}
+		}
+		return max();
 	}
 
 	@Override
@@ -73,29 +76,36 @@ public class StatisticsValueProvider implements PercentileProvider<Integer>,
 
 	@Override
 	public Integer median() {
-		if (this.valuesToList == null) {
-			this.valuesToList = valuesToList();
+		final long size = values().size();
+		final long index = size / 2;
+		if (size % 2 == 1) {
+			return valueFor(index);
 		}
-		return hasSamples() ? MedianResolver.resolveFrom(this.valuesToList) : 0;
+		return valueFor(index, size / 2 - 1);
 	}
 
-	private List<Integer> valuesToList() {
-		final List<Integer> values = new ArrayList<Integer>();
-		final Collection<Integer> uniqueSamples = latencies().uniqueSamples();
-		for (final Integer value : uniqueSamples) {
-			int count = countFor(value);
-			for (int i = 0; i < count; i++) {
-				values.add(value);
+	private Integer valueFor(final long index, final long index2) {
+		int sum = -1;
+		Integer lowerMiddle = 0;
+		Integer upperMiddle = 0;
+		for (final Integer value : values().uniqueSamples()) {
+			final int count = countFor(value);
+			sum += count;
+			if (index2 <= sum && lowerMiddle == 0) {
+				lowerMiddle = value;
+			}
+			if (index <= sum && upperMiddle == 0) {
+				upperMiddle = value;
 			}
 		}
-		return values;
+		return (lowerMiddle + upperMiddle) / 2;
 	}
 
 	private Integer findFirst() {
-		return latencies().findFirst();
+		return values().findFirst();
 	}
 
 	private Integer findLast() {
-		return latencies().findLast();
+		return values().findLast();
 	}
 }
