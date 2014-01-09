@@ -270,6 +270,30 @@ public class VölundrSmithyTest {
 		assertTrue(result.contains("line6"));
 	}
 
+	@Test
+	public void gzipInputStreamToLines() throws IOException {
+		final StringBuilder result = new StringBuilder();
+		smithy().gzipInputStreamToLines(new LineVisitor() {
+
+			@Override
+			public void visit(final String line) {
+				result.append(line).append("\n");
+			}
+
+			@Override
+			public void emptyLine() {
+				throw new RuntimeException(
+						"No empty lines should have been there!");
+			}
+		}).readFrom(resourceAsStream("file-with-lines.gz"));
+		final AsExpected<Void> expected = expected(result.toString());
+		expected.line("line1");
+		expected.line("line2");
+		expected.line("line3");
+		expected.end();
+
+	}
+
 	private static AsExpected<Void> expected(final String actual) {
 		return AsExpected.expected(actual);
 	}

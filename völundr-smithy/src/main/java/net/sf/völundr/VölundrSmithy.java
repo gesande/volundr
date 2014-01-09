@@ -7,6 +7,7 @@ import net.sf.völundr.bag.StronglyTypedSortedBag;
 import net.sf.völundr.io.AsynchronousStreamReader;
 import net.sf.völundr.io.BytesToString;
 import net.sf.völundr.io.GZipStreamReaderFactory;
+import net.sf.völundr.io.GZipStreamToLines;
 import net.sf.völundr.io.InputStreamReaderFactory;
 import net.sf.völundr.io.InputStreamToLines;
 import net.sf.völundr.io.InputStreamToString;
@@ -30,7 +31,11 @@ public final class VölundrSmithy {
 	}
 
 	public StreamReader inputStreamToLines(final LineVisitor visitor) {
-		return new InputStreamToLines(visitor, charset());
+		return newInputStreamToLines(visitor);
+	}
+
+	public StreamReader gzipInputStreamToLines(final LineVisitor visitor) {
+		return new GZipStreamToLines(newInputStreamToLines(visitor));
 	}
 
 	@SuppressWarnings("static-method")
@@ -86,5 +91,9 @@ public final class VölundrSmithy {
 
 	private Charset charset() {
 		return this.charset;
+	}
+
+	private InputStreamToLines newInputStreamToLines(final LineVisitor visitor) {
+		return new InputStreamToLines(visitor, charset());
 	}
 }
