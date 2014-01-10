@@ -11,6 +11,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import net.sf.völundr.asexpected.AsExpected;
 import net.sf.völundr.bag.StronglyTypedSortedBag;
@@ -18,6 +19,7 @@ import net.sf.völundr.concurrent.ThreadEngineApi;
 import net.sf.völundr.io.AsynchronousStreamReader;
 import net.sf.völundr.io.InputStreamReaderFactory;
 import net.sf.völundr.io.StreamReadFailedNotifier;
+import net.sf.völundr.io.StreamReader;
 import net.sf.völundr.io.VisitingInputStreamsHandler;
 
 import org.junit.Before;
@@ -291,7 +293,35 @@ public class VölundrSmithyTest {
 		expected.line("line2");
 		expected.line("line3");
 		expected.end();
+	}
 
+	@Test
+	public void readStreamsWith() {
+		final List<String> result = new ArrayList<String>();
+		final StreamReader reader = smithy().inputStreamToLines(
+				new LineVisitor() {
+
+					@Override
+					public void visit(String line) {
+						result.add(line);
+					}
+
+					@Override
+					public void emptyLine() {
+						throw new RuntimeException(
+								"No empty lines should have been there!");
+					}
+				});
+		smithy().readStreamsWith(2, 5, TimeUnit.MINUTES, reader,
+				resourceAsStream("file-with-lines"),
+				resourceAsStream("second-file-with-lines"));
+		assertEquals(6, result.size());
+		assertTrue(result.contains("line1"));
+		assertTrue(result.contains("line2"));
+		assertTrue(result.contains("line3"));
+		assertTrue(result.contains("line4"));
+		assertTrue(result.contains("line5"));
+		assertTrue(result.contains("line6"));
 	}
 
 	private static AsExpected<Void> expected(final String actual) {

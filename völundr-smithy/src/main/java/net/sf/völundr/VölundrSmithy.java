@@ -1,9 +1,15 @@
 package net.sf.völundr;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import net.sf.völundr.bag.StronglyTypedSortedBag;
+import net.sf.völundr.concurrent.NamedThreadFactory;
 import net.sf.völundr.io.AsynchronousStreamReader;
 import net.sf.völundr.io.BytesToString;
 import net.sf.völundr.io.GZipStreamReaderFactory;
@@ -86,6 +92,35 @@ public final class VölundrSmithy {
 	@SuppressWarnings("static-method")
 	public <TYPE> StronglyTypedSortedBag<TYPE> treeBag() {
 		return StronglyTypedSortedBag.treeBag();
+	}
+
+	@SuppressWarnings("static-method")
+	public void readStreamsWith(final int threads, final int awaitTermination,
+			final TimeUnit timeUnitForAwaitTermination,
+			final StreamReader reader, final InputStream... streams) {
+		final ExecutorService executor = Executors.newFixedThreadPool(threads,
+				NamedThreadFactory.forNamePrefix("stream-reader-"));
+		for (final InputStream stream : streams) {
+			executor.execute(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						reader.readFrom(stream);
+					} catch (IOException e) {
+						throw new RuntimeException(
+								"Reading the stats stream failed!", e);
+					}
+				}
+			});
+		}
+		executor.shutdown();
+		try {
+			executor.awaitTermination(awaitTermination,
+					timeUnitForAwaitTermination);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 
 	}
 
