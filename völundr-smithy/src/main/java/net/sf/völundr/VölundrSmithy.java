@@ -118,10 +118,11 @@ public final class VölundrSmithy {
 		try {
 			executor.awaitTermination(awaitTermination,
 					timeUnitForAwaitTermination);
+			executor.shutdownNow();
+			executor.awaitTermination(10, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	private Charset charset() {
