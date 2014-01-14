@@ -297,13 +297,14 @@ public class VölundrSmithyTest {
 
 	@Test
 	public void readStreamsWith() {
-		final List<String> result = new ArrayList<String>();
+		final StronglyTypedSortedBag<String> values = smithy()
+				.synchronizedTreeBag();
 		final StreamReader reader = smithy().inputStreamToLines(
 				new LineVisitor() {
 
 					@Override
-					public void visit(String line) {
-						result.add(line);
+					public void visit(final String line) {
+						values.add(line);
 					}
 
 					@Override
@@ -312,16 +313,20 @@ public class VölundrSmithyTest {
 								"No empty lines should have been there!");
 					}
 				});
-		smithy().readStreamsWith(2, 5, TimeUnit.MINUTES, reader,
-				resourceAsStream("file-with-lines"),
-				resourceAsStream("second-file-with-lines"));
-		assertEquals(6, result.size());
-		assertTrue(result.contains("line1"));
-		assertTrue(result.contains("line2"));
-		assertTrue(result.contains("line3"));
-		assertTrue(result.contains("line4"));
-		assertTrue(result.contains("line5"));
-		assertTrue(result.contains("line6"));
+		smithy().readStreamsWith(2, 5, TimeUnit.SECONDS, reader,
+				resourceAsStream("big-file-with-lines"),
+				resourceAsStream("big-file-with-lines"));
+		assertEquals(3182764, values.size());
+		final StringBuilder result = new StringBuilder();
+		for (final String sample : values.uniqueSamples()) {
+			result.append(values.count(sample)).append(",").append(sample)
+					.append("\n");
+		}
+		final AsExpected<Void> expected = expected(result.toString());
+		expected.line("1060928,line1");
+		expected.line("1060918,line2");
+		expected.line("1060918,line3");
+		expected.end();
 	}
 
 	private static AsExpected<Void> expected(final String actual) {
