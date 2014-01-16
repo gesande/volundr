@@ -329,12 +329,12 @@ public class VölundrSmithyTest {
 		expected.end();
 	}
 
-	private static AsExpected<Void> expected(final String actual) {
-		return AsExpected.expected(actual);
-	}
-
 	private VölundrSmithy smithy() {
 		return this.völundrSmithy;
+	}
+
+	private static AsExpected<Void> expected(final String actual) {
+		return AsExpected.expected(actual);
 	}
 
 	private static InputStream resourceAsStream(final String resource) {
