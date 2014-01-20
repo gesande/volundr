@@ -5,9 +5,9 @@ import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
 public class GZipStreamToLines implements StreamReader {
-	private final InputStreamToLines reader;
+	private final StreamReader reader;
 
-	public GZipStreamToLines(final InputStreamToLines reader) {
+	public GZipStreamToLines(final StreamReader reader) {
 		this.reader = reader;
 	}
 
