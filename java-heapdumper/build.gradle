@@ -1,4 +1,0 @@
-project(':java-heapdumper') {
-    apply from : "$emmaPlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
-}

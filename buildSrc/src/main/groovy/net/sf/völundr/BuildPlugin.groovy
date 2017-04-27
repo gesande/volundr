@@ -3,6 +3,7 @@ package net.sf.völundr;
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.tasks.GradleBuild
 
 public class BuildPlugin implements Plugin<Project> {
 
@@ -32,12 +33,11 @@ public class BuildPlugin implements Plugin<Project> {
                 'string-splitter:continous',
                 'bytes-to-string:continous',
                 'as-expected:continous',
-                'java-heapdump:continous',
                 'exportAntBuildFile',
-                'aggregateTestReport',
+                //'aggregateTestReport', this isn't working need to change ReportingPlugin
                 'aggregateJDependReport',
-//                'aggregateCoverageReport',
-                'aggregateFindbugsReport',
+                //                'aggregateCoverageReport', //no emma anymore, replace with jacoco
+                //'aggregateFindbugsReport', this isn't working 
                 'archiveAggregateReports'
             ]
             doLast { println "You've now license to commit, good work!" }
@@ -47,48 +47,45 @@ public class BuildPlugin implements Plugin<Project> {
             group = 'Distribution'
             description = 'Distribution package for the whole thing including continous build.'
             buildFile = 'build.gradle'
-
-            tasks << 'concurrent:clean'
-            tasks << 'stronglytyped-sortedbag:clean'
-            tasks << 'junit-utils:clean'
-            tasks << 'classhelper:clean'
-            tasks << 'linereader:clean'
-            tasks << 'fileutil:clean'
-            tasks << 'asynchronous-stream-reader:clean'
-            tasks << 'stream-reader:clean'
-            tasks << 'string-to-outputstream:clean'
-            tasks << 'inputstream-to-string:clean'
-            tasks << 'visiting-inputstreams:clean'
-            tasks << 'string-to-bytes:clean'
-            tasks << 'string-to-inputstream:clean'
-            tasks << 'völundr-smithy:clean'
-            tasks << 'statistics:clean'
-            tasks << 'string-splitter:clean'
-            tasks << 'bytes-to-string:clean'
-            tasks << 'as-expected:clean'
-            tasks << 'java-heapdump:clean'
-
-            tasks << 'concurrent:release'
-            tasks << 'stronglytyped-sortedbag:release'
-            tasks << 'junit-utils:release'
-            tasks << 'classhelper:release'
-            tasks << 'linereader:release'
-            tasks << 'fileutil:release'
-            tasks << 'asynchronous-stream-reader:release'
-            tasks << 'stream-reader:release'
-            tasks << 'string-to-outputstream:release'
-            tasks << 'inputstream-to-string:release'
-            tasks << 'visiting-inputstreams:release'
-            tasks << 'string-to-bytes:release'
-            tasks << 'string-to-inputstream:release'
-            tasks << 'völundr-smithy:release'
-            tasks << 'statistics:release'
-            tasks << 'string-splitter:release'
-            tasks << 'bytes-to-string:release'
-            tasks << 'as-expected:release'
-            tasks << 'java-heapdump:release'
-
-            tasks << 'makeDistributionPackage'
+            tasks = [
+                'concurrent:clean',
+                'stronglytyped-sortedbag:clean',
+                'junit-utils:clean',
+                'classhelper:clean',
+                'linereader:clean',
+                'fileutil:clean',
+                'asynchronous-stream-reader:clean',
+                'stream-reader:clean',
+                'string-to-outputstream:clean',
+                'inputstream-to-string:clean',
+                'visiting-inputstreams:clean',
+                'string-to-bytes:clean',
+                'string-to-inputstream:clean',
+                'völundr-smithy:clean',
+                'statistics:clean',
+                'string-splitter:clean',
+                'bytes-to-string:clean',
+                'as-expected:clean',
+                'concurrent:release',
+                'stronglytyped-sortedbag:release',
+                'junit-utils:release',
+                'classhelper:release',
+                'linereader:release',
+                'fileutil:release',
+                'asynchronous-stream-reader:release',
+                'stream-reader:release',
+                'string-to-outputstream:release',
+                'inputstream-to-string:release',
+                'visiting-inputstreams:release',
+                'string-to-bytes:release',
+                'string-to-inputstream:release',
+                'völundr-smithy:release',
+                'statistics:release',
+                'string-splitter:release',
+                'bytes-to-string:release',
+                'as-expected:release',
+                'makeDistributionPackage'
+            ]
 
             doLast { println "Distribution package ready to be uploaded to the repository." }
         }
