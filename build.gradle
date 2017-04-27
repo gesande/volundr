@@ -4,4 +4,4 @@ ext {
     buildPlugins="$buildScripts/plugins"
 }
 //applying the root stuff from gradle file that exists in buildSrc
-apply from: "$buildPlugins/völundr.gradle"
+apply from: "$buildPlugins/volundr.gradle"

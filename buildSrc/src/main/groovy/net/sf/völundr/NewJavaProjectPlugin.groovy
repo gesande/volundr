@@ -3,8 +3,6 @@ package net.sf.völundr
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.GradleBuild
-import org.gradle.logging.StyledTextOutputFactory
-import org.gradle.logging.StyledTextOutput.Style
 
 class NewJavaProjectPlugin implements Plugin<Project> {
 
@@ -25,9 +23,7 @@ class NewJavaProjectPlugin implements Plugin<Project> {
             task.tasks << eclipseSettingsFor
             task.tasks << buildGradle
 
-            doLast {
-                services.get(StyledTextOutputFactory).create("java-development.newJavaProject").withStyle(Style.Info).println("New Java project can now be found from ${task.project.buildDir}/${javaProject}")
-            }
+            doLast { println("New Java project can now be found from ${task.project.buildDir}/${javaProject}") }
         }
 
         project.task("newJavaLibProject", type: GradleBuild) { GradleBuild task ->
@@ -44,9 +40,7 @@ class NewJavaProjectPlugin implements Plugin<Project> {
             task.tasks << eclipseSettingsFor
             task.tasks << buildGradle
 
-            doLast {
-                services.get(StyledTextOutputFactory).create("java-development.newJavaLibProject").withStyle(Style.Info).println("New Java project can now be found from ${task.project.buildDir}/${javaProject}")
-            }
+            doLast { println("New Java project can now be found from ${task.project.buildDir}/${javaProject}") }
         }
     }
 }

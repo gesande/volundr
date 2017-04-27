@@ -2,6 +2,7 @@
 .classpath
 .settings
 .gradle
+.metadata
 build
 target
 

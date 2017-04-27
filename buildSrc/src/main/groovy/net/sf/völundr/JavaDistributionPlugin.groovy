@@ -5,8 +5,6 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.FileTree
 import org.gradle.api.tasks.bundling.Tar
-import org.gradle.logging.StyledTextOutputFactory
-import org.gradle.logging.StyledTextOutput.Style
 
 public class JavaDistributionPlugin implements Plugin<Project>{
 
@@ -52,10 +50,7 @@ public class JavaDistributionPlugin implements Plugin<Project>{
             baseName = "$distributionName"
             version ="${artifactRevision}"
             extension = 'tar'
-            doLast {
-                def outputFactory = services.get(StyledTextOutputFactory).create("deployment.archiveDistribution")
-                outputFactory.withStyle(Style.Info).println("Archived distribution package can be found from file://${destinationDir}/${distributionName}-${artifactRevision}.tar")
-            }
+            doLast { println("Archived distribution package can be found from file://${destinationDir}/${distributionName}-${artifactRevision}.tar") }
         }
 
         project.task ("copyDistributionFiles") { Task task ->
@@ -71,8 +66,7 @@ public class JavaDistributionPlugin implements Plugin<Project>{
                     from project.file('distribution')
                     into "${targetDir}"
                 }
-                def outputFactory = services.get(StyledTextOutputFactory).create("deployment.copyDistributionFiles")
-                outputFactory.withStyle(Style.Info).println("Exploded path for the distribution can be found from file://${targetDir}")
+                println("Exploded path for the distribution can be found from file://${targetDir}")
             }
         }
 
@@ -83,8 +77,7 @@ public class JavaDistributionPlugin implements Plugin<Project>{
             description = "Makes the distribution package."
             doLast {
                 project.delete("distribution")
-                def outputFactory = services.get(StyledTextOutputFactory).create("deployment.makeDistributionPackage")
-                outputFactory.withStyle(Style.Info).println( "Distribution package done.")
+                println( "Distribution package done.")
             }
         }
     }
