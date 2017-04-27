@@ -15,8 +15,10 @@ DONE
 + bytes-to-string
 + e2e tests for völundr-smithy
 + as-expected
-
++ java8
++ my-gradle-build 2.0.0
 IN PROGRESS 
 
 WAITING
-
+- fix aggregateTestReport (path has changed -> ReportingPlugin)
+- fix aggregateFindbugsReport
