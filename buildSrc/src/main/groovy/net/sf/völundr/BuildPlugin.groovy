@@ -37,7 +37,7 @@ public class BuildPlugin implements Plugin<Project> {
                 //'aggregateTestReport', this isn't working need to change ReportingPlugin
                 'aggregateJDependReport',
                 //                'aggregateCoverageReport', //no emma anymore, replace with jacoco
-                //'aggregateFindbugsReport', this isn't working 
+                //'aggregateFindbugsReport', this isn't working
                 'archiveAggregateReports'
             ]
             doLast { println "You've now license to commit, good work!" }
@@ -89,5 +89,6 @@ public class BuildPlugin implements Plugin<Project> {
 
             doLast { println "Distribution package ready to be uploaded to the repository." }
         }
+
     }
 }

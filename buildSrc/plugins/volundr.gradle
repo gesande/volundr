@@ -54,3 +54,26 @@ subprojects { prj ->
     pmd { toolVersion = '4.3'   }
 }
 
+apply plugin:'jacoco'
+// aggregates jacoco results from all subprojects and core project and generate a report
+task jacocoAggregateReport(type: JacocoReport) {
+
+    sourceSets sourceSets.main
+
+    def jacocoTestFiles = []
+    subprojects.each { p ->
+        def coverageFileLocation = "$p.buildDir/jacoco/test.exec"
+        if (new File(coverageFileLocation).exists()) {
+            System.out.println("Adding "+ coverageFileLocation)
+            jacocoTestFiles.add(coverageFileLocation)
+        }
+    }
+
+    executionData files(jacocoTestFiles)
+    onlyIf = {true}
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.enabled true
+    }
+}
