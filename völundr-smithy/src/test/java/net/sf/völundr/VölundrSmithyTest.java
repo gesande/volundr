@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import net.sf.völundr.asexpected.AsExpected;
 import net.sf.völundr.bag.StronglyTypedSortedBag;
 import net.sf.völundr.concurrent.ThreadEngineApi;
@@ -21,9 +24,6 @@ import net.sf.völundr.io.InputStreamReaderFactory;
 import net.sf.völundr.io.StreamReadFailedNotifier;
 import net.sf.völundr.io.StreamReader;
 import net.sf.völundr.io.VisitingInputStreamsHandler;
-
-import org.junit.Before;
-import org.junit.Test;
 
 public class VölundrSmithyTest {
 
@@ -52,7 +52,7 @@ public class VölundrSmithyTest {
 	public void asyncTreeBag() {
 		final StronglyTypedSortedBag<String> synchronizedTreeBag = smithy()
 				.synchronizedTreeBag();
-		final ThreadEngineApi<Runnable> api = new ThreadEngineApi<Runnable>()
+		final ThreadEngineApi<Runnable> api = new ThreadEngineApi<>()
 				.threadNamePrefix("asynctreebag");
 		api.runnables(new Runnable() {
 
@@ -236,7 +236,7 @@ public class VölundrSmithyTest {
 
 	@Test
 	public void asynchronousStreamReader() throws InterruptedException {
-		final List<String> result = new ArrayList<String>();
+		final List<String> result = new ArrayList<>();
 		final AsynchronousStreamReader reader = smithy()
 				.asynchronousStreamReader(new LineVisitor() {
 

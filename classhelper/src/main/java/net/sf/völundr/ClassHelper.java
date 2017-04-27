@@ -25,12 +25,12 @@ public final class ClassHelper {
         assert classLoader != null;
         final String path = packageName.replace('.', '/');
         final Enumeration<URL> resources = classLoader.getResources(path);
-        final List<File> dirs = new ArrayList<File>();
+        final List<File> dirs = new ArrayList<>();
         while (resources.hasMoreElements()) {
             final URL resource = resources.nextElement();
             dirs.add(new File(resource.getFile()));
         }
-        final List<Class<?>> classes = new ArrayList<Class<?>>();
+        final List<Class<?>> classes = new ArrayList<>();
         for (final File directory : dirs) {
             classes.addAll(findClasses(directory, packageName));
         }
@@ -50,7 +50,7 @@ public final class ClassHelper {
      */
     private static List<Class<?>> findClasses(final File directory,
             final String packageName) throws ClassNotFoundException {
-        final List<Class<?>> classes = new ArrayList<Class<?>>();
+        final List<Class<?>> classes = new ArrayList<>();
         if (!directory.exists()) {
             return classes;
         }

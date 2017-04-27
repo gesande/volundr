@@ -21,7 +21,7 @@ public class LineReaderTest {
 	public void noEmptyLines() throws IOException {
 		final InputStream stream = inputStreamWith3Lines();
 		final AtomicBoolean emptyLineDetected = new AtomicBoolean(false);
-		final List<String> lines = new ArrayList<String>(3);
+		final List<String> lines = new ArrayList<>(3);
 		new LineReader(Charset.defaultCharset()).read(stream,
 				new LineVisitor() {
 
@@ -47,7 +47,7 @@ public class LineReaderTest {
 	public void emptyLines() throws IOException {
 		final InputStream byteArrayInputStream = contentsWithEmptyLine();
 		final AtomicBoolean emptyLineDetected = new AtomicBoolean(false);
-		final List<String> lines = new ArrayList<String>(3);
+		final List<String> lines = new ArrayList<>(3);
 		new LineReader(Charset.defaultCharset()).read(byteArrayInputStream,
 				new LineVisitor() {
 

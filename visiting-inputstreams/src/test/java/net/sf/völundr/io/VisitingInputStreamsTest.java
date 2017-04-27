@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import net.sf.völundr.LineVisitor;
-
 import org.junit.Test;
+
+import net.sf.völundr.LineVisitor;
 
 public class VisitingInputStreamsTest {
 
@@ -21,7 +21,7 @@ public class VisitingInputStreamsTest {
 	@Test
 	public void visitStreams() {
 		final Charset charset = Charset.forName("UTF-8");
-		final List<String> lines = new ArrayList<String>();
+		final List<String> lines = new ArrayList<>();
 		final InputStream stream1 = new ByteArrayInputStream(
 				"1first line\n1second line\n".getBytes(charset));
 		final InputStream stream2 = new ByteArrayInputStream(

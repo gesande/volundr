@@ -1,7 +1,6 @@
 package net.sf.völundr
 
 import net.sf.mygradlebuild.tasks.ExportAntBuildFileTask
-
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

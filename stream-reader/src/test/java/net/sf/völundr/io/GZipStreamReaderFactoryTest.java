@@ -7,9 +7,9 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.sf.völundr.LineVisitor;
-
 import org.junit.Test;
+
+import net.sf.völundr.LineVisitor;
 
 public class GZipStreamReaderFactoryTest {
 

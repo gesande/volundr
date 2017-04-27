@@ -23,7 +23,7 @@ public class ClassHelperTest {
 	public void classesForAPackage() throws IOException, ClassNotFoundException {
 		final Class<?>[] classes = ClassHelper.getClasses("net.sf.völundr");
 		LOG.debug("Classes = {}", Arrays.toString(classes));
-		final List<Class<?>> classList = new ArrayList<Class<?>>();
+        final List<Class<?>> classList = new ArrayList<>();
 		for (final Class<?> clazz : classes) {
 			classList.add(clazz);
 		}

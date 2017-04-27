@@ -9,9 +9,9 @@ import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.sf.völundr.io.StreamReader;
-
 import org.junit.Test;
+
+import net.sf.völundr.io.StreamReader;
 
 public class BigFileReadTest {
 

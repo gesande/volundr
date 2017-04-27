@@ -12,9 +12,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import net.sf.völundr.LineVisitor;
-
 import org.junit.Test;
+
+import net.sf.völundr.LineVisitor;
 
 public class AsynchronousStreamReaderTest {
 

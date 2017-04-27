@@ -3,9 +3,9 @@ package net.sf.völundr.junit;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.völundr.junit.predicates.Predicate;
-
 import org.junit.runners.model.FrameworkMethod;
+
+import net.sf.völundr.junit.predicates.Predicate;
 
 public final class JUnitUtils {
 

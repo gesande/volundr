@@ -3,7 +3,6 @@ package net.sf.völundr;
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.tasks.GradleBuild
 
 public class BuildPlugin implements Plugin<Project> {
 
@@ -37,7 +36,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'exportAntBuildFile',
                 'aggregateTestReport',
                 'aggregateJDependReport',
-                'aggregateCoverageReport',
+//                'aggregateCoverageReport',
                 'aggregateFindbugsReport',
                 'archiveAggregateReports'
             ]

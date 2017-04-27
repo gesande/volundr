@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import net.sf.völundr.LineVisitor;
-
 import org.junit.Test;
+
+import net.sf.völundr.LineVisitor;
 
 public class GZipStreamToLinesTest {
 
 	@Test
 	public void read() throws IOException {
-		final List<String> values = new ArrayList<String>();
+		final List<String> values = new ArrayList<>();
 		new GZipStreamToLines(new InputStreamToLines(new LineVisitor() {
 			@Override
 			public void visit(final String line) {

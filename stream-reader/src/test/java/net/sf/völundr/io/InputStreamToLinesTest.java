@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import net.sf.völundr.LineVisitor;
-
 import org.junit.Test;
+
+import net.sf.völundr.LineVisitor;
 
 public class InputStreamToLinesTest {
 
@@ -22,7 +22,7 @@ public class InputStreamToLinesTest {
 		final String lines = "line1\nline2\nline3";
 		final Charset charset = Charset.defaultCharset();
 		final InputStream inputStream = toByteArrayStream(lines, charset);
-		final List<String> values = new ArrayList<String>();
+		final List<String> values = new ArrayList<>();
 		new InputStreamToLines(new LineVisitor() {
 			@Override
 			public void visit(final String line) {
@@ -48,7 +48,7 @@ public class InputStreamToLinesTest {
 	@Test
 	public void visitEmptyLines() throws IOException {
 		final String lines = "line1\nline2\n\nline3";
-		final List<String> values = new ArrayList<String>();
+		final List<String> values = new ArrayList<>();
 		final Charset charset = Charset.defaultCharset();
 		new InputStreamToLines(new LineVisitor() {
 			@Override

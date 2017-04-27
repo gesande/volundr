@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
 
-import net.sf.völundr.LineVisitor;
-import net.sf.völundr.concurrent.NamedThreadFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.völundr.LineVisitor;
+import net.sf.völundr.concurrent.NamedThreadFactory;
 
 public final class AsynchronousStreamReader {
 	private final static Logger LOGGER = LoggerFactory
 			.getLogger(AsynchronousStreamReader.class);
 	private final LineVisitor visitor;
-	private final List<Thread> tasks = new ArrayList<Thread>();
+	private final List<Thread> tasks = new ArrayList<>();
 	private final ThreadFactory threadFactory;
 	private final StreamReadFailedNotifier failNotifier;
 	private final StreamReaderFactory streamReaderFactory;

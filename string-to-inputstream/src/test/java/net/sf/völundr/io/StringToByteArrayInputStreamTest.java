@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
+import org.junit.Test;
+
 import net.sf.völundr.LineReader;
 import net.sf.völundr.LineVisitor;
-
-import org.junit.Test;
 
 public class StringToByteArrayInputStreamTest {
 
