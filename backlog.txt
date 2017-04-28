@@ -17,8 +17,8 @@ DONE
 + as-expected
 + java8
 + my-gradle-build 2.0.0
++ fix aggregateTestReport (path has changed -> ReportingPlugin)
 IN PROGRESS 
 
 WAITING
-- fix aggregateTestReport (path has changed -> ReportingPlugin)
-- fix aggregateFindbugsReport
+- fix aggregateFindbugsReport (JAVA_HOME missing)

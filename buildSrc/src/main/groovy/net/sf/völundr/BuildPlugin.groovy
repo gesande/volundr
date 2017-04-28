@@ -34,10 +34,10 @@ public class BuildPlugin implements Plugin<Project> {
                 'bytes-to-string:continous',
                 'as-expected:continous',
                 'exportAntBuildFile',
-                //'aggregateTestReport', this isn't working need to change ReportingPlugin
+                'aggregateTestReport',
                 'aggregateJDependReport',
                 //                'aggregateCoverageReport', //no emma anymore, replace with jacoco
-                //'aggregateFindbugsReport', this isn't working
+                //'aggregateFindbugsReport', this isn't working, need JAVA_HOME
                 'archiveAggregateReports'
             ]
             doLast { println "You've now license to commit, good work!" }
