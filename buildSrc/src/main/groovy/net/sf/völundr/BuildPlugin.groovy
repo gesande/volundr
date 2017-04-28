@@ -36,8 +36,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'exportAntBuildFile',
                 'aggregateTestReport',
                 'aggregateJDependReport',
-                //                'aggregateCoverageReport', //no emma anymore, replace with jacoco
-                //'aggregateFindbugsReport', this isn't working, need JAVA_HOME
+                'aggregateFindbugsReport',
                 'archiveAggregateReports'
             ]
             doLast { println "You've now license to commit, good work!" }
