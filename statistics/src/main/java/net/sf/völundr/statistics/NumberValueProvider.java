@@ -13,7 +13,7 @@ public abstract class NumberValueProvider<T extends Number & Comparable> {
     abstract T zero();
 
     /**
-     * Value's distance from given mean
+     * Value's distance from given mean, basically <code>value - mean</code>
      */
     abstract double delta(T value, double mean);
 
@@ -30,7 +30,7 @@ public abstract class NumberValueProvider<T extends Number & Comparable> {
     /**
      * Calculate mean value of a list of items
      */
-    abstract T mean(List<T> values);
+    abstract T median(List<T> values);
 
     /**
      * Divide operation
@@ -68,7 +68,7 @@ final class IntegerNumberProvider extends NumberValueProvider<Integer> {
     }
 
     @Override
-    Integer mean(List<Integer> values) {
+    Integer median(List<Integer> values) {
         return MedianResolver.resolveFrom(values);
     }
 
@@ -113,7 +113,7 @@ final class LongNumberProvider extends NumberValueProvider<Long> {
     }
 
     @Override
-    Long mean(List<Long> values) {
+    Long median(List<Long> values) {
         return MedianResolver.resolveFromLong(values);
     }
 
@@ -171,7 +171,7 @@ final class StatisticsListProvider<T extends Number & Comparable>
 
     @Override
     public T median() {
-        return values().isEmpty() ? zero() : this.provider.mean(values());
+        return values().isEmpty() ? zero() : this.provider.median(values());
     }
 
     @Override
@@ -190,9 +190,9 @@ final class StatisticsListProvider<T extends Number & Comparable>
         double s = 0.0;
         for (final T x : values()) {
             n++;
-            final double delta = delta(mean, x);
+            final double delta = delta(x, mean);
             mean += delta / n;
-            s += delta * delta(mean, x);
+            s += delta * delta(x, mean);
         }
         return std(s, n);
     }
@@ -202,7 +202,7 @@ final class StatisticsListProvider<T extends Number & Comparable>
         return values().isEmpty() ? zero() : values().get(values().size() - 1);
     }
 
-    private double delta(double mean, final T x) {
+    private double delta(final T x, double mean) {
         return this.provider.delta(x, mean);
     }
 
