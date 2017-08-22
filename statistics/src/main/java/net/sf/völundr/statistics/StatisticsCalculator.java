@@ -1,92 +1,56 @@
 package net.sf.völundr.statistics;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public final class StatisticsCalculator extends
-        AbstractStandardDeviationProvider implements MaxValueProvider<Integer>,
+public final class StatisticsCalculator implements MaxValueProvider<Integer>,
         MinValueProvider<Integer>, MeanProvider<Double>,
-        MedianProvider<Integer>, PercentileProvider<Integer> {
+        MedianProvider<Integer>, PercentileProvider<Integer>,
+        StandardDeviationProvider, VarianceProvider {
 
-    private final List<Integer> values;
+    private StatisticsListProvider<Integer> provider;
 
-    private StatisticsCalculator(final List<Integer> values) {
-        this.values = values;
+    private StatisticsCalculator(
+            final StatisticsListProvider<Integer> provider) {
+        this.provider = provider;
     }
 
     public static StatisticsCalculator fromValues(final List<Integer> values) {
-        return new StatisticsCalculator(asSorted(values));
-    }
-
-    private static List<Integer> asSorted(List<Integer> latencies) {
-        final List<Integer> sortedLatencies = new ArrayList<>(latencies);
-        Collections.sort(sortedLatencies);
-        return sortedLatencies;
+        return new StatisticsCalculator(StatisticsListProvider
+                .fromValues(values, new IntegerNumberProvider()));
     }
 
     @Override
     public Integer percentile(final int percentile) {
-        final long rounded = round(nearestRank(percentile));
-        final int index = (int) (rounded - 1);
-        return values().isEmpty() ? Integer.valueOf(0)
-                : values().get(
-                        index >= values().size() ? values().size() - 1 : index);
-    }
-
-    private static long round(final double nearestRank) {
-        return Math.round(nearestRank);
-    }
-
-    private double nearestRank(final int percentile) {
-        return PercentileRankCalculator.nearestRank(percentile,
-                values().size());
+        return this.provider.percentile(percentile);
     }
 
     @Override
     public Integer median() {
-        return values().isEmpty() ? 0 : MedianResolver.resolveFrom(values());
+        return this.provider.median();
     }
 
     @Override
     public Double mean() {
-        if (values().size() == 0) {
-            return 0.0;
-        }
-        long sum = 0;
-        for (final Integer latency : values()) {
-            sum += latency;
-        }
-        return (double) sum / values().size();
+        return this.provider.mean();
     }
 
     @Override
     public double variance() {
-        long n = 0;
-        double mean = 0;
-        double s = 0.0;
-        for (final Integer x : values()) {
-            n++;
-            final double delta = x - mean;
-            mean += delta / n;
-            s += delta * (x - mean);
-        }
-        return std(s, n);
+        return this.provider.variance();
     }
 
     @Override
     public Integer max() {
-        return values().isEmpty() ? Integer.valueOf(0)
-                : values().get(values().size() - 1);
+        return this.provider.max();
     }
 
     @Override
     public Integer min() {
-        return values().isEmpty() ? Integer.valueOf(0) : values().get(0);
+        return this.provider.min();
     }
 
-    private List<Integer> values() {
-        return this.values;
+    @Override
+    public double standardDeviation() {
+        return this.provider.standardDeviation();
     }
-
 }

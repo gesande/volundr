@@ -156,7 +156,6 @@ public class StatisticsCalculatorTest {
                 .fromValues(values);
         assertEquals("Min doesn't match!", 0, stat.min(), 0);
         assertEquals("Max doesn't match!", 1000000, stat.max(), 0);
-        assertEquals("Mean doesn't match!", 500000, stat.mean(), 0);
         assertEquals("Median doesn't match!", 500000, stat.median(), 0);
         assertEquals("50 percentile doesn't match!", 500000,
                 stat.percentile(50), 0);
@@ -172,6 +171,7 @@ public class StatisticsCalculatorTest {
                 stat.percentile(98), 0);
         assertEquals("99 percentile doesn't match!", 990000,
                 stat.percentile(99), 0);
+        assertEquals("Mean doesn't match!", 500000, stat.mean(), 0);
         assertEquals("Standard deviation doesn't match!", 288675.4232698031,
                 stat.standardDeviation(), 0);
         assertEquals("Standard deviation doesn't match!", 8.333349999999998E10,

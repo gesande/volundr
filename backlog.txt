@@ -18,6 +18,7 @@ DONE
 + java8
 + my-gradle-build 2.0.0
 + fix aggregateTestReport (path has changed -> ReportingPlugin)
++ abstraction over statistics calculation (integer/long ready)
 IN PROGRESS 
 
 WAITING
