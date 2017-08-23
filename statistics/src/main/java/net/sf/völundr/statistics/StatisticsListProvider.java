@@ -10,7 +10,7 @@ public final class StatisticsListProvider<T extends Number & Comparable>
     private final List<T> values;
     private final NumberValueProvider<T> provider;
 
-    protected StatisticsListProvider(final List<T> values,
+    private StatisticsListProvider(final List<T> values,
             NumberValueProvider<T> provider) {
         this.values = values;
         this.provider = provider;
