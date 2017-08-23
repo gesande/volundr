@@ -39,6 +39,18 @@ apply plugin : ExportAntBuildFilePlugin
 
 apply plugin : BuildPlugin
 
+apply plugin: 'jacoco'
+
+allprojects {
+    // In this section you declare where to find the dependencies of your project
+    repositories {
+        // Use jcenter for resolving your dependencies.
+        // You can declare any Maven/Ivy/file repository here.
+        jcenter()
+    }
+}
+
+
 reportingSettings {
     toolsDirectory = "${toolsDir}"
     onlyAnalyze = 'net.sf.völundr'
@@ -47,33 +59,50 @@ reportingSettings {
 
 subprojects { prj ->
     apply plugin : DefaultContinousBuildPlugin
+    apply plugin:'jacoco'
+
     forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
     version = prj.parent.artifactVersion
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+
     pmd { toolVersion = '4.3'   }
-}
 
-apply plugin:'jacoco'
-// aggregates jacoco results from all subprojects and core project and generate a report
-task jacocoAggregateReport(type: JacocoReport) {
+    task jacocoMerge(type: JacocoMerge) {
+        executionData tasks.withType(Test)
 
-    sourceSets sourceSets.main
-
-    def jacocoTestFiles = []
-    subprojects.each { p ->
-        def coverageFileLocation = "$p.buildDir/jacoco/test.exec"
-        if (new File(coverageFileLocation).exists()) {
-            System.out.println("Adding "+ coverageFileLocation)
-            jacocoTestFiles.add(coverageFileLocation)
+        doFirst {
+            executionData = files(executionData.findAll { it.exists() })
         }
     }
+}
 
-    executionData files(jacocoTestFiles)
-    onlyIf = {true}
+def publishedProjects = subprojects.findAll() {
+    it.path != ':buildSrc' &&
+            it.path != ':install'
+}
+
+task jacocoMerge(type: JacocoMerge) {
+    destinationFile = file("${buildDir}/jacoco/merged.exec")
+    publishedProjects.each { subproject ->
+        executionData subproject.tasks.withType(Test)
+    }
+    doFirst {
+        executionData = files(executionData.findAll { it.exists() })
+    }
+}
+
+task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') { rep ->
+    description = 'Generates an aggregate report from all subprojects'
+    dependsOn publishedProjects.test, jacocoMerge
+
+    additionalSourceDirs = files(publishedProjects.sourceSets.main.allSource.srcDirs)
+    sourceDirectories = files(publishedProjects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(publishedProjects.sourceSets.main.output)
+    executionData jacocoMerge.destinationFile
+
     reports {
-        xml.enabled false
-        csv.enabled false
-        html.enabled true
+        html.enabled = true // human readable
+        xml.enabled = true // required by coveralls
     }
 }

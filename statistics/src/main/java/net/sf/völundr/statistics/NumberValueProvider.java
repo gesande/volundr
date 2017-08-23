@@ -23,11 +23,6 @@ abstract class NumberValueProvider<T extends Number & Comparable> {
     abstract List<T> sort(List<T> list);
 
     /**
-     * Plus operation
-     */
-    abstract T plus(T value1, T value2);
-
-    /**
      * Calculate mean value of a list of items
      */
     abstract T median(List<T> values);
@@ -60,11 +55,6 @@ final class IntegerNumberProvider extends NumberValueProvider<Integer> {
         List<Integer> sorted = new ArrayList<>(list);
         Collections.sort(sorted);
         return sorted;
-    }
-
-    @Override
-    Integer plus(Integer value1, Integer value2) {
-        return value1 + value2;
     }
 
     @Override
@@ -105,11 +95,6 @@ final class LongNumberProvider extends NumberValueProvider<Long> {
         List<Long> sorted = new ArrayList<>(list);
         Collections.sort(sorted);
         return sorted;
-    }
-
-    @Override
-    Long plus(Long value1, Long value2) {
-        return value1 + value2;
     }
 
     @Override
