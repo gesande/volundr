@@ -17,7 +17,6 @@ project(':statistics') { prj ->
     }
 
     dependencies {
-        compile project(':stronglytyped-sortedbag')
         testCompile project(':junit-4.10')
     }
 }

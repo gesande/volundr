@@ -1,0 +1,11 @@
+project(':statistics-valueprovider') {
+    apply from : "$emmaPlugin"
+    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    
+    dependencies {
+        compile project(':statistics')
+        compile project(':stronglytyped-sortedbag')
+        testCompile project(':junit-4.10')
+    }
+
+}

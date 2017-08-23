@@ -1,3 +1,4 @@
 include 'buildSrc'
 include 'junit-utils','classhelper','linereader','stronglytyped-sortedbag','fileutil','concurrent','threadengine-api-example','stream-reader','asynchronous-stream-reader','string-to-outputstream','inputstream-to-string','visiting-inputstreams','völundr-smithy','string-to-bytes','string-to-inputstream','statistics','string-splitter','bytes-to-string','as-expected'
 include 'slf4j-api-1.6.1','junit-4.10','slf4j-log4j12-1.6.1','log4j-1.2.16','commons-collections-3.2.1','commons-io-2.4'
+include 'statistics-valueprovider'
