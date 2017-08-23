@@ -19,7 +19,11 @@ DONE
 + my-gradle-build 2.0.0
 + fix aggregateTestReport (path has changed -> ReportingPlugin)
 + abstraction over statistics calculation (integer/long ready)
++ simple maven publish for statistics
++ introduced statistics-valueprovider
++ fix aggregateFindbugsReport (totally rewritten)
+
 IN PROGRESS 
 
 WAITING
-- fix aggregateFindbugsReport (JAVA_HOME missing)
+fix "Type safety: Potential heap pollution via varargs parameter runnables" warnings (@SafeVarArgs)
