@@ -1,9 +1,23 @@
-project(':statistics') {
-	apply from : "$emmaPlugin"
-	apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+project(':statistics') { prj ->
+    apply from : "$emmaPlugin"
+    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply plugin: 'maven-publish'
 
-	dependencies {
-		compile project(':stronglytyped-sortedbag')
-		testCompile project(':junit-4.10')
-	}
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId 'sf.net.volundr'
+                artifactId 'statistics'
+
+                from components.java
+
+                artifact sourcesJar { classifier "sources" }
+            }
+        }
+    }
+
+    dependencies {
+        compile project(':stronglytyped-sortedbag')
+        testCompile project(':junit-4.10')
+    }
 }
