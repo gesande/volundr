@@ -22,7 +22,7 @@ ext {
 
     emmaPlugin="${buildScripts}/plugins/jacoco.gradle"
 
-    artifactVersion='2.1.0'
+    artifactVersion='2.1.1'
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
