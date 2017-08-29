@@ -22,6 +22,7 @@ DONE
 + simple maven publish for statistics
 + introduced statistics-valueprovider
 + fix aggregateFindbugsReport (totally rewritten)
++ abstraction around statistics valueprovider (integer/long ready)
 
 IN PROGRESS 
 
