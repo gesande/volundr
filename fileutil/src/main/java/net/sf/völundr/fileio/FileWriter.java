@@ -10,37 +10,37 @@ import java.nio.charset.Charset;
 
 public final class FileWriter {
 
-	public void writeToFile(final File parent, final String contents,
-			final String newFile, Charset charset) throws IOException {
-		writeToFile(toFile(parent, newFile), contents, charset);
-	}
+    public void writeToFile(final File parent, final String contents,
+            final String newFile, Charset charset) throws IOException {
+        writeToFile(toFile(parent, newFile), contents, charset);
+    }
 
-	@SuppressWarnings("static-method")
-	public void writeToFile(final File fileToWrite, final String contents,
-			Charset charset) throws IOException {
-		write(withWriter(fileToWrite, charset), contents);
-	}
+    @SuppressWarnings("static-method")
+    public void writeToFile(final File fileToWrite, final String contents,
+            Charset charset) throws IOException {
+        write(withWriter(fileToWrite, charset), contents);
+    }
 
-	private static Writer withWriter(final File file, final Charset charset)
-			throws IOException {
-		return new BufferedWriter(writerFor(file, charset));
-	}
+    private static Writer withWriter(final File file, final Charset charset)
+            throws IOException {
+        return new BufferedWriter(writerFor(file, charset));
+    }
 
-	private static Writer writerFor(final File file, Charset charset)
-			throws IOException {
-		return new OutputStreamWriter(new FileOutputStream(file), charset);
-	}
+    private static Writer writerFor(final File file, Charset charset)
+            throws IOException {
+        return new OutputStreamWriter(new FileOutputStream(file), charset);
+    }
 
-	private static File toFile(final File parent, final String fileName) {
-		return new File(parent, fileName);
-	}
+    private static File toFile(final File parent, final String fileName) {
+        return new File(parent, fileName);
+    }
 
-	private static void write(final Writer out, final String contents)
-			throws IOException {
-		try {
-			out.write(contents);
-		} finally {
-			out.close();
-		}
-	}
+    private static void write(final Writer out, final String contents)
+            throws IOException {
+        try {
+            out.write(contents);
+        } finally {
+            out.close();
+        }
+    }
 }

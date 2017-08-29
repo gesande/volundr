@@ -14,23 +14,23 @@ import net.sf.völundr.LineVisitor;
 
 public class StringToByteArrayInputStreamTest {
 
-	@SuppressWarnings("static-method")
-	@Test
-	public void fromString() throws IOException {
-		final InputStream fromString = new StringToByteArrayInputStream(
-				StringToBytes.withDefaultCharset()).fromString("value");
-		new LineReader(Charset.defaultCharset()).read(fromString,
-				new LineVisitor() {
+    @SuppressWarnings("static-method")
+    @Test
+    public void fromString() throws IOException {
+        final InputStream fromString = new StringToByteArrayInputStream(
+                StringToBytes.withDefaultCharset()).fromString("value");
+        new LineReader(Charset.defaultCharset()).read(fromString,
+                new LineVisitor() {
 
-					@Override
-					public void visit(String line) {
-						assertEquals("value", line);
-					}
+                    @Override
+                    public void visit(String line) {
+                        assertEquals("value", line);
+                    }
 
-					@Override
-					public void emptyLine() {
-						fail("no empty lines expected");
-					}
-				});
-	}
+                    @Override
+                    public void emptyLine() {
+                        fail("no empty lines expected");
+                    }
+                });
+    }
 }

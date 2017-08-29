@@ -11,17 +11,17 @@ import org.junit.Test;
 
 public class InputStreamToStringTest {
 
-	@SuppressWarnings("static-method")
-	@Test
-	public void streamToString() throws IOException {
-		final InputStream inputStream = new ByteArrayInputStream(
-				"stuff on input stream\nstuff end".getBytes(Charset
-						.defaultCharset()));
-		assertEquals("stuff on input stream\nstuff end", toString(inputStream));
-	}
+    @SuppressWarnings("static-method")
+    @Test
+    public void streamToString() throws IOException {
+        final InputStream inputStream = new ByteArrayInputStream(
+                "stuff on input stream\nstuff end"
+                        .getBytes(Charset.defaultCharset()));
+        assertEquals("stuff on input stream\nstuff end", toString(inputStream));
+    }
 
-	private static String toString(final InputStream inputStream)
-			throws IOException {
-		return InputStreamToString.forDefaultCharset().toString(inputStream);
-	}
+    private static String toString(final InputStream inputStream)
+            throws IOException {
+        return InputStreamToString.forDefaultCharset().toString(inputStream);
+    }
 }

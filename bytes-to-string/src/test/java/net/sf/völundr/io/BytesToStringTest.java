@@ -8,13 +8,12 @@ import org.junit.Test;
 
 public class BytesToStringTest {
 
-	@SuppressWarnings("static-method")
-	@Test
-	public void fromBytes() {
-		assertEquals(
-				"völundr",
-				BytesToString.forCharset(Charset.forName("UTF-8")).convert(
-						new byte[] { 118, -61, -74, 108, 117, 110, 100, 114 }));
+    @SuppressWarnings("static-method")
+    @Test
+    public void fromBytes() {
+        assertEquals("völundr",
+                BytesToString.forCharset(Charset.forName("UTF-8")).convert(
+                        new byte[] { 118, -61, -74, 108, 117, 110, 100, 114 }));
 
-	}
+    }
 }

@@ -4,6 +4,6 @@ import net.sf.völundr.LineVisitor;
 
 public interface StreamReaderFactory {
 
-	StreamReader streamReader(final LineVisitor visitor);
+    StreamReader streamReader(final LineVisitor visitor);
 
 }
