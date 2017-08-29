@@ -3,7 +3,7 @@ project(':classhelper') {
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
     dependencies {
-        testCompile project(':slf4j-api-1.6.1')
+        testCompile "org.slf4j:slf4j-api:${slf4jVersion}"
         testCompile "junit:junit:${junitVersion}"
         testRuntime project(':slf4j-log4j12-1.6.1')
         testRuntime "log4j:log4j:${log4jVersion}"

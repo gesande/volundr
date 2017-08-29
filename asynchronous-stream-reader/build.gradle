@@ -6,7 +6,7 @@ project(':asynchronous-stream-reader') {
         compile project(':linereader')
         compile project(':concurrent')
         compile project(':stream-reader')
-        compile project(':slf4j-api-1.6.1')
+        compile "org.slf4j:slf4j-api:${slf4jVersion}"
         testCompile "junit:junit:${junitVersion}"
         testCompile project(':string-to-inputstream')
         testRuntime project(':slf4j-log4j12-1.6.1')

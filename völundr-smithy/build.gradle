@@ -1,18 +1,18 @@
 project(':völundr-smithy') {
-	apply from : "$emmaPlugin"
-	apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply from : "$emmaPlugin"
+    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
-	dependencies {
-		compile project(':asynchronous-stream-reader')
-		compile project(':inputstream-to-string')
-		compile project(':linereader')
-		compile project(':stream-reader')
-		compile project(':string-to-outputstream')
-		compile project(':string-to-bytes')
-		compile project(':stronglytyped-sortedbag')
-		compile project(':visiting-inputstreams')
-		compile project(':bytes-to-string')
-		testCompile "junit:junit:${junitVersion}"
-		testCompile project(':as-expected')
-	}
+    dependencies {
+        compile project(':asynchronous-stream-reader')
+        compile project(':inputstream-to-string')
+        compile project(':linereader')
+        compile project(':stream-reader')
+        compile project(':string-to-outputstream')
+        compile project(':string-to-bytes')
+        compile project(':stronglytyped-sortedbag')
+        compile project(':visiting-inputstreams')
+        compile project(':bytes-to-string')
+        testCompile "junit:junit:${junitVersion}"
+        testCompile project(':as-expected')
+    }
 }
