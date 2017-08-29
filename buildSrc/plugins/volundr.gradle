@@ -2,7 +2,7 @@
 import net.sf.mygradlebuild.plugins.DefaultContinousBuildPlugin
 import net.sf.mygradlebuild.plugins.EclipseSettingsPlugin
 import net.sf.mygradlebuild.plugins.EnvironmentVariablesPlugin
-import net.sf.mygradlebuild.plugins.MavenCentral
+import net.sf.völundr.JCenter
 import net.sf.mygradlebuild.plugins.ReportingPlugin
 import net.sf.völundr.BuildPlugin
 import net.sf.völundr.ExportAntBuildFilePlugin
@@ -29,7 +29,7 @@ ext {
 }
 
 
-apply plugin : MavenCentral
+apply plugin : JCenter
 apply plugin : NewJavaProjectPlugin
 apply plugin : ReportingPlugin
 apply plugin : JavaDistributionPlugin
