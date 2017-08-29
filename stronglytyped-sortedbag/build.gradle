@@ -3,7 +3,7 @@ project(':stronglytyped-sortedbag'){
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
     dependencies {
-        compile project(':commons-collections-3.2.1')
+        compile "commons-collections:commons-collections:${commonsCollectionsVersion}"
         testCompile "junit:junit:${junitVersion}"
     }
 }
