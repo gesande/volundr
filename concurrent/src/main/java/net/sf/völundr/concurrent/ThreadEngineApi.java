@@ -18,7 +18,9 @@ public final class ThreadEngineApi<RUNNABLE extends Runnable> {
         return this;
     }
 
-    public ThreadEngineApi<RUNNABLE> runnables(final RUNNABLE... runnables) {
+    @SafeVarargs
+    public final ThreadEngineApi<RUNNABLE> runnables(
+            final RUNNABLE... runnables) {
         this.runnables = runnables;
         return this;
     }

@@ -23,8 +23,8 @@ DONE
 + introduced statistics-valueprovider
 + fix aggregateFindbugsReport (totally rewritten)
 + abstraction around statistics valueprovider (integer/long ready)
++ fix "Type safety: Potential heap pollution via varargs parameter runnables" warnings (@SafeVarArgs)
 
 IN PROGRESS 
 
 WAITING
-fix "Type safety: Potential heap pollution via varargs parameter runnables" warnings (@SafeVarArgs)

@@ -24,7 +24,9 @@ final class ThreadEngine {
      * Running the given runnables, this call is blocking until all threads are
      * done.
      */
-    public <RUNNABLE extends Runnable> void run(final RUNNABLE... runnables) {
+    @SafeVarargs
+    public final <RUNNABLE extends Runnable> void run(
+            final RUNNABLE... runnables) {
         validate(runnables);
         if (runnables.length == 0) {
             log().info(
@@ -37,7 +39,9 @@ final class ThreadEngine {
         clearThreads();
     }
 
-    private static <T extends Runnable> void validate(final T... runnables) {
+    @SafeVarargs
+    private static final <T extends Runnable> void validate(
+            final T... runnables) {
         if (runnables == null) {
             throw new IllegalArgumentException("runnables is null");
         }
@@ -52,7 +56,9 @@ final class ThreadEngine {
         return LOG;
     }
 
-    private <T extends Runnable> void initializeWith(final T... runnables) {
+    @SafeVarargs
+    private final <T extends Runnable> void initializeWith(
+            final T... runnables) {
         this.threads = new Thread[runnables.length];
         for (int i = 0; i < threads().length; i++) {
             this.threads[i] = threadFactory().newThread(runnables[i]);
