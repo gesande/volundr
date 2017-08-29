@@ -4,6 +4,6 @@ project(':stronglytyped-sortedbag'){
 
     dependencies {
         compile project(':commons-collections-3.2.1')
-        testCompile project(':junit-4.10')
+        testCompile "junit:junit:${junitVersion}"
     }
 }

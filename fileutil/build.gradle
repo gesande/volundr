@@ -4,6 +4,6 @@ project(':fileutil') {
 
     dependencies {
         compile project(':string-to-bytes')
-        testCompile project(':junit-4.10')
+        testCompile "junit:junit:${junitVersion}"
     }
 }

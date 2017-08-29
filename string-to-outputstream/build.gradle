@@ -2,6 +2,6 @@ project(':string-to-outputstream') {
     apply from : "$emmaPlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 	dependencies {
-        testCompile project(':junit-4.10')
+        testCompile "junit:junit:${junitVersion}"
 	}
 }

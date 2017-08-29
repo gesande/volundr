@@ -2,5 +2,5 @@ project(':bytes-to-string') {
 	apply from : "$emmaPlugin"
 	apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
-	dependencies { testCompile project(':junit-4.10') }
+	dependencies { testCompile "junit:junit:${junitVersion}" }
 }

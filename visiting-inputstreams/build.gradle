@@ -3,6 +3,6 @@ project(':visiting-inputstreams') {
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
     dependencies {
         compile project(':asynchronous-stream-reader')
-        testCompile project(':junit-4.10')
+        testCompile "junit:junit:${junitVersion}"
     }
 }

@@ -3,7 +3,7 @@ project(':string-to-inputstream') {
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
     dependencies {
         compile project(':string-to-bytes')
-        testCompile project(':junit-4.10')
+        testCompile "junit:junit:${junitVersion}"
         testCompile project(':linereader')
     }
 }

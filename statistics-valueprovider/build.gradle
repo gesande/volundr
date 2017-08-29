@@ -5,7 +5,7 @@ project(':statistics-valueprovider') {
     dependencies {
         compile project(':statistics')
         compile project(':stronglytyped-sortedbag')
-        testCompile project(':junit-4.10')
+        testCompile "junit:junit:${junitVersion}"
     }
 
 }
