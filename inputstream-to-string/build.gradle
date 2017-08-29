@@ -2,7 +2,7 @@ project(':inputstream-to-string') {
     apply from : "$emmaPlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
     dependencies {
-        compile project(':commons-io-2.4')
+        compile "commons-io:commons-io:${commonsIoVersion}"
         testCompile "junit:junit:${junitVersion}"
     }
 }
