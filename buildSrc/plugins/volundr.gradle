@@ -79,10 +79,7 @@ subprojects { prj ->
     }
 }
 
-def publishedProjects = subprojects.findAll() {
-    it.path != ':buildSrc' &&
-            it.path != ':install'
-}
+def publishedProjects = subprojects.findAll() { it.path != ':buildSrc' }
 
 task jacocoMerge(type: JacocoMerge) {
     destinationFile = file("${buildDir}/jacoco/merged.exec")
