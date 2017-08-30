@@ -61,6 +61,8 @@ subprojects { prj ->
     apply plugin : DefaultContinousBuildPlugin
     apply plugin:'jacoco'
 
+    compileJava.options.encoding = 'UTF-8'
+
     forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
     version = prj.parent.artifactVersion
     sourceCompatibility = JavaVersion.VERSION_1_8
