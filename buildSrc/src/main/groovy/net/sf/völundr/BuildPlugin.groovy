@@ -33,6 +33,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'string-splitter:continous',
                 'bytes-to-string:continous',
                 'as-expected:continous',
+                'statistics-valueprovider:continous',
                 'exportAntBuildFile',
                 'aggregateTestReport',
                 'aggregateJDependReport',
@@ -65,6 +66,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'string-splitter:clean',
                 'bytes-to-string:clean',
                 'as-expected:clean',
+                'statistics-valueprovider:clean',
                 'concurrent:release',
                 'stronglytyped-sortedbag:release',
                 'junit-utils:release',
@@ -83,11 +85,11 @@ public class BuildPlugin implements Plugin<Project> {
                 'string-splitter:release',
                 'bytes-to-string:release',
                 'as-expected:release',
+                'statistics-valueprovider:release',
                 'makeDistributionPackage'
             ]
 
             doLast { println "Distribution package ready to be uploaded to the repository." }
         }
-
     }
 }
