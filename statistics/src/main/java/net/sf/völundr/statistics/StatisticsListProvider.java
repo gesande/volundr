@@ -16,7 +16,7 @@ public final class StatisticsListProvider<T extends Number & Comparable>
         this.provider = provider;
     }
 
-    public static <E extends Number & Comparable, MEAN extends Number> StatisticsListProvider<E> fromValues(
+    public static <E extends Number & Comparable> StatisticsListProvider<E> fromValues(
             final List<E> values, final NumberValueProvider<E> provider) {
         return new StatisticsListProvider<>(provider.sort(values), provider);
     }
