@@ -16,15 +16,17 @@ class NewJavaProjectPlugin implements Plugin<Project> {
             group ='Development'
             description ="Creates a new Java project, this task required -PnewJavaProject -argument."
             def javaProject =  task.project.properties.newJavaProject
+            println("newJavaProject = ${javaProject}")
+            //File projDir = task.project.mkdir("${javaProject}")
             String createJavaDirs = "${javaProject}:createJavaDirs"
             String eclipseSettingsFor = "${javaProject}:eclipseSettingsFor"
             String buildGradle = "${javaProject}:buildGradleForJavaProject"
-            tasks = [
+            task.tasks = [
                 createJavaDirs,
                 eclipseSettingsFor,
                 buildGradle
             ]
-            doLast { println("New Java project can now be found from ${task.project.buildDir}/${javaProject}") }
+            doLast { println("New Java project can now be found from ${projDir.name}") }
         }
 
         project.task("newJavaLibProject", type: GradleBuild) { GradleBuild task ->
