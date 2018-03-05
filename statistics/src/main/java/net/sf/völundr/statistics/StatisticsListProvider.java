@@ -88,4 +88,8 @@ public final class StatisticsListProvider<T extends Number & Comparable>
     private List<T> values() {
         return this.values;
     }
+
+    public int samples() {
+        return this.values.size();
+    }
 }

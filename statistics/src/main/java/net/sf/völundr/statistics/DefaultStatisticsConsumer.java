@@ -19,29 +19,8 @@ public final class DefaultStatisticsConsumer {
     }
 
     public void consumeStatistics(Consumer<String> consumer) {
-        StatisticsListProvider<Long> calc = StatisticsListProviderFactory
-                .longValues(latencies);
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(title).append("\n");
-        sb.append("samples       ").append(": ").append(latencies.size())
-                .append("\n");
-        sb.append("max           ").append(": ").append(calc.max())
-                .append("\n");
-        sb.append("min           ").append(": ").append(calc.min())
-                .append("\n");
-        sb.append("mean          ").append(": ").append(calc.mean())
-                .append("\n");
-        sb.append("median        ").append(": ").append(calc.median())
-                .append("\n");
-        sb.append("95 percentile ").append(": ").append(calc.percentile(95))
-                .append("\n");
-        sb.append("std           ").append(": ")
-                .append(calc.standardDeviation()).append("\n");
-        sb.append("variance      ").append(": ").append(calc.variance())
-                .append("\n");
-
-        consumer.accept(sb.toString());
-
+        StatisticsBuilder.withLongValues(latencies).title(title).samples().max()
+                .min().mean().median().percentile95().std().variance()
+                .consumedBy(consumer);
     }
 }

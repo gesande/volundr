@@ -13,8 +13,8 @@ public class DefaultStatisticsConsumerTest {
     @Test
     public void emptyTest() {
         final List<Long> latencies = new ArrayList<>();
-        DefaultStatisticsConsumer consumer = DefaultStatisticsConsumer.statsConsumer("title",
-                latencies);
+        DefaultStatisticsConsumer consumer = DefaultStatisticsConsumer
+                .statsConsumer("title", latencies);
 
         consumer.consumeStatistics(stats -> {
             assertEquals("title\n" + "samples       : 0\n"
@@ -32,8 +32,8 @@ public class DefaultStatisticsConsumerTest {
         for (long i = 0; i < 100; i++) {
             latencies.add(i);
         }
-        DefaultStatisticsConsumer consumer = DefaultStatisticsConsumer.statsConsumer("title",
-                latencies);
+        DefaultStatisticsConsumer consumer = DefaultStatisticsConsumer
+                .statsConsumer("title", latencies);
 
         consumer.consumeStatistics(stats -> {
             assertEquals(
