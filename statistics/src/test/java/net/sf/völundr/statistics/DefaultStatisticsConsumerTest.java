@@ -9,7 +9,6 @@ import org.junit.Test;
 
 public class DefaultStatisticsConsumerTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void emptyTest() {
         final List<Long> latencies = new ArrayList<>();
@@ -25,7 +24,6 @@ public class DefaultStatisticsConsumerTest {
         });
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void valuesTest() {
         final List<Long> latencies = new ArrayList<>();

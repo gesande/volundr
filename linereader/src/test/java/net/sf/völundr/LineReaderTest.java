@@ -16,7 +16,6 @@ import org.junit.Test;
 
 public class LineReaderTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void noEmptyLines() throws IOException {
         final InputStream stream = inputStreamWith3Lines();
@@ -42,7 +41,6 @@ public class LineReaderTest {
         assertEquals("line3", lines.get(2));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void emptyLines() throws IOException {
         final InputStream byteArrayInputStream = contentsWithEmptyLine();
@@ -69,7 +67,6 @@ public class LineReaderTest {
         assertEquals("line3", lines.get(2));
     }
 
-    @SuppressWarnings("static-method")
     @Test(expected = FailIHave.class)
     public void exceptionDuringVisit() throws IOException {
         new LineReader(Charset.defaultCharset()).read(inputStreamWith3Lines(),
@@ -86,7 +83,6 @@ public class LineReaderTest {
                 });
     }
 
-    @SuppressWarnings("static-method")
     @Test(expected = FailIHave.class)
     public void exceptionDuringEmptyLine() throws IOException {
         new LineReader(Charset.defaultCharset()).read(contentsWithEmptyLine(),

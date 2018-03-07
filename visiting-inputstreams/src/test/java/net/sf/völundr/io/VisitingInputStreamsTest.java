@@ -17,7 +17,6 @@ import net.sf.völundr.LineVisitor;
 
 public class VisitingInputStreamsTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void visitStreams() {
         final Charset charset = Charset.forName("UTF-8");
@@ -57,7 +56,6 @@ public class VisitingInputStreamsTest {
         assertTrue(lines.contains("2third line"));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void closeFailed() {
         final AtomicBoolean closeFailed = new AtomicBoolean(false);
@@ -111,7 +109,6 @@ public class VisitingInputStreamsTest {
         assertTrue(readFailed.get());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void closeStreamFailedGetsCalled() {
         final AtomicBoolean closeFailed = new AtomicBoolean(false);

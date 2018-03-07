@@ -9,7 +9,6 @@ import org.junit.Test;
 
 public class StringToBytesTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void convertToBytes() {
         assertTrue(Arrays.equals(
@@ -18,7 +17,6 @@ public class StringToBytesTest {
                         .convert("völundr"))));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void convertToBytesDefaultCharset() {
         assertTrue(Arrays.equals(

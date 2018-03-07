@@ -8,14 +8,12 @@ import org.junit.Test;
 
 public class FileUtilTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void writeToFile() throws WritingFileFailed {
         FileUtil.writeToFile("./target/content",
                 content().toString().getBytes(Charset.defaultCharset()));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void ensureDirectoryExists()
             throws FileNotFoundException, DirectoryNotCreatedException {

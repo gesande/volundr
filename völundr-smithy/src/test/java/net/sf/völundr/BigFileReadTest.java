@@ -15,7 +15,6 @@ import net.sf.völundr.io.StreamReader;
 
 public class BigFileReadTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void readOnePointFiveMillionRows() throws IOException {
         final VölundrSmithy völundrSmithy = new VölundrSmithy(
@@ -41,7 +40,6 @@ public class BigFileReadTest {
         assertEquals(1500000, lines.get());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void readingWith() {
         final VölundrSmithy völundrSmithy = new VölundrSmithy(

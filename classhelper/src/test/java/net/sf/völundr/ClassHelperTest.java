@@ -18,7 +18,6 @@ public class ClassHelperTest {
             .getLogger(ClassHelperTest.class);
 
     @Ignore
-    @SuppressWarnings("static-method")
     @Test
     public void classesForAPackage()
             throws IOException, ClassNotFoundException {
@@ -33,14 +32,12 @@ public class ClassHelperTest {
         assertTrue(classList.contains(ClassHelperTest.class));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noClassesForAnUnknownSubPackage()
             throws IOException, ClassNotFoundException {
         assertEquals(0, ClassHelper.getClasses("net.sf.unknown").length);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noClassesForAnUnknownPackage()
             throws IOException, ClassNotFoundException {

@@ -8,19 +8,16 @@ import org.junit.Test;
 
 public class ThreadEngineTest {
 
-    @SuppressWarnings("static-method")
     @Test(expected = IllegalArgumentException.class)
     public void nullRunnables() {
         newEngineWithNamedThreadFactory().run((Runnable[]) null);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void empty() {
         newEngineWithNamedThreadFactory().run(new Runnable[0]);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void runRunnables() {
         final AtomicBoolean runned = new AtomicBoolean(false);
@@ -34,7 +31,6 @@ public class ThreadEngineTest {
         assertTrue(runned.get());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void interruptThreads() throws InterruptedException {
         final AtomicBoolean wasInterrupted = new AtomicBoolean(false);

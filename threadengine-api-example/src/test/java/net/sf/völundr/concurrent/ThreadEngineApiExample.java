@@ -9,7 +9,6 @@ public class ThreadEngineApiExample {
     private final static Logger LOG = LoggerFactory
             .getLogger(ThreadEngineApiExample.class);
 
-    @SuppressWarnings("static-method")
     @Test
     public void example() {
         final Runnable runnable = new Runnable() {

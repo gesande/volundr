@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
 public class PercentileRankCalculatorTest {
 
     @Test
@@ -59,7 +58,7 @@ public class PercentileRankCalculatorTest {
         assertEquals(100.5, nearestRank(100, samples), 0);
     }
 
-    private double nearestRank(final int percentile, final int samples) {
+    private static double nearestRank(final int percentile, final int samples) {
         return PercentileRankCalculator.nearestRank(percentile, samples);
     }
 }

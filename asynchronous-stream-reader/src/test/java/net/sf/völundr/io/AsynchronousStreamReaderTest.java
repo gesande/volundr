@@ -18,7 +18,6 @@ import net.sf.völundr.LineVisitor;
 
 public class AsynchronousStreamReaderTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void readFiles() throws InterruptedException {
         final InputStream stream1 = toInputStream("line1\n");
@@ -72,7 +71,6 @@ public class AsynchronousStreamReaderTest {
         }
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void readFailed() throws InterruptedException {
         final InputStream stream1 = toInputStream("line1\n");

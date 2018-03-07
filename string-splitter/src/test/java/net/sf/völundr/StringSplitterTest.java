@@ -6,14 +6,12 @@ import org.junit.Test;
 
 public class StringSplitterTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void justSeparator() {
         final String[] result = new StringSplitter(";").split(";");
         assertEquals(0, result.length);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noSeparator() {
         final String[] result = new StringSplitter(";").split("");
@@ -21,7 +19,6 @@ public class StringSplitterTest {
         assertEquals("", result[0]);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void fields() {
         final String[] result = new StringSplitter(";").split("1;2");

@@ -8,7 +8,6 @@ import org.junit.Test;
 
 public class BytesToStringTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void fromBytes() {
         assertEquals("völundr",

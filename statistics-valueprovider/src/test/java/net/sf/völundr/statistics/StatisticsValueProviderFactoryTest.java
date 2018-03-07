@@ -6,7 +6,6 @@ import org.junit.Test;
 
 public class StatisticsValueProviderFactoryTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void emptyWithIntegerValues() {
         AbstractStatisticsValueProvider<Integer> stat = StatisticsValueProviderFactory
@@ -22,7 +21,6 @@ public class StatisticsValueProviderFactoryTest {
         }
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void emptyWithLongValues() {
         AbstractStatisticsValueProvider<Long> stat = StatisticsValueProviderFactory

@@ -7,7 +7,6 @@ import org.junit.Test;
 
 public class NamedThreadFactoryTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void newThread() {
         final Runnable r = new Runnable() {

@@ -11,7 +11,6 @@ import org.junit.Test;
 
 public class InputStreamToStringTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void streamToString() throws IOException {
         final InputStream inputStream = new ByteArrayInputStream(

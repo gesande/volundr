@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
 public class StatisticsCalculatorTest {
 
     @Test

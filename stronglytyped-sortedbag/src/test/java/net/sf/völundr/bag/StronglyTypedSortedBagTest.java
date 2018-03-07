@@ -10,7 +10,6 @@ import org.junit.Test;
 
 public class StronglyTypedSortedBagTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void empty() {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
@@ -22,7 +21,6 @@ public class StronglyTypedSortedBagTest {
         assertNull(bag.findLast());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void add() {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
@@ -33,7 +31,6 @@ public class StronglyTypedSortedBagTest {
         assertFalse(bag.isEmpty());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void findFirst() {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
@@ -49,7 +46,6 @@ public class StronglyTypedSortedBagTest {
         assertEquals("value1", findFirst);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void findLast() {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
@@ -65,7 +61,6 @@ public class StronglyTypedSortedBagTest {
         assertEquals("value2", findLast);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void firstBeingLast() {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
@@ -82,7 +77,6 @@ public class StronglyTypedSortedBagTest {
         assertEquals("value1", findLast);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void multiThreadUseOfBag() throws InterruptedException {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
@@ -115,7 +109,6 @@ public class StronglyTypedSortedBagTest {
         assertEquals("value2", findLast);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void size() {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
@@ -135,7 +128,6 @@ public class StronglyTypedSortedBagTest {
         assertEquals(3, bag.uniqueSamples().size());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void clear() {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag

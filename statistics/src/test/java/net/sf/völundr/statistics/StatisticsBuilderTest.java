@@ -9,7 +9,6 @@ import org.junit.Test;
 
 public class StatisticsBuilderTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void allFields() {
         List<Integer> values = new ArrayList<>();
@@ -26,7 +25,6 @@ public class StatisticsBuilderTest {
                         + "variance      : 833.25\n" + "", stats));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noVariance() {
         List<Integer> values = new ArrayList<>();
@@ -42,7 +40,6 @@ public class StatisticsBuilderTest {
                         + "std           : 28.86607004772212\n" + "", stats));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noStd() {
         List<Integer> values = new ArrayList<>();
@@ -58,7 +55,6 @@ public class StatisticsBuilderTest {
                         + "variance      : 833.25\n" + "", stats));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void no95percentile() {
         List<Integer> values = new ArrayList<>();
@@ -75,7 +71,6 @@ public class StatisticsBuilderTest {
                         + "variance      : 833.25\n" + "", stats));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noMedian() {
         List<Integer> values = new ArrayList<>();
@@ -92,7 +87,6 @@ public class StatisticsBuilderTest {
                         + "variance      : 833.25\n" + "", stats));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noMean() {
         List<Integer> values = new ArrayList<>();
@@ -109,7 +103,6 @@ public class StatisticsBuilderTest {
                         + "variance      : 833.25\n" + "", stats));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noMin() {
         List<Integer> values = new ArrayList<>();
@@ -126,7 +119,6 @@ public class StatisticsBuilderTest {
                         + "variance      : 833.25\n" + "", stats));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noMax() {
         List<Integer> values = new ArrayList<>();
@@ -143,7 +135,6 @@ public class StatisticsBuilderTest {
                         + "variance      : 833.25\n" + "", stats));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void noSamples() {
         List<Integer> values = new ArrayList<>();

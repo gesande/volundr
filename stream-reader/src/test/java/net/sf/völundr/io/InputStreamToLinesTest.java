@@ -16,7 +16,6 @@ import net.sf.völundr.LineVisitor;
 
 public class InputStreamToLinesTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void visit() throws IOException {
         final String lines = "line1\nline2\nline3";
@@ -44,7 +43,6 @@ public class InputStreamToLinesTest {
         assertEquals("line3", values.get(2));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void visitEmptyLines() throws IOException {
         final String lines = "line1\nline2\n\nline3";
@@ -73,7 +71,6 @@ public class InputStreamToLinesTest {
         assertEquals("line3", values.get(3));
     }
 
-    @SuppressWarnings("static-method")
     @Test
     public void whenSomethingGoesWrongVisitingLine() {
         final String lines = "line1\nline2\nline3";
@@ -100,7 +97,6 @@ public class InputStreamToLinesTest {
         }
     }
 
-    @SuppressWarnings("static-method")
     public void whenSomethingGoesWrongVisitingEmptyLine() {
         final AtomicBoolean failed = new AtomicBoolean(false);
         final String lines = "line1\n\nline2\nline3";

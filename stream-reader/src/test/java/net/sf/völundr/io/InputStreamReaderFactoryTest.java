@@ -13,7 +13,6 @@ import net.sf.völundr.LineVisitor;
 
 public class InputStreamReaderFactoryTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void reader() throws IOException {
         final Charset charset = Charset.defaultCharset();

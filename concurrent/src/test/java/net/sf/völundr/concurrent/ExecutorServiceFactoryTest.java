@@ -9,7 +9,6 @@ import org.junit.Test;
 
 public class ExecutorServiceFactoryTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void once() throws InterruptedException {
         final ExecutorService newFixedThreadPool = new ExecutorServiceFactory()

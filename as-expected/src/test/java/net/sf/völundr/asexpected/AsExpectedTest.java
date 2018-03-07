@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
 public class AsExpectedTest {
 
     @Test

@@ -14,7 +14,6 @@ import net.sf.völundr.LineVisitor;
 
 public class StringToByteArrayInputStreamTest {
 
-    @SuppressWarnings("static-method")
     @Test
     public void fromString() throws IOException {
         final InputStream fromString = new StringToByteArrayInputStream(
