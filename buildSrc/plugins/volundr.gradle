@@ -2,12 +2,12 @@
 import net.sf.mygradlebuild.plugins.DefaultContinousBuildPlugin
 import net.sf.mygradlebuild.plugins.EclipseSettingsPlugin
 import net.sf.mygradlebuild.plugins.EnvironmentVariablesPlugin
-import net.sf.völundr.JCenter
+import org.fluentjava.völundr.JCenter
 import net.sf.mygradlebuild.plugins.ReportingPlugin
-import net.sf.völundr.BuildPlugin
-import net.sf.völundr.ExportAntBuildFilePlugin
-import net.sf.völundr.JavaDistributionPlugin
-import net.sf.völundr.NewJavaProjectPlugin
+import org.fluentjava.völundr.BuildPlugin
+import org.fluentjava.völundr.ExportAntBuildFilePlugin
+import org.fluentjava.völundr.JavaDistributionPlugin
+import org.fluentjava.völundr.NewJavaProjectPlugin
 
 import org.gradle.api.JavaVersion
 
@@ -22,7 +22,7 @@ ext {
 
     emmaPlugin="${buildScripts}/plugins/jacoco.gradle"
 
-    artifactVersion='2.1.2'
+    artifactVersion='3.0.0'
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
@@ -50,10 +50,9 @@ allprojects {
     }
 }
 
-
 reportingSettings {
     toolsDirectory = "${toolsDir}"
-    onlyAnalyze = 'net.sf.völundr'
+    onlyAnalyze = 'org.fluentjava.völundr'
     findbugsVersion = '3.0.1'
 }
 
