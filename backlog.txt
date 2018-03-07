@@ -25,6 +25,8 @@ DONE
 + abstraction around statistics valueprovider (integer/long ready)
 + fix "Type safety: Potential heap pollution via varargs parameter runnables" warnings (@SafeVarArgs)
 + move project to github
++ org.fluentjava change (from v. 3.0.0)
+
 IN PROGRESS 
 
 WAITING
