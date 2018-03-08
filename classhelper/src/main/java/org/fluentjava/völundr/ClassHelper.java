@@ -3,6 +3,7 @@ package org.fluentjava.völundr;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,10 +11,13 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+/**
+ * Improved version of https://dzone.com/articles/get-all-classes-within-package
+ */
 public final class ClassHelper {
     /**
      * Scans all classes accessible from the context class loader which belong
-     * to the given package and subpackages.
+     * to the given package and sub packages.
      * 
      * @param packageName
      *            The base package
@@ -31,7 +35,8 @@ public final class ClassHelper {
         final List<Path> dirs = new ArrayList<>();
         while (resources.hasMoreElements()) {
             final URL resource = resources.nextElement();
-            final File f = new File(resource.getFile());
+            final File f = new File(
+                    URLDecoder.decode(resource.getPath(), "UTF-8"));
             dirs.add(Paths.get(f.getAbsolutePath()));
         }
         final List<Class<?>> classes = new ArrayList<>();

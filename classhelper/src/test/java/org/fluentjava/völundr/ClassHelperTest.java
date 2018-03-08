@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.fluentjava.shouldfind.ThisShouldBeFound;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,8 +43,6 @@ public class ClassHelperTest {
         assertTrue(classList.contains(ClassHelperTest.class));
     }
 
-    // TODO: find out why this isn't working
-    @Ignore
     @Test
     public void classesForAPackageContainingUtf8Characters()
             throws IOException, ClassNotFoundException {
