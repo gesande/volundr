@@ -30,7 +30,7 @@ ext {
 
 
 apply plugin : JCenter
-apply plugin : NewJavaProjectPlugin
+apply plugin : 'java'
 apply plugin : ReportingPlugin
 apply plugin : JavaDistributionPlugin
 apply plugin : EnvironmentVariablesPlugin
