@@ -3,6 +3,9 @@ package org.fluentjava.völundr;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -25,13 +28,14 @@ public final class ClassHelper {
         assert classLoader != null;
         final String path = packageName.replace('.', '/');
         final Enumeration<URL> resources = classLoader.getResources(path);
-        final List<File> dirs = new ArrayList<>();
+        final List<Path> dirs = new ArrayList<>();
         while (resources.hasMoreElements()) {
             final URL resource = resources.nextElement();
-            dirs.add(new File(resource.getFile()));
+            final File f = new File(resource.getFile());
+            dirs.add(Paths.get(f.getAbsolutePath()));
         }
         final List<Class<?>> classes = new ArrayList<>();
-        for (final File directory : dirs) {
+        for (final Path directory : dirs) {
             classes.addAll(findClasses(directory, packageName));
         }
         return classes.toArray(new Class[classes.size()]);
@@ -48,12 +52,13 @@ public final class ClassHelper {
      * @return The classes
      * @throws ClassNotFoundException
      */
-    private static List<Class<?>> findClasses(final File directory,
+    private static List<Class<?>> findClasses(final Path path,
             final String packageName) throws ClassNotFoundException {
         final List<Class<?>> classes = new ArrayList<>();
-        if (!directory.exists()) {
+        if (!Files.exists(path)) {
             return classes;
         }
+        File directory = path.toFile();
         final File[] files = directory.listFiles();
         if (files == null) {
             return classes;
@@ -61,8 +66,9 @@ public final class ClassHelper {
         for (final File file : files) {
             if (file.isDirectory()) {
                 assert !file.getName().contains(".");
+                Path p = Paths.get(file.getAbsolutePath());
                 classes.addAll(
-                        findClasses(file, packageName + "." + file.getName()));
+                        findClasses(p, packageName + "." + file.getName()));
             } else if (file.getName().endsWith(".class")) {
                 classes.add(Class.forName(packageName + '.' + file.getName()
                         .substring(0, file.getName().length() - 6)));
