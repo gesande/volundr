@@ -30,12 +30,8 @@ public abstract class AbstractStandardDeviationProvider
     @Override
     public abstract double standardDeviation();
 
-    public final double standardDeviationOfPopulation() {
-        return Math.sqrt(variance(StdFunction.stdOfAPopulation));
-    }
-
-    public final double standardDeviationOfSample() {
-        return Math.sqrt(variance(StdFunction.stdOfASample));
+    public final double standardDeviationOf(StdFunction func) {
+        return Math.sqrt(variance(func));
     }
 
     protected abstract double variance(StdFunction stdFunction);

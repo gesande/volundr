@@ -23,20 +23,12 @@ public final class StatisticsListProvider<T extends Number & Comparable>
 
     @Override
     public T percentile(final int percentile) {
-        final long rounded = round(nearestRank(percentile));
-        final int index = (int) (rounded - 1);
+        final long nearestRank = Rank.nearestRankOf(percentile,
+                values().size());
+        final int index = (int) (nearestRank - 1);
         return values().isEmpty() ? this.provider.zero()
                 : values().get(
                         index >= values().size() ? values().size() - 1 : index);
-    }
-
-    private static long round(final double nearestRank) {
-        return Math.round(nearestRank);
-    }
-
-    private double nearestRank(final int percentile) {
-        return PercentileRankCalculator.nearestRank(percentile,
-                values().size());
     }
 
     /**
@@ -44,7 +36,7 @@ public final class StatisticsListProvider<T extends Number & Comparable>
      */
     @Override
     public double standardDeviation() {
-        return standardDeviationOfPopulation();
+        return standardDeviationOf(StdFunction.stdOfAPopulation);
     }
 
     @Override
