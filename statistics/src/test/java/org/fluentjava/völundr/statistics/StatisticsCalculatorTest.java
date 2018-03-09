@@ -167,6 +167,23 @@ public class StatisticsCalculatorTest {
     }
 
     @Test
+    public void varianceAndStdOfKnownSamples() {
+        List<Integer> values = new ArrayList<>();
+        values.add(99);
+        values.add(100);
+        values.add(96);
+        values.add(100);
+        values.add(106);
+        values.add(102);
+        values.add(98);
+        StatisticsCalculator stat = StatisticsCalculator.fromValues(values);
+        assertEquals("Variance doesn't match!", 8.693877551020424,
+                stat.variance(), 0);
+        assertEquals("Standard deviation doesn't match!", 2.948538205792902,
+                stat.standardDeviation(), 0);
+    }
+
+    @Test
     public void empty() {
         final StatisticsCalculator empty = StatisticsCalculator
                 .fromValues(new ArrayList<Integer>());
