@@ -3,33 +3,41 @@ package org.fluentjava.völundr.statistics;
 import java.util.function.BiFunction;
 
 public abstract class AbstractStandardDeviationProvider
-        implements StandardDeviationProvider, VarianceProvider {
+        implements StandardDeviationProvider {
+
+    protected enum StdFunction {
+        stdOfAPopulation {
+            @Override
+            BiFunction<Double, Long, Double> std() {
+                return (s, n) -> (s / n);
+            }
+        },
+        stdOfASample {
+            @Override
+            BiFunction<Double, Long, Double> std() {
+                return (s, n) -> (s / (n - 1));
+            }
+        };
+
+        abstract BiFunction<Double, Long, Double> std();
+    }
 
     /**
      * This can either be standard deviation of a population or a sample
-     * depending on whether std or stdOfASample is used in the implementation of
-     * variance
+     * depending on which StdFunction is used in the implementation of
+     * calculating a variance.
      */
     @Override
-    public double standardDeviation() {
-        return Math.sqrt(variance());
-    }
+    public abstract double standardDeviation();
 
     public final double standardDeviationOfPopulation() {
-        return Math.sqrt(variance(std()));
+        return Math.sqrt(variance(StdFunction.stdOfAPopulation));
     }
 
     public final double standardDeviationOfSample() {
-        return Math.sqrt(variance(stdOfASample()));
+        return Math.sqrt(variance(StdFunction.stdOfASample));
     }
 
-    protected abstract double variance(BiFunction<Double, Long, Double> std);
+    protected abstract double variance(StdFunction stdFunction);
 
-    protected static BiFunction<Double, Long, Double> std() {
-        return (s, n) -> (s / n);
-    }
-
-    protected static BiFunction<Double, Long, Double> stdOfASample() {
-        return (s, n) -> (s / (n - 1));
-    }
 }

@@ -1,13 +1,12 @@
 package org.fluentjava.völundr.statistics;
 
 import java.util.List;
-import java.util.function.BiFunction;
 
 @SuppressWarnings("rawtypes")
 public final class StatisticsListProvider<T extends Number & Comparable>
-        extends AbstractStandardDeviationProvider
-        implements MaxValueProvider<T>, MinValueProvider<T>,
-        MeanProvider<Double>, MedianProvider<T>, PercentileProvider<T> {
+        extends AbstractStandardDeviationProvider implements
+        MaxValueProvider<T>, MinValueProvider<T>, MeanProvider<Double>,
+        MedianProvider<T>, PercentileProvider<T>, VarianceProvider {
     private final List<T> values;
     private final NumberValueProvider<T> provider;
 
@@ -68,11 +67,11 @@ public final class StatisticsListProvider<T extends Number & Comparable>
      */
     @Override
     public double variance() {
-        return variance(std());
+        return variance(StdFunction.stdOfAPopulation);
     }
 
     @Override
-    protected double variance(BiFunction<Double, Long, Double> std) {
+    protected double variance(StdFunction func) {
         long n = 0;
         double mean = 0;
         double s = 0.0;
@@ -82,7 +81,7 @@ public final class StatisticsListProvider<T extends Number & Comparable>
             mean += delta / n;
             s += delta * delta(x, mean);
         }
-        return std.apply(s, n);
+        return func.std().apply(s, n);
     }
 
     @Override
