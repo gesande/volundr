@@ -28,7 +28,6 @@ ext {
     distributionBasename = 'völundr-distribution'
 }
 
-
 apply plugin : JCenter
 apply plugin : 'java'
 apply plugin : ReportingPlugin
@@ -36,9 +35,7 @@ apply plugin : JavaDistributionPlugin
 apply plugin : EnvironmentVariablesPlugin
 apply plugin : EclipseSettingsPlugin
 apply plugin : ExportAntBuildFilePlugin
-
 apply plugin : BuildPlugin
-
 apply plugin: 'jacoco'
 
 allprojects {
@@ -85,6 +82,7 @@ task jacocoMerge(type: JacocoMerge) {
     publishedProjects.each { subproject ->
         executionData subproject.tasks.withType(Test)
     }
+
     doFirst {
         executionData = files(executionData.findAll { it.exists() })
     }
@@ -103,8 +101,8 @@ task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') { rep 
         html.enabled = true // human readable
         xml.enabled = true // required by coveralls
     }
+
     doLast {
 		println "Coverage report(s) can be found from ${buildDir}/reports/jacoco/jacocoAggregateReport"
     }
-
 }
