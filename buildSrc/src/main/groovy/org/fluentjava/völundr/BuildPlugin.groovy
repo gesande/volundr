@@ -38,6 +38,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'aggregateTestReport',
                 'aggregateJDependReport',
                 'aggregateFindbugsReport',
+                'jacocoAggregateReport',
                 'archiveAggregateReports'
             ]
             doLast { println "You've now license to commit, good work!" }
