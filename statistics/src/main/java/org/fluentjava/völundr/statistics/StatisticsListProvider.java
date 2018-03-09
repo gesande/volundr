@@ -53,6 +53,10 @@ public final class StatisticsListProvider<T extends Number & Comparable>
         return this.provider.divide(sum, values().size());
     }
 
+    /**
+     * When this is used to calculate standard deviation, it'll be standard
+     * deviation of a population
+     */
     @Override
     public double variance() {
         long n = 0;
