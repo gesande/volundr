@@ -1,6 +1,7 @@
 package org.fluentjava.völundr.statistics;
 
 import java.util.List;
+import java.util.function.BiFunction;
 
 @SuppressWarnings("rawtypes")
 public final class StatisticsListProvider<T extends Number & Comparable>
@@ -39,6 +40,14 @@ public final class StatisticsListProvider<T extends Number & Comparable>
                 values().size());
     }
 
+    /**
+     * This will return standard deviation of a population
+     */
+    @Override
+    public double standardDeviation() {
+        return standardDeviationOfPopulation();
+    }
+
     @Override
     public T median() {
         return values().isEmpty() ? zero() : this.provider.median(values());
@@ -59,6 +68,11 @@ public final class StatisticsListProvider<T extends Number & Comparable>
      */
     @Override
     public double variance() {
+        return variance(std());
+    }
+
+    @Override
+    protected double variance(BiFunction<Double, Long, Double> std) {
         long n = 0;
         double mean = 0;
         double s = 0.0;
@@ -68,7 +82,7 @@ public final class StatisticsListProvider<T extends Number & Comparable>
             mean += delta / n;
             s += delta * delta(x, mean);
         }
-        return std(s, n);
+        return std.apply(s, n);
     }
 
     @Override

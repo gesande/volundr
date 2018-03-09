@@ -1,5 +1,7 @@
 package org.fluentjava.völundr.statistics;
 
+import java.util.function.BiFunction;
+
 public abstract class AbstractStandardDeviationProvider
         implements StandardDeviationProvider, VarianceProvider {
 
@@ -9,16 +11,25 @@ public abstract class AbstractStandardDeviationProvider
      * variance
      */
     @Override
-    public final double standardDeviation() {
+    public double standardDeviation() {
         return Math.sqrt(variance());
     }
 
-    protected static final double std(final double s, final long n) {
-        return (s / n);
+    public final double standardDeviationOfPopulation() {
+        return Math.sqrt(variance(std()));
     }
 
-    protected static final double stdOfASample(final double s, final long n) {
-        return (s / (n - 1));
+    public final double standardDeviationOfSample() {
+        return Math.sqrt(variance(stdOfASample()));
     }
 
+    protected abstract double variance(BiFunction<Double, Long, Double> std);
+
+    protected static BiFunction<Double, Long, Double> std() {
+        return (s, n) -> (s / n);
+    }
+
+    protected static BiFunction<Double, Long, Double> stdOfASample() {
+        return (s, n) -> (s / (n - 1));
+    }
 }
