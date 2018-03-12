@@ -6,7 +6,7 @@ project(':statistics') { prj ->
     publishing {
         publications {
             maven(MavenPublication) {
-                groupId 'sf.net.volundr'
+                groupId 'org.fluentjava.volundr'
                 artifactId 'statistics'
 
                 from components.java

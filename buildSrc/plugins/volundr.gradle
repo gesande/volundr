@@ -22,7 +22,7 @@ ext {
 
     emmaPlugin="${buildScripts}/plugins/jacoco.gradle"
 
-    artifactVersion='3.0.0'
+    artifactVersion='3.0.1'
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
@@ -36,7 +36,7 @@ apply plugin : EnvironmentVariablesPlugin
 apply plugin : EclipseSettingsPlugin
 apply plugin : ExportAntBuildFilePlugin
 apply plugin : BuildPlugin
-apply plugin: 'jacoco'
+apply plugin : 'jacoco'
 
 allprojects {
     // In this section you declare where to find the dependencies of your project
