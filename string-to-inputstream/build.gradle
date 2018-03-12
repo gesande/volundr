@@ -1,5 +1,5 @@
 project(':string-to-inputstream') {
-    apply from : "$emmaPlugin"
+    apply from : "$codeCoveragePlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
     dependencies {
         compile project(':string-to-bytes')

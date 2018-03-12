@@ -20,7 +20,7 @@ ext {
 
     toolsDir="${projectDir}/tools"
 
-    emmaPlugin="${buildScripts}/plugins/jacoco.gradle"
+    codeCoveragePlugin="${buildScripts}/plugins/jacoco.gradle"
 
     artifactVersion='3.0.1'
 

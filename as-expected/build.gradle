@@ -1,5 +1,5 @@
 project(':as-expected') {
-    apply from : "$emmaPlugin"
+    apply from : "$codeCoveragePlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
     dependencies { compile "junit:junit:${junitVersion}" }

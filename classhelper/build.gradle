@@ -1,5 +1,5 @@
 project(':classhelper') {
-    apply from:"$emmaPlugin"
+    apply from:"$codeCoveragePlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
     dependencies {
