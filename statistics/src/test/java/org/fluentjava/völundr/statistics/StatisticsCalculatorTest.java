@@ -184,6 +184,48 @@ public class StatisticsCalculatorTest {
     }
 
     @Test
+    public void varianceAndStdOfASampleTest() {
+        StdOfASample stdOfASample = new StdOfASample();
+        stdOfASample.add(99);
+        stdOfASample.add(100);
+        stdOfASample.add(96);
+        stdOfASample.add(100);
+        stdOfASample.add(106);
+        stdOfASample.add(102);
+        stdOfASample.add(98);
+
+        assertEquals("Standard deviation doesn't match!", 3.184785258515421,
+                stdOfASample.standardDeviation(), 0);
+        assertEquals("Variance doesn't match!", 10.142857142857135,
+                stdOfASample.variance(), 0);
+    }
+
+    final class StdOfASample extends AbstractStandardDeviationProvider {
+
+        private final List<Integer> values = new ArrayList<>();
+
+        @Override
+        public double standardDeviation() {
+            return standardDeviationOf(StdFunction.stdOfASample);
+        }
+
+        public void add(int value) {
+            values.add(value);
+        }
+
+        @Override
+        protected double variance(StdFunction stdFunction) {
+            return calculateVariance(values, stdFunction,
+                    (value, mean) -> value - mean);
+        }
+
+        @Override
+        public double variance() {
+            return variance(StdFunction.stdOfASample);
+        }
+    }
+
+    @Test
     public void empty() {
         final StatisticsCalculator empty = StatisticsCalculator
                 .fromValues(new ArrayList<Integer>());

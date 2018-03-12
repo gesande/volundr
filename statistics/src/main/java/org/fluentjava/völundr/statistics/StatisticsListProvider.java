@@ -2,23 +2,25 @@ package org.fluentjava.völundr.statistics;
 
 import java.util.List;
 
-@SuppressWarnings("rawtypes")
-public final class StatisticsListProvider<T extends Number & Comparable>
-        extends AbstractStandardDeviationProvider implements
-        MaxValueProvider<T>, MinValueProvider<T>, MeanProvider<Double>,
-        MedianProvider<T>, PercentileProvider<T>, VarianceProvider {
+public final class StatisticsListProvider<T extends Number & Comparable<T>>
+        extends AbstractStandardDeviationProvider
+        implements MaxValueProvider<T>, MinValueProvider<T>,
+        MeanProvider<Double>, MedianProvider<T>, PercentileProvider<T> {
     private final List<T> values;
     private final NumberValueProvider<T> provider;
+    private StdFunction stdFunction;
 
     private StatisticsListProvider(final List<T> values,
-            NumberValueProvider<T> provider) {
+            NumberValueProvider<T> provider, StdFunction stdFunction) {
         this.values = values;
         this.provider = provider;
+        this.stdFunction = stdFunction;
     }
 
-    public static <E extends Number & Comparable> StatisticsListProvider<E> fromValues(
+    public static <E extends Number & Comparable<E>> StatisticsListProvider<E> fromValues(
             final List<E> values, final NumberValueProvider<E> provider) {
-        return new StatisticsListProvider<>(provider.sort(values), provider);
+        return new StatisticsListProvider<>(provider.sort(values), provider,
+                StdFunction.stdOfAPopulation);
     }
 
     @Override
@@ -32,11 +34,12 @@ public final class StatisticsListProvider<T extends Number & Comparable>
     }
 
     /**
-     * This will return standard deviation of a population
+     * This will return standard deviation of a population/sample depending on
+     * stdFunction passed in constructor
      */
     @Override
     public double standardDeviation() {
-        return standardDeviationOf(StdFunction.stdOfAPopulation);
+        return standardDeviationOf(stdFunction());
     }
 
     @Override
@@ -59,30 +62,18 @@ public final class StatisticsListProvider<T extends Number & Comparable>
      */
     @Override
     public double variance() {
-        return variance(StdFunction.stdOfAPopulation);
+        return variance(stdFunction());
     }
 
     @Override
     protected double variance(StdFunction func) {
-        long n = 0;
-        double mean = 0;
-        double s = 0.0;
-        for (final T x : values()) {
-            n++;
-            final double delta = delta(x, mean);
-            mean += delta / n;
-            s += delta * delta(x, mean);
-        }
-        return func.std().apply(s, n);
+        return calculateVariance(values(), func,
+                (value, mean) -> provider.delta(value, mean));
     }
 
     @Override
     public T max() {
         return values().isEmpty() ? zero() : values().get(values().size() - 1);
-    }
-
-    private double delta(final T x, double mean) {
-        return this.provider.delta(x, mean);
     }
 
     private T zero() {
@@ -100,5 +91,9 @@ public final class StatisticsListProvider<T extends Number & Comparable>
 
     public int samples() {
         return this.values.size();
+    }
+
+    private StdFunction stdFunction() {
+        return stdFunction;
     }
 }
