@@ -184,6 +184,25 @@ public class StatisticsCalculatorTest {
     }
 
     @Test
+    public void varianceAndStdOfKnownEggWeights() {
+        List<Integer> values = new ArrayList<>();
+        values.add(60);
+        values.add(56);
+        values.add(61);
+        values.add(68);
+        values.add(51);
+        values.add(53);
+        values.add(69);
+        values.add(54);
+        StatisticsCalculator stat = StatisticsCalculator.fromValues(values);
+        assertEquals("Mean doesn't match!", 59, stat.mean(), 0);
+        assertEquals("Standard deviation doesn't match!", 6.32455532033676,
+                stat.standardDeviation(), 0);
+        assertEquals("Variance doesn't match!", 40.000000000000014,
+                stat.variance(), 0);
+    }
+
+    @Test
     public void varianceAndStdOfASampleTest() {
         StdOfASample stdOfASample = new StdOfASample();
         stdOfASample.add(99);
