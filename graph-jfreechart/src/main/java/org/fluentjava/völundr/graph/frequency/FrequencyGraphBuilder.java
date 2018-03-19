@@ -1,10 +1,9 @@
 package org.fluentjava.völundr.graph.frequency;
 
 import org.fluentjava.völundr.graph.ImageData;
+import org.fluentjava.völundr.graph.ImageFactory;
 import org.fluentjava.völundr.graph.LineChartAdapterProvider;
 import org.fluentjava.völundr.graph.SampleGraph;
-import org.fluentjava.völundr.graph.jfreechart.ImageFactoryUsingJFreeChart;
-import org.fluentjava.völundr.graph.jfreechart.JFreeChartWriter;
 
 public final class FrequencyGraphBuilder {
 
@@ -45,8 +44,7 @@ public final class FrequencyGraphBuilder {
         });
     }
 
-    public void writeGraph(String path, String graphName) {
-        new ImageFactoryUsingJFreeChart(new JFreeChartWriter(path))
-                .createXYLineChart(graphName, sampleGraph.imageData());
+    public void writeGraph(ImageFactory imageFactory, String graphName) {
+        imageFactory.createXYLineChart(graphName, sampleGraph.imageData());
     }
 }

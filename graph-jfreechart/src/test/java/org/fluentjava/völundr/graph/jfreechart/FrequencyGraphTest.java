@@ -21,6 +21,8 @@ import org.junit.Test;
 public class FrequencyGraphTest {
 
     private static byte[] goldenMasterBytes;
+    private static String targetPath;
+    private static ImageFactoryUsingJFreeChart imageFactory;
 
     @BeforeClass
     public static void loadGoldenMaster() throws IOException {
@@ -28,6 +30,10 @@ public class FrequencyGraphTest {
                 .getResource("goldenMaster.png").getFile());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
+        targetPath = System.getProperty("user.dir") + "/target";
+
+        imageFactory = new ImageFactoryUsingJFreeChart(
+                new JFreeChartWriter(targetPath));
     }
 
     @Test
@@ -74,11 +80,11 @@ public class FrequencyGraphTest {
         FrequencyGraphBuilder frequencyGraphBuilder = FrequencyGraphBuilder
                 .newFrequencyGraph(frequencyData, "graphTitle", "xAxisTitle",
                         lineChartAdapterProvider);
-        String path = System.getProperty("user.dir") + "/target";
         String graphName = "writeGraph";
-        frequencyGraphBuilder.writeGraph(path, graphName);
+        frequencyGraphBuilder.writeGraph(imageFactory, graphName);
 
-        byte[] bytes = Files.readAllBytes(Paths.get(path, graphName + ".png"));
+        byte[] bytes = Files
+                .readAllBytes(Paths.get(targetPath, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytes, bytes);
     }
 
@@ -119,10 +125,10 @@ public class FrequencyGraphTest {
         FrequencyGraphBuilder frequencyGraphBuilder = FrequencyGraphBuilder
                 .newFrequencyGraph(frequencyData, "graphTitle", "xAxisTitle",
                         lineChartAdapterProvider);
-        String path = System.getProperty("user.dir") + "/target";
         String graphName = "writeGraphFromStatisticsValueProvider";
-        frequencyGraphBuilder.writeGraph(path, graphName);
-        byte[] bytes = Files.readAllBytes(Paths.get(path, graphName + ".png"));
+        frequencyGraphBuilder.writeGraph(imageFactory, graphName);
+        byte[] bytes = Files
+                .readAllBytes(Paths.get(targetPath, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytes, bytes);
     }
 
@@ -172,11 +178,11 @@ public class FrequencyGraphTest {
         FrequencyGraphBuilder frequencyGraphBuilder = FrequencyGraphBuilder
                 .newFrequencyGraph(frequencyData, "graphTitle", "xAxisTitle",
                         lineChartAdapterProvider);
-        String path = System.getProperty("user.dir") + "/target";
         String graphName = "writeGraphFromStatisticsListProviderLongValues";
-        frequencyGraphBuilder.writeGraph(path, graphName);
+        frequencyGraphBuilder.writeGraph(imageFactory, graphName);
 
-        byte[] bytes = Files.readAllBytes(Paths.get(path, graphName + ".png"));
+        byte[] bytes = Files
+                .readAllBytes(Paths.get(targetPath, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytes, bytes);
     }
 
@@ -226,10 +232,10 @@ public class FrequencyGraphTest {
         FrequencyGraphBuilder frequencyGraphBuilder = FrequencyGraphBuilder
                 .newFrequencyGraph(frequencyData, "graphTitle", "xAxisTitle",
                         lineChartAdapterProvider);
-        String path = System.getProperty("user.dir") + "/target";
         String graphName = "writeGraphFromStatisticsListProviderIntValues";
-        frequencyGraphBuilder.writeGraph(path, graphName);
-        byte[] bytes = Files.readAllBytes(Paths.get(path, graphName + ".png"));
+        frequencyGraphBuilder.writeGraph(imageFactory, graphName);
+        byte[] bytes = Files
+                .readAllBytes(Paths.get(targetPath, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytes, bytes);
     }
 
