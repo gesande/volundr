@@ -3,7 +3,7 @@ package org.fluentjava.völundr.statistics;
 import org.fluentjava.völundr.bag.StronglyTypedSortedBag;
 
 @SuppressWarnings("rawtypes")
-abstract class AbstractStatisticsValueProvider<T extends Number & Comparable>
+public abstract class AbstractStatisticsValueProvider<T extends Number & Comparable>
         implements PercentileProvider<T>, MaxValueProvider<T>,
         MinValueProvider<T>, MeanProvider<Double>, MedianProvider<T> {
     private final StronglyTypedSortedBag<T> values;

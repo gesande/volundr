@@ -34,6 +34,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'bytes-to-string:continous',
                 'as-expected:continous',
                 'statistics-valueprovider:continous',
+                'graph-jfreechart:continous',
                 'exportAntBuildFile',
                 'aggregateTestReport',
                 'aggregateJDependReport',
@@ -68,6 +69,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'bytes-to-string:clean',
                 'as-expected:clean',
                 'statistics-valueprovider:clean',
+                'graph-jfreechart:clean',
                 'concurrent:release',
                 'stronglytyped-sortedbag:release',
                 'junit-utils:release',
@@ -87,6 +89,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'bytes-to-string:release',
                 'as-expected:release',
                 'statistics-valueprovider:release',
+                'graph-jfreechart:release',
                 'makeDistributionPackage'
             ]
 

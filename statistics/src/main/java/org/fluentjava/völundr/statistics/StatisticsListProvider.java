@@ -93,6 +93,10 @@ public final class StatisticsListProvider<T extends Number & Comparable<T>>
         return this.values.size();
     }
 
+    public boolean hasSamples() {
+        return !values().isEmpty();
+    }
+
     private StdFunction stdFunction() {
         return stdFunction;
     }
