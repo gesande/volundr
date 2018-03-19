@@ -3,19 +3,23 @@ package org.fluentjava.völundr.graph.frequency;
 import org.fluentjava.völundr.graph.ImageData;
 import org.fluentjava.völundr.graph.LineChartAdapterProvider;
 import org.fluentjava.völundr.graph.SampleGraph;
+import org.fluentjava.völundr.graph.jfreechart.ImageFactoryUsingJFreeChart;
+import org.fluentjava.völundr.graph.jfreechart.JFreeChartWriter;
 
 public final class FrequencyGraphBuilder {
 
     private static final String LEGEND_TITLE = "Frequency";
+    private SampleGraph sampleGraph;
 
-    private FrequencyGraphBuilder() {
+    private FrequencyGraphBuilder(SampleGraph sampleGraph) {
+        this.sampleGraph = sampleGraph;
     }
 
-    public static SampleGraph newFrequencyGraph(
+    public static FrequencyGraphBuilder newFrequencyGraph(
             final FrequencyData frequencyData, final String graphTitle,
             final String xAxisTitle,
             final LineChartAdapterProvider<?, ?> lineChartAdapterProvider) {
-        return new SampleGraph() {
+        return new FrequencyGraphBuilder(new SampleGraph() {
 
             @Override
             public ImageData imageData() {
@@ -38,6 +42,11 @@ public final class FrequencyGraphBuilder {
             public boolean hasSamples() {
                 return frequencyData.hasSamples();
             }
-        };
+        });
+    }
+
+    public void writeGraph(String path, String graphName) {
+        new ImageFactoryUsingJFreeChart(new JFreeChartWriter(path))
+                .createXYLineChart(graphName, sampleGraph.imageData());
     }
 }

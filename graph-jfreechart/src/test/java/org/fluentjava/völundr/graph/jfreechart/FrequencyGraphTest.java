@@ -1,8 +1,5 @@
 package org.fluentjava.völundr.graph.jfreechart;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.fluentjava.völundr.graph.ImageData;
-import org.fluentjava.völundr.graph.SampleGraph;
 import org.fluentjava.völundr.graph.frequency.FrequencyData;
 import org.fluentjava.völundr.graph.frequency.FrequencyGraphBuilder;
 import org.fluentjava.völundr.statistics.AbstractStatisticsValueProvider;
@@ -76,19 +71,13 @@ public class FrequencyGraphTest {
             }
         };
         DefaultDatasetAdapterFactory lineChartAdapterProvider = new DefaultDatasetAdapterFactory();
-        SampleGraph frequencyGraph = FrequencyGraphBuilder.newFrequencyGraph(
-                frequencyData, "graphTitle", "xAxisTitle",
-                lineChartAdapterProvider);
-        ImageData imageData = frequencyGraph.imageData();
+        FrequencyGraphBuilder frequencyGraphBuilder = FrequencyGraphBuilder
+                .newFrequencyGraph(frequencyData, "graphTitle", "xAxisTitle",
+                        lineChartAdapterProvider);
         String path = System.getProperty("user.dir") + "/target";
         String graphName = "writeGraph";
+        frequencyGraphBuilder.writeGraph(path, graphName);
 
-        new ImageFactoryUsingJFreeChart(new JFreeChartWriter(path))
-                .createXYLineChart(graphName, imageData);
-        assertTrue(frequencyGraph.hasSamples());
-        assertEquals("graphTitle", imageData.title());
-        assertEquals("xAxisTitle", imageData.xAxisLabel());
-        assertEquals(8.0, imageData.range(), 0);
         byte[] bytes = Files.readAllBytes(Paths.get(path, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytes, bytes);
     }
@@ -127,25 +116,19 @@ public class FrequencyGraphTest {
                 return stats.countFor(value);
             }
         };
-        SampleGraph frequencyGraph = FrequencyGraphBuilder.newFrequencyGraph(
-                frequencyData, "graphTitle", "xAxisTitle",
-                lineChartAdapterProvider);
-        ImageData imageData = frequencyGraph.imageData();
+        FrequencyGraphBuilder frequencyGraphBuilder = FrequencyGraphBuilder
+                .newFrequencyGraph(frequencyData, "graphTitle", "xAxisTitle",
+                        lineChartAdapterProvider);
         String path = System.getProperty("user.dir") + "/target";
         String graphName = "writeGraphFromStatisticsValueProvider";
-
-        new ImageFactoryUsingJFreeChart(new JFreeChartWriter(path))
-                .createXYLineChart(graphName, imageData);
-        assertTrue(frequencyGraph.hasSamples());
-        assertEquals("graphTitle", imageData.title());
-        assertEquals("xAxisTitle", imageData.xAxisLabel());
-        assertEquals(8.0, imageData.range(), 0);
+        frequencyGraphBuilder.writeGraph(path, graphName);
         byte[] bytes = Files.readAllBytes(Paths.get(path, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytes, bytes);
     }
 
     @Test
-    public void writeGraphFromStatisticsListProvider() throws IOException {
+    public void writeGraphFromStatisticsListProviderLongValues()
+            throws IOException {
         List<Long> values = new ArrayList<>();
         values.add(2L);
         values.add(3L);
@@ -186,20 +169,13 @@ public class FrequencyGraphTest {
                 return count.get();
             }
         };
-        SampleGraph frequencyGraph = FrequencyGraphBuilder.newFrequencyGraph(
-                frequencyData, "graphTitle", "xAxisTitle",
-                lineChartAdapterProvider);
-        ImageData imageData = frequencyGraph.imageData();
+        FrequencyGraphBuilder frequencyGraphBuilder = FrequencyGraphBuilder
+                .newFrequencyGraph(frequencyData, "graphTitle", "xAxisTitle",
+                        lineChartAdapterProvider);
         String path = System.getProperty("user.dir") + "/target";
-        String graphName = "writeGraphFromStatisticsListProvider";
+        String graphName = "writeGraphFromStatisticsListProviderLongValues";
+        frequencyGraphBuilder.writeGraph(path, graphName);
 
-        new ImageFactoryUsingJFreeChart(new JFreeChartWriter(path))
-                .createXYLineChart(graphName, imageData);
-
-        assertTrue(frequencyGraph.hasSamples());
-        assertEquals("graphTitle", imageData.title());
-        assertEquals("xAxisTitle", imageData.xAxisLabel());
-        assertEquals(8.0, imageData.range(), 0);
         byte[] bytes = Files.readAllBytes(Paths.get(path, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytes, bytes);
     }
@@ -247,20 +223,12 @@ public class FrequencyGraphTest {
                 return count.get();
             }
         };
-        SampleGraph frequencyGraph = FrequencyGraphBuilder.newFrequencyGraph(
-                frequencyData, "graphTitle", "xAxisTitle",
-                lineChartAdapterProvider);
-        ImageData imageData = frequencyGraph.imageData();
+        FrequencyGraphBuilder frequencyGraphBuilder = FrequencyGraphBuilder
+                .newFrequencyGraph(frequencyData, "graphTitle", "xAxisTitle",
+                        lineChartAdapterProvider);
         String path = System.getProperty("user.dir") + "/target";
         String graphName = "writeGraphFromStatisticsListProviderIntValues";
-
-        new ImageFactoryUsingJFreeChart(new JFreeChartWriter(path))
-                .createXYLineChart(graphName, imageData);
-
-        assertTrue(frequencyGraph.hasSamples());
-        assertEquals("graphTitle", imageData.title());
-        assertEquals("xAxisTitle", imageData.xAxisLabel());
-        assertEquals(8.0, imageData.range(), 0);
+        frequencyGraphBuilder.writeGraph(path, graphName);
         byte[] bytes = Files.readAllBytes(Paths.get(path, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytes, bytes);
     }
