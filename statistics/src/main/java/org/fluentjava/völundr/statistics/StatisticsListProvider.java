@@ -1,6 +1,7 @@
 package org.fluentjava.völundr.statistics;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public final class StatisticsListProvider<T extends Number & Comparable<T>>
         extends AbstractStandardDeviationProvider
@@ -89,8 +90,16 @@ public final class StatisticsListProvider<T extends Number & Comparable<T>>
         return this.values;
     }
 
+    public void accept(Consumer<? super T> consumer) {
+        this.values.forEach(consumer);
+    }
+
     public int samples() {
         return this.values.size();
+    }
+
+    public boolean hasSamples() {
+        return !values().isEmpty();
     }
 
     private StdFunction stdFunction() {
