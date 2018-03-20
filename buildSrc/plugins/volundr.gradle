@@ -103,6 +103,6 @@ task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') { rep 
     }
 
     doLast {
-		println "Coverage report(s) can be found from ${buildDir}/reports/jacoco/jacocoAggregateReport"
+		println "Coverage report(s) can be found from file://${buildDir}/reports/jacoco/jacocoAggregateReport"
     }
 }

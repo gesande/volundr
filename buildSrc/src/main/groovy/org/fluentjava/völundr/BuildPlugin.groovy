@@ -35,6 +35,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'as-expected:continous',
                 'statistics-valueprovider:continous',
                 'graph-jfreechart:continous',
+                'graph-jfreechart-api:continous',
                 'exportAntBuildFile',
                 'aggregateTestReport',
                 'aggregateJDependReport',
@@ -90,6 +91,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'as-expected:release',
                 'statistics-valueprovider:release',
                 'graph-jfreechart:release',
+                'graph-jfreechart-api:release',
                 'makeDistributionPackage'
             ]
 

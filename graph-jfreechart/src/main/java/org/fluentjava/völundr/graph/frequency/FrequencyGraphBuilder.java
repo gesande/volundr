@@ -45,6 +45,8 @@ public final class FrequencyGraphBuilder {
     }
 
     public void writeGraph(ImageFactory imageFactory, String graphName) {
-        imageFactory.createXYLineChart(graphName, sampleGraph.imageData());
+        if (sampleGraph.hasSamples()) { // no need to create an empty graph
+            imageFactory.createXYLineChart(graphName, sampleGraph.imageData());
+        }
     }
 }
