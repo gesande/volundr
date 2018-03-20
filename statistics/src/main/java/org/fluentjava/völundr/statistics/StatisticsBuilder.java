@@ -86,12 +86,14 @@ public final class StatisticsBuilder {
     }
 
     public static StatisticsBuilder withLongValues(List<Long> values) {
-        return new StatisticsBuilder(
-                StatisticsListProviderFactory.longValues(values));
+        return with(StatisticsListProviderFactory.longValues(values));
     }
 
     public static StatisticsBuilder withIntegerValues(List<Integer> values) {
-        return new StatisticsBuilder(
-                StatisticsListProviderFactory.integerValues(values));
+        return with(StatisticsListProviderFactory.integerValues(values));
+    }
+
+    public static StatisticsBuilder with(StatisticsListProvider<?> provider) {
+        return new StatisticsBuilder(provider);
     }
 }

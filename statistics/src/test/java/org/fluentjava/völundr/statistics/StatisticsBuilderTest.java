@@ -26,6 +26,24 @@ public class StatisticsBuilderTest {
     }
 
     @Test
+    public void withProvider() {
+        List<Integer> values = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            values.add(i);
+        }
+        StatisticsListProvider<Integer> provider = StatisticsListProviderFactory
+                .integerValues(values);
+        StatisticsBuilder.with(provider).title("title").samples().max().min()
+                .mean().median().percentile95().std().variance()
+                .consumedBy(stats -> assertEquals("title\n"
+                        + "samples       : 100\n" + "max           : 99\n"
+                        + "min           : 0\n" + "mean          : 49.5\n"
+                        + "median        : 49\n" + "95 percentile : 95\n"
+                        + "std           : 28.86607004772212\n"
+                        + "variance      : 833.25\n" + "", stats));
+    }
+
+    @Test
     public void noVariance() {
         List<Integer> values = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
