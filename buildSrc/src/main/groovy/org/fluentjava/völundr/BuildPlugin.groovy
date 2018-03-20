@@ -71,6 +71,7 @@ public class BuildPlugin implements Plugin<Project> {
                 'as-expected:clean',
                 'statistics-valueprovider:clean',
                 'graph-jfreechart:clean',
+                'graph-jfreechart-api:clean',
                 'concurrent:release',
                 'stronglytyped-sortedbag:release',
                 'junit-utils:release',
