@@ -40,9 +40,39 @@ public final class FrequencyGraphApi {
                 return bag.count((int) value);
             }
         };
+        writeGraph(graphTitle, xAxisTitle, graphName, frequencyData);
+    }
+
+    public void createFrequencyGraphLongValues(String graphTitle,
+            String xAxisTitle, String graphName,
+            StatisticsListProvider<Long> statistics) {
+        final StronglyTypedSortedBag<Long> bag = StronglyTypedSortedBag
+                .treeBag();
+        statistics.accept(value -> bag.add(value));
+        final FrequencyData frequencyData = new FrequencyData() {
+
+            @Override
+            public long max() {
+                return statistics.max();
+            }
+
+            @Override
+            public boolean hasSamples() {
+                return statistics.hasSamples();
+            }
+
+            @Override
+            public long countFor(long value) {
+                return bag.count(value);
+            }
+        };
+        writeGraph(graphTitle, xAxisTitle, graphName, frequencyData);
+    }
+
+    private void writeGraph(String graphTitle, String xAxisTitle,
+            String graphName, final FrequencyData frequencyData) {
         FrequencyGraphBuilder.newFrequencyGraph(frequencyData, graphTitle,
                 xAxisTitle, ADAPTER_FACTORY)
                 .writeGraph(imageFactory, graphName);
-
     }
 }

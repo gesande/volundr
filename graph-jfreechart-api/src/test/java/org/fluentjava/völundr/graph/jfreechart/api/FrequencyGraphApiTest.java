@@ -52,4 +52,32 @@ public class FrequencyGraphApiTest {
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytes, bytes);
     }
+
+    @Test
+    public void writeGraphFromStatisticsListProviderLongValues()
+            throws IOException {
+        List<Long> values = new ArrayList<>();
+        values.add(2L);
+        values.add(3L);
+        values.add(4L);
+        values.add(4L);
+        values.add(5L);
+        values.add(5L);
+        values.add(5L);
+        values.add(6L);
+        values.add(6L);
+        values.add(7L);
+        values.add(8L);
+
+        StatisticsListProvider<Long> stats = StatisticsListProviderFactory
+                .longValues(values);
+
+        String graphName = "writeGraphFromStatisticsListProviderLongValues";
+        new FrequencyGraphApi(targetPath).createFrequencyGraphLongValues(
+                "graphTitle", "xAxisTitle", graphName, stats);
+        byte[] bytes = Files
+                .readAllBytes(Paths.get(targetPath, graphName + ".png"));
+        Assert.assertArrayEquals(goldenMasterBytes, bytes);
+    }
+
 }

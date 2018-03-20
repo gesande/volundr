@@ -29,6 +29,8 @@ DONE
 + start 3.0.1
 + retire emma.gradle
 + statistics refactoring around std and variance
++ graph + jfreechart + frequence graph
++ createFrequencyGraphLongValues
 
 IN PROGRESS 
 
