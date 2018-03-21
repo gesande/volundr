@@ -31,6 +31,9 @@ DONE
 + statistics refactoring around std and variance
 + graph + jfreechart + frequence graph
 + createFrequencyGraphLongValues
++ 3.0.2 release
++ 3.0.3 release
++ start 3.0.4
 
 IN PROGRESS 
 
