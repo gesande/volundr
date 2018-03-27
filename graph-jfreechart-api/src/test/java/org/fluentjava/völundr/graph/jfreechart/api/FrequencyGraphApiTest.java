@@ -19,8 +19,9 @@ public class FrequencyGraphApiTest {
 
     @BeforeClass
     public static void loadGoldenMaster() throws IOException {
-        File goldenMaster = new File(FrequencyGraphApiTest.class
-                .getClassLoader().getResource("goldenMaster.png").getFile());
+        File goldenMaster = new File(
+                FrequencyGraphApiTest.class.getClassLoader()
+                        .getResource("frequencyGoldenMaster.png").getFile());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";
@@ -45,7 +46,7 @@ public class FrequencyGraphApiTest {
         StatisticsListProvider<Integer> stats = StatisticsListProviderFactory
                 .integerValues(values);
 
-        String graphName = "writeGraphFromStatisticsListProviderIntValues";
+        String graphName = "FrequencyGraphApiTest-writeGraphFromStatisticsListProviderIntValues";
         new FrequencyGraphApi(targetPath).createFrequencyGraph("graphTitle",
                 "xAxisTitle", graphName, stats);
         byte[] bytes = Files
@@ -72,7 +73,7 @@ public class FrequencyGraphApiTest {
         StatisticsListProvider<Long> stats = StatisticsListProviderFactory
                 .longValues(values);
 
-        String graphName = "writeGraphFromStatisticsListProviderLongValues";
+        String graphName = "FrequencyGraphApiTest-writeGraphFromStatisticsListProviderLongValues";
         new FrequencyGraphApi(targetPath).createFrequencyGraphLongValues(
                 "graphTitle", "xAxisTitle", graphName, stats);
         byte[] bytes = Files
