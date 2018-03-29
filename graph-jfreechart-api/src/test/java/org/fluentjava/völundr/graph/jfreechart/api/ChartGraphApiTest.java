@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fluentjava.völundr.bag.StronglyTypedSortedBag;
+import org.fluentjava.völundr.statistics.AbstractStatisticsValueProvider;
 import org.fluentjava.völundr.statistics.StatisticsListProvider;
 import org.fluentjava.völundr.statistics.StatisticsListProviderFactory;
+import org.fluentjava.völundr.statistics.StatisticsValueProviderFactory;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -60,6 +62,32 @@ public class ChartGraphApiTest {
         String graphName = "ChartGraphApiTest-barGraphFromBagOfValues";
         new ChartGraphApi(targetPath).createBarChart("legendTitle",
                 "graphTitle", "xAxisTitle", graphName, bag);
+        byte[] bytes = Files
+                .readAllBytes(Paths.get(targetPath, graphName + ".png"));
+        Assert.assertArrayEquals(goldenMasterBytesOf("barGraphFromBagOfValues"),
+                bytes);
+    }
+
+    @Test
+    public void barGraphFromStatisticsValueProvider() throws IOException {
+        AbstractStatisticsValueProvider<Integer> stats = StatisticsValueProviderFactory
+                .integerValues();
+        for (int i = 0; i < 100; i++) {
+            stats.addSample(200);
+        }
+        for (int i = 0; i < 10; i++) {
+            stats.addSample(204);
+        }
+        for (int i = 0; i < 3; i++) {
+            stats.addSample(403);
+        }
+        for (int i = 0; i < 5; i++) {
+            stats.addSample(500);
+        }
+
+        String graphName = "ChartGraphApiTest-barGraphFromStatisticsValueProvider";
+        new ChartGraphApi(targetPath).createBarChart("legendTitle",
+                "graphTitle", "xAxisTitle", graphName, stats);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
         Assert.assertArrayEquals(goldenMasterBytesOf("barGraphFromBagOfValues"),

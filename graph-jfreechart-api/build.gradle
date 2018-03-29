@@ -3,15 +3,15 @@ project(':graph-jfreechart-api') {
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
     dependencies { 
-        compile project(':fileutil')
+    compile project(':fileutil')
 	compile project(':graph-jfreechart')
 	compile project(':statistics')
 	compile project(':stronglytyped-sortedbag')
 	compile "org.jfree:jfreechart:${jfreechartVersion}"
-        compile "org.slf4j:slf4j-api:${slf4jVersion}"
-        testCompile "junit:junit:${junitVersion}"
-        testCompile project(':statistics-valueprovider')
-        testRuntime "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntime "log4j:log4j:${log4jVersion}"
+    compile project(':statistics-valueprovider')
+    compile "org.slf4j:slf4j-api:${slf4jVersion}"
+    testCompile "junit:junit:${junitVersion}"
+    testRuntime "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+    testRuntime "log4j:log4j:${log4jVersion}"
     }
 }

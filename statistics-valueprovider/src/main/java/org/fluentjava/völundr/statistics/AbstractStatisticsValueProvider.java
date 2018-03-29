@@ -1,5 +1,7 @@
 package org.fluentjava.völundr.statistics;
 
+import java.util.function.Consumer;
+
 import org.fluentjava.völundr.bag.StronglyTypedSortedBag;
 
 @SuppressWarnings("rawtypes")
@@ -116,5 +118,9 @@ public abstract class AbstractStatisticsValueProvider<T extends Number & Compara
     protected abstract boolean equalsToZero(T value);
 
     protected abstract T calculateMean(T value1, T value2);
+
+    public void acceptUniqueSamples(Consumer<? super T> consumer) {
+        values().uniqueSamples().forEach(val -> consumer.accept(val));
+    }
 
 }
