@@ -34,7 +34,9 @@ DONE
 + 3.0.2 release
 + 3.0.3 release
 + start 3.0.4
-
++ linechart graph-api
++ barchart graph-api
 IN PROGRESS 
 
 WAITING
+- scatterchart graph-api
