@@ -20,6 +20,12 @@ public final class ImageDataFactory {
                 linechartAdapter(title));
     }
 
+    public ImageData newImageDataForLineChart(final String legendTitle,
+            final String title, final String xAxisTitle) {
+        return ImageData.noStatistics(title, xAxisTitle,
+                linechartAdapter(legendTitle));
+    }
+
     private DatasetAdapter<?, ?> linechartAdapter(final String legendTitle) {
         return lineChartAdapterProvider().forLineChart(legendTitle);
     }

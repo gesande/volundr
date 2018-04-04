@@ -67,7 +67,7 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
 
     @Override
     public void createScatterPlot(final String id, final ImageData imageData) {
-        log().info("Create line chart for: {}", id);
+        log().info("Create scatter plot chart for: {}", id);
         writeChartToFile(id, jfreeChartFactory().newScatterPlot(imageData));
     }
 
