@@ -1,5 +1,4 @@
 //import my-gradle-build stuff
-import net.sf.mygradlebuild.plugins.DefaultContinousBuildPlugin
 import net.sf.mygradlebuild.plugins.EclipseSettingsPlugin
 import net.sf.mygradlebuild.plugins.EnvironmentVariablesPlugin
 import org.fluentjava.völundr.JCenter
@@ -8,7 +7,7 @@ import org.fluentjava.völundr.BuildPlugin
 import org.fluentjava.völundr.ExportAntBuildFilePlugin
 import org.fluentjava.völundr.JavaDistributionPlugin
 import org.fluentjava.völundr.NewJavaProjectPlugin
-
+import org.fluentjava.völundr.VolundrContinousBuildPlugin
 import org.gradle.api.JavaVersion
 
 ext {
@@ -54,8 +53,7 @@ reportingSettings {
 }
 
 subprojects { prj ->
-    apply plugin : DefaultContinousBuildPlugin
-    apply plugin:'jacoco'
+    apply plugin : VolundrContinousBuildPlugin
 
     compileJava.options.encoding = 'UTF-8'
 
@@ -66,13 +64,6 @@ subprojects { prj ->
 
     pmd { toolVersion = '4.3'   }
 
-    task jacocoMerge(type: JacocoMerge) {
-        executionData tasks.withType(Test)
-
-        doFirst {
-            executionData = files(executionData.findAll { it.exists() })
-        }
-    }
 }
 
 def publishedProjects = subprojects.findAll() { it.path != ':buildSrc' }
