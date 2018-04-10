@@ -39,6 +39,7 @@ DONE
 + barchart graph-api
 + scatter plot graph-api
 + 3.0.4 release
++ start 3.0.5
 IN PROGRESS 
 
 WAITING
