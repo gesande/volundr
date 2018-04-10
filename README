@@ -13,3 +13,6 @@ visiting-inputstreams
 string-to-outputstream
 inputstream-to-string
 statistics
+graph-jfreechart
+graph-jfreechart-api
+statistics-valueprovider

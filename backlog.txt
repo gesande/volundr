@@ -1,3 +1,4 @@
+
 DONE
 + my-gradle-build if no other system available
 + introduce projects
@@ -37,6 +38,7 @@ DONE
 + linechart graph-api
 + barchart graph-api
 + scatter plot graph-api
++ 3.0.4 release
 IN PROGRESS 
 
 WAITING
