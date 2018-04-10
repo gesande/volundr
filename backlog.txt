@@ -43,3 +43,8 @@ DONE
 IN PROGRESS 
 
 WAITING
+- introduce readme.md #docs
+- deps versions in ext instead of gradle.properties #build
+- use findbugs downloaded, not statically in version control #build
+- convert dev-setup.txt to md format, also update it correctly #docs
+
