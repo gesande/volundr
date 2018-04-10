@@ -36,7 +36,7 @@ DONE
 + start 3.0.4
 + linechart graph-api
 + barchart graph-api
++ scatter plot graph-api
 IN PROGRESS 
 
 WAITING
-- scatterchart graph-api

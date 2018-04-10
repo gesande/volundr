@@ -1,4 +1,4 @@
-package org.fluentjava.völundr.graph.jfreechart;
+package org.fluentjava.völundr.graph.frequency;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.fluentjava.völundr.graph.frequency.FrequencyData;
-import org.fluentjava.völundr.graph.frequency.FrequencyGraphBuilder;
+import org.fluentjava.völundr.graph.jfreechart.DefaultDatasetAdapterFactory;
+import org.fluentjava.völundr.graph.jfreechart.ImageFactoryUsingJFreeChart;
+import org.fluentjava.völundr.graph.jfreechart.JFreeChartWriter;
 import org.fluentjava.völundr.statistics.AbstractStatisticsValueProvider;
 import org.fluentjava.völundr.statistics.StatisticsListProvider;
 import org.fluentjava.völundr.statistics.StatisticsListProviderFactory;
@@ -18,7 +19,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class FrequencyGraphTest {
+public class FrequencyGraphBuilderTest {
 
     private static byte[] goldenMasterBytes;
     private static String targetPath;
@@ -26,8 +27,8 @@ public class FrequencyGraphTest {
 
     @BeforeClass
     public static void loadGoldenMaster() throws IOException {
-        File goldenMaster = new File(FrequencyGraphTest.class.getClassLoader()
-                .getResource("goldenMaster.png").getFile());
+        File goldenMaster = new File(FrequencyGraphBuilderTest.class
+                .getClassLoader().getResource("goldenMaster.png").getFile());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";
