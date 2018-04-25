@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fluentjava.völundr.bag.StronglyTypedSortedBag;
+import org.fluentjava.völundr.graph.scatterplot.ScatterPlotData;
 import org.fluentjava.völundr.statistics.AbstractStatisticsValueProvider;
 import org.fluentjava.völundr.statistics.StatisticsListProvider;
 import org.fluentjava.völundr.statistics.StatisticsListProviderFactory;
@@ -94,6 +95,87 @@ public class ChartGraphApiTest {
                 bytes);
     }
 
+    @Test
+    public void scatterPlotTest() throws IOException {
+        ChartGraphApi chartGraphApi = new ChartGraphApi(targetPath);
+        ScatterPlotData scatterPlotData = chartGraphApi.createScatterPlotData(
+                "graphTitle", "Temperature (Celsius) ", "Sales ($)",
+                "legendTitle");
+
+        scatterPlotData.report(14.2, 215);
+        scatterPlotData.report(16.4, 325);
+        scatterPlotData.report(11.9, 185);
+        scatterPlotData.report(15.2, 332);
+        scatterPlotData.report(18.5, 406);
+        scatterPlotData.report(22.1, 522);
+        scatterPlotData.report(19.4, 412);
+        scatterPlotData.report(25.1, 614);
+        scatterPlotData.report(23.4, 544);
+        scatterPlotData.report(18.1, 421);
+        scatterPlotData.report(22.6, 445);
+        scatterPlotData.report(17.2, 408);
+
+        String graphName = "ChartGraphApiTest-scatterPlotTest";
+        chartGraphApi.createScatterPlot(scatterPlotData, graphName);
+        byte[] bytes = Files
+                .readAllBytes(Paths.get(targetPath, graphName + ".png"));
+        Assert.assertArrayEquals(goldenMasterBytesOf("plot"), bytes);
+    }
+
+    @Test
+    public void writeGraphFromStatisticsListProviderIntValues()
+            throws IOException {
+        List<Integer> values = new ArrayList<>();
+        values.add(2);
+        values.add(3);
+        values.add(4);
+        values.add(4);
+        values.add(5);
+        values.add(5);
+        values.add(5);
+        values.add(6);
+        values.add(6);
+        values.add(7);
+        values.add(8);
+
+        StatisticsListProvider<Integer> stats = StatisticsListProviderFactory
+                .integerValues(values);
+
+        String graphName = "ChartGraphApiTest-writeGraphFromStatisticsListProviderIntValues";
+        new ChartGraphApi(targetPath).createFrequencyGraph("graphTitle",
+                "xAxisTitle", graphName, stats);
+        byte[] bytes = Files
+                .readAllBytes(Paths.get(targetPath, graphName + ".png"));
+        Assert.assertArrayEquals(goldenMasterBytesOf("frequency"), bytes);
+    }
+
+    @Test
+    public void writeGraphFromStatisticsListProviderLongValues()
+            throws IOException {
+        List<Long> values = new ArrayList<>();
+        values.add(2L);
+        values.add(3L);
+        values.add(4L);
+        values.add(4L);
+        values.add(5L);
+        values.add(5L);
+        values.add(5L);
+        values.add(6L);
+        values.add(6L);
+        values.add(7L);
+        values.add(8L);
+
+        StatisticsListProvider<Long> stats = StatisticsListProviderFactory
+                .longValues(values);
+
+        String graphName = "ChartGraphApiTest-writeGraphFromStatisticsListProviderLongValues";
+        new ChartGraphApi(targetPath).createFrequencyGraphLongValues(
+                "graphTitle", "xAxisTitle", graphName, stats);
+        byte[] bytes = Files
+                .readAllBytes(Paths.get(targetPath, graphName + ".png"));
+        Assert.assertArrayEquals(goldenMasterBytesOf("frequency"), bytes);
+    }
+
     private static byte[] goldenMasterBytesOf(String goldenMasterNamePrefix)
             throws IOException {
         File goldenMaster = new File(ChartGraphApiTest.class.getClassLoader()
@@ -101,5 +183,4 @@ public class ChartGraphApiTest {
                 .getFile());
         return Files.readAllBytes(Paths.get(goldenMaster.getPath()));
     }
-
 }

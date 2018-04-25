@@ -6,19 +6,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.fluentjava.völundr.bag.StronglyTypedSortedBag;
 import org.fluentjava.völundr.graph.ImageData;
 import org.fluentjava.völundr.graph.ImageDataFactory;
+import org.fluentjava.völundr.graph.ImageFactory;
 import org.fluentjava.völundr.graph.jfreechart.DefaultDatasetAdapterFactory;
 import org.fluentjava.völundr.graph.jfreechart.ImageFactoryUsingJFreeChart;
 import org.fluentjava.völundr.graph.jfreechart.JFreeChartWriter;
+import org.fluentjava.völundr.graph.scatterplot.ScatterPlotBuilder;
+import org.fluentjava.völundr.graph.scatterplot.ScatterPlotData;
 import org.fluentjava.völundr.statistics.AbstractStatisticsValueProvider;
 import org.fluentjava.völundr.statistics.StatisticsListProvider;
 
 public class ChartGraphApi {
     private final static DefaultDatasetAdapterFactory ADAPTER_FACTORY = new DefaultDatasetAdapterFactory();
-    private final ImageFactoryUsingJFreeChart imageFactory;
+    private final ImageFactory imageFactory;
+    private final FrequencyGraphApi frequencyGraphApi;
 
     public ChartGraphApi(String targetPath) {
-        imageFactory = new ImageFactoryUsingJFreeChart(
+        this.imageFactory = new ImageFactoryUsingJFreeChart(
                 new JFreeChartWriter(targetPath));
+        this.frequencyGraphApi = new FrequencyGraphApi(imageFactory,
+                ADAPTER_FACTORY);
     }
 
     public <T extends Number & Comparable<T>> void createLineChart(
@@ -66,6 +72,31 @@ public class ChartGraphApi {
         if (statistics.hasSamples()) { // no need to create an empty graph
             imageFactory.createBarChart(graphName, data);
         }
+    }
+
+    public ScatterPlotData createScatterPlotData(String graphTitle,
+            String xAxisTitle, String yAxisTitle, String legendTitle) {
+        return ScatterPlotBuilder.newScatterPlotData(graphTitle, xAxisTitle,
+                yAxisTitle, legendTitle, ADAPTER_FACTORY);
+    }
+
+    public void createScatterPlot(ScatterPlotData scatterPlotData,
+            String graphName) {
+        ScatterPlotBuilder.newScatterPlotBuilder(scatterPlotData)
+                .writeGraph(imageFactory, graphName);
+    }
+
+    public void createFrequencyGraph(String graphTitle, String xAxisTitle,
+            String graphName, StatisticsListProvider<Integer> statistics) {
+        frequencyGraphApi.createFrequencyGraph(graphTitle, xAxisTitle,
+                graphName, statistics);
+    }
+
+    public void createFrequencyGraphLongValues(String graphTitle,
+            String xAxisTitle, String graphName,
+            StatisticsListProvider<Long> statistics) {
+        frequencyGraphApi.createFrequencyGraphLongValues(graphTitle, xAxisTitle,
+                graphName, statistics);
     }
 
 }

@@ -1,6 +1,7 @@
 package org.fluentjava.völundr.graph.jfreechart.api;
 
 import org.fluentjava.völundr.bag.StronglyTypedSortedBag;
+import org.fluentjava.völundr.graph.ImageFactory;
 import org.fluentjava.völundr.graph.frequency.FrequencyData;
 import org.fluentjava.völundr.graph.frequency.FrequencyGraphBuilder;
 import org.fluentjava.völundr.graph.jfreechart.DefaultDatasetAdapterFactory;
@@ -10,12 +11,18 @@ import org.fluentjava.völundr.statistics.StatisticsListProvider;
 
 public final class FrequencyGraphApi {
 
-    private final static DefaultDatasetAdapterFactory ADAPTER_FACTORY = new DefaultDatasetAdapterFactory();
-    private final ImageFactoryUsingJFreeChart imageFactory;
+    private final ImageFactory imageFactory;
+    private final DefaultDatasetAdapterFactory defaultDatasetAdapterFactory;
 
     public FrequencyGraphApi(String targetPath) {
-        imageFactory = new ImageFactoryUsingJFreeChart(
-                new JFreeChartWriter(targetPath));
+        this(new ImageFactoryUsingJFreeChart(new JFreeChartWriter(targetPath)),
+                new DefaultDatasetAdapterFactory());
+    }
+
+    protected FrequencyGraphApi(ImageFactory imageFactory,
+            DefaultDatasetAdapterFactory defaultDatasetAdapterFactory) {
+        this.imageFactory = imageFactory;
+        this.defaultDatasetAdapterFactory = defaultDatasetAdapterFactory;
     }
 
     public void createFrequencyGraph(String graphTitle, String xAxisTitle,
@@ -71,8 +78,9 @@ public final class FrequencyGraphApi {
 
     private void writeGraph(String graphTitle, String xAxisTitle,
             String graphName, final FrequencyData frequencyData) {
-        FrequencyGraphBuilder.newFrequencyGraph(frequencyData, graphTitle,
-                xAxisTitle, ADAPTER_FACTORY)
+        FrequencyGraphBuilder
+                .newFrequencyGraph(frequencyData, graphTitle, xAxisTitle,
+                        defaultDatasetAdapterFactory)
                 .writeGraph(imageFactory, graphName);
     }
 }

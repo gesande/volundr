@@ -40,9 +40,14 @@ DONE
 + scatter plot graph-api
 + 3.0.4 release
 + start 3.0.5
++ scatterplot to graph-api
++ frequencygraph to graph-api
++ 3.0.5 release
+
 IN PROGRESS 
 
 WAITING
+- start 3.0.6
 - introduce readme.md #docs
 - deps versions in ext instead of gradle.properties #build
 - use findbugs downloaded, not statically in version control #build
