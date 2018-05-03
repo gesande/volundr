@@ -46,13 +46,15 @@ DONE
 + start 3.0.6
 + introduced StatisticsSummaryToCsv
 + 3.0.6 release
++ start 3.0.7
 
 IN PROGRESS 
 
 WAITING
-- start 3.0.7
+- graph-jfreechart-fileapi
 - introduce readme.md #docs
-- deps versions in ext instead of gradle.properties #build
-- use findbugs downloaded, not statically in version control #build
 - convert dev-setup.txt to md format, also update it correctly #docs
+- deps versions in ext instead of gradle.properties #build
+- study using spotbugs over findbugs
+- use findbugs downloaded, not statically in version control #build
 

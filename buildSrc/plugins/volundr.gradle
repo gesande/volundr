@@ -21,7 +21,7 @@ ext {
 
     codeCoveragePlugin="${buildScripts}/plugins/jacoco.gradle"
 
-    artifactVersion='3.0.6'
+    artifactVersion='3.0.7'
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
