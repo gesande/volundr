@@ -11,16 +11,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 final class JFreeChartFactory {
+
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ImageFactoryUsingJFreeChart.class);
 
-    private static final Font TITLE_FONT = new Font("Monospaced", Font.BOLD,
+    private static final String FONT_FAMILY_NAME = "Monospaced";
+    private static final Font TITLE_FONT = new Font(FONT_FAMILY_NAME, Font.BOLD,
             20);
-    private static final Font LEGEND_FONT = new Font("Monospaced", Font.PLAIN,
-            12);
-    private static final Font DOMAIN_AXIS_FONT = new Font("Monospaced",
+    private static final Font LEGEND_FONT = new Font(FONT_FAMILY_NAME,
             Font.PLAIN, 12);
-    private static final Font RANGE_AXIS_FONT = new Font("Monospaced",
+    private static final Font LABEL_FONT = new Font(FONT_FAMILY_NAME,
+            Font.PLAIN, 12);
+    private static final Font DOMAIN_AXIS_FONT = new Font(FONT_FAMILY_NAME,
+            Font.PLAIN, 12);
+    private static final Font RANGE_AXIS_FONT = new Font(FONT_FAMILY_NAME,
             Font.PLAIN, 12);
 
     @SuppressWarnings("static-method")
@@ -33,8 +37,10 @@ final class JFreeChartFactory {
         barChart.getLegend().setItemFont(LEGEND_FONT);
         barChart.getCategoryPlot().getDomainAxis()
                 .setTickLabelFont(DOMAIN_AXIS_FONT);
+        barChart.getCategoryPlot().getDomainAxis().setLabelFont(LABEL_FONT);
         barChart.getCategoryPlot().getRangeAxis()
                 .setTickLabelFont(RANGE_AXIS_FONT);
+        barChart.getCategoryPlot().getRangeAxis().setLabelFont(LABEL_FONT);
         return barChart;
     }
 
@@ -50,10 +56,12 @@ final class JFreeChartFactory {
                 PlotOrientation.VERTICAL, showLegend(), noTooltips(), noUrls());
         scatterPlot.getTitle().setFont(TITLE_FONT);
         scatterPlot.getLegend().setItemFont(LEGEND_FONT);
+        scatterPlot.getXYPlot().getDomainAxis().setLabelFont(LABEL_FONT);
         scatterPlot.getXYPlot().getDomainAxis()
                 .setTickLabelFont(DOMAIN_AXIS_FONT);
         scatterPlot.getXYPlot().getRangeAxis()
                 .setTickLabelFont(RANGE_AXIS_FONT);
+        scatterPlot.getXYPlot().getRangeAxis().setLabelFont(LABEL_FONT);
         return scatterPlot;
     }
 
@@ -67,7 +75,9 @@ final class JFreeChartFactory {
         lineChart.getLegend().setItemFont(LEGEND_FONT);
         lineChart.getXYPlot().getDomainAxis()
                 .setTickLabelFont(DOMAIN_AXIS_FONT);
+        lineChart.getXYPlot().getDomainAxis().setLabelFont(LABEL_FONT);
         lineChart.getXYPlot().getRangeAxis().setTickLabelFont(RANGE_AXIS_FONT);
+        lineChart.getXYPlot().getRangeAxis().setLabelFont(LABEL_FONT);
         return lineChart;
     }
 
