@@ -22,10 +22,10 @@ final class JFreeChartFactory {
             Font.PLAIN, 12);
     private static final Font LABEL_FONT = new Font(FONT_FAMILY_NAME,
             Font.PLAIN, 12);
-    private static final Font DOMAIN_AXIS_FONT = new Font(FONT_FAMILY_NAME,
-            Font.PLAIN, 12);
-    private static final Font RANGE_AXIS_FONT = new Font(FONT_FAMILY_NAME,
-            Font.PLAIN, 12);
+    private static final Font DOMAIN_AXIS_TICK_LABEL_FONT = new Font(
+            FONT_FAMILY_NAME, Font.PLAIN, 12);
+    private static final Font RANGE_AXIS_TICK_LABEL_FONT = new Font(
+            FONT_FAMILY_NAME, Font.PLAIN, 12);
 
     @SuppressWarnings("static-method")
     public JFreeChart newBarChart(final ImageData imageData) {
@@ -35,11 +35,13 @@ final class JFreeChartFactory {
                 showLegend(), noTooltips(), noUrls());
         barChart.getTitle().setFont(TITLE_FONT);
         barChart.getLegend().setItemFont(LEGEND_FONT);
+
         barChart.getCategoryPlot().getDomainAxis()
-                .setTickLabelFont(DOMAIN_AXIS_FONT);
+                .setTickLabelFont(DOMAIN_AXIS_TICK_LABEL_FONT);
         barChart.getCategoryPlot().getDomainAxis().setLabelFont(LABEL_FONT);
+
         barChart.getCategoryPlot().getRangeAxis()
-                .setTickLabelFont(RANGE_AXIS_FONT);
+                .setTickLabelFont(RANGE_AXIS_TICK_LABEL_FONT);
         barChart.getCategoryPlot().getRangeAxis().setLabelFont(LABEL_FONT);
         return barChart;
     }
@@ -56,11 +58,13 @@ final class JFreeChartFactory {
                 PlotOrientation.VERTICAL, showLegend(), noTooltips(), noUrls());
         scatterPlot.getTitle().setFont(TITLE_FONT);
         scatterPlot.getLegend().setItemFont(LEGEND_FONT);
+
         scatterPlot.getXYPlot().getDomainAxis().setLabelFont(LABEL_FONT);
         scatterPlot.getXYPlot().getDomainAxis()
-                .setTickLabelFont(DOMAIN_AXIS_FONT);
+                .setTickLabelFont(DOMAIN_AXIS_TICK_LABEL_FONT);
+
         scatterPlot.getXYPlot().getRangeAxis()
-                .setTickLabelFont(RANGE_AXIS_FONT);
+                .setTickLabelFont(RANGE_AXIS_TICK_LABEL_FONT);
         scatterPlot.getXYPlot().getRangeAxis().setLabelFont(LABEL_FONT);
         return scatterPlot;
     }
@@ -73,10 +77,13 @@ final class JFreeChartFactory {
                 showLegend(), noTooltips(), noUrls());
         lineChart.getTitle().setFont(TITLE_FONT);
         lineChart.getLegend().setItemFont(LEGEND_FONT);
+
         lineChart.getXYPlot().getDomainAxis()
-                .setTickLabelFont(DOMAIN_AXIS_FONT);
+                .setTickLabelFont(DOMAIN_AXIS_TICK_LABEL_FONT);
         lineChart.getXYPlot().getDomainAxis().setLabelFont(LABEL_FONT);
-        lineChart.getXYPlot().getRangeAxis().setTickLabelFont(RANGE_AXIS_FONT);
+
+        lineChart.getXYPlot().getRangeAxis()
+                .setTickLabelFont(RANGE_AXIS_TICK_LABEL_FONT);
         lineChart.getXYPlot().getRangeAxis().setLabelFont(LABEL_FONT);
         return lineChart;
     }
@@ -92,5 +99,4 @@ final class JFreeChartFactory {
     private static boolean noUrls() {
         return false;
     }
-
 }
