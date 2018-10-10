@@ -26,9 +26,9 @@ public class FrequencyGraphBuilderTest {
     private static ImageFactoryUsingJFreeChart imageFactory;
 
     @BeforeClass
-    public static void loadGoldenMaster() throws IOException {
+    public static void loadGoldenMaster() throws Exception {
         File goldenMaster = new File(FrequencyGraphBuilderTest.class
-                .getClassLoader().getResource("goldenMaster.png").getFile());
+                .getResource("/goldenMaster.png").toURI());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";

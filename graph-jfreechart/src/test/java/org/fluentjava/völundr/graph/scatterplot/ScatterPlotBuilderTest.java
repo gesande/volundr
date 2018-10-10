@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.fluentjava.völundr.graph.frequency.FrequencyGraphBuilderTest;
 import org.fluentjava.völundr.graph.jfreechart.DefaultDatasetAdapterFactory;
 import org.fluentjava.völundr.graph.jfreechart.ImageFactoryUsingJFreeChart;
 import org.fluentjava.völundr.graph.jfreechart.JFreeChartWriter;
@@ -20,10 +19,9 @@ public class ScatterPlotBuilderTest {
     private static ImageFactoryUsingJFreeChart imageFactory;
 
     @BeforeClass
-    public static void loadGoldenMaster() throws IOException {
-        File goldenMaster = new File(
-                FrequencyGraphBuilderTest.class.getClassLoader()
-                        .getResource("plotGoldenMaster.png").getFile());
+    public static void loadGoldenMaster() throws Exception {
+        File goldenMaster = new File(ScatterPlotBuilderTest.class
+                .getResource("/plotGoldenMaster.png").toURI());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";

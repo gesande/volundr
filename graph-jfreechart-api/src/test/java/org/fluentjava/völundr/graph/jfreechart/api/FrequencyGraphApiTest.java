@@ -18,10 +18,9 @@ public class FrequencyGraphApiTest {
     private static String targetPath;
 
     @BeforeClass
-    public static void loadGoldenMaster() throws IOException {
-        File goldenMaster = new File(
-                FrequencyGraphApiTest.class.getClassLoader()
-                        .getResource("frequency-goldenMaster.png").getFile());
+    public static void loadGoldenMaster() throws Exception {
+        File goldenMaster = new File(FrequencyGraphApiTest.class
+                .getResource("/frequency-goldenMaster.png").toURI());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";
