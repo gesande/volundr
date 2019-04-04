@@ -13,7 +13,8 @@ import org.slf4j.LoggerFactory;
 
 public class StatisticsMeasurement {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(StatisticsMeasurement.class);
+    private final static Logger LOGGER = LoggerFactory
+            .getLogger(StatisticsMeasurement.class);
 
     private final Map<String, TestStepStatistics> stats = new ConcurrentHashMap<>();
     private final Consumer<String> statsConsumer;
@@ -29,7 +30,8 @@ public class StatisticsMeasurement {
 
     public void start(String currentStep) {
         requireNonNull(currentStep);
-        TestStepStatistics testStepStatistics = createOrUseExisting(currentStep);
+        TestStepStatistics testStepStatistics = createOrUseExisting(
+                currentStep);
         testStepStatistics.start();
     }
 
@@ -39,7 +41,8 @@ public class StatisticsMeasurement {
             testStepStatistics = stats.get(currentStep);
         } else {
             LOGGER.debug("{} creating TestStepStatistics...", currentStep);
-            testStepStatistics = new TestStepStatistics(currentStep, clock, statisticsApiBuilder);
+            testStepStatistics = new TestStepStatistics(currentStep, clock,
+                    statisticsApiBuilder);
             stats.put(currentStep, testStepStatistics);
         }
         return testStepStatistics;
@@ -55,8 +58,10 @@ public class StatisticsMeasurement {
         values.forEach(stepStats -> stepStats.consumeStatistics(statsConsumer));
     }
 
-    public static StatisticsMeasurement create(StatsConsumer statsConsumer, Clock clock, String targetPath) {
-        return new StatisticsMeasurement(statsConsumer, clock, StatisticsApiBuilderImpl.withTargetPath(targetPath));
+    public static StatisticsMeasurement create(StatsConsumer statsConsumer,
+            Clock clock, String targetPath) {
+        return new StatisticsMeasurement(statsConsumer, clock,
+                StatisticsApiBuilderImpl.withTargetPath(targetPath));
     }
 
 }

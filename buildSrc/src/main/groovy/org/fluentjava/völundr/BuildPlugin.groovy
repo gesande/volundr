@@ -13,8 +13,8 @@ public class BuildPlugin implements Plugin<Project> {
             group = 'Verification'
             description ='If this passed you have license to commit your changes.'
             buildFile = 'build.gradle'
-
             tasks = [
+                'spotlessCheck',
                 'concurrent:continous',
                 'stronglytyped-sortedbag:continous',
                 'linereader:continous',

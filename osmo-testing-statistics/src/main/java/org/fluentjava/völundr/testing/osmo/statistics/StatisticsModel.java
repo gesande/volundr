@@ -9,15 +9,18 @@ import osmo.tester.annotation.AfterTest;
 import osmo.tester.annotation.BeforeStep;
 
 /**
- * This model is used for measuring step latencies. Usually you should add this model before any other model.
+ * This model is used for measuring step latencies. Usually you should add this
+ * model before any other model.
  */
 public class StatisticsModel extends AbstractOsmoModel {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsModel.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(StatisticsModel.class);
     private final StatisticsMeasurement statisticsMeasurement;
     private final SleepValueProvider sleepValueProvider;
 
-    public StatisticsModel(StatisticsMeasurement statisticsMeasurement, SleepValueProvider sleepValueProvider) {
+    public StatisticsModel(StatisticsMeasurement statisticsMeasurement,
+            SleepValueProvider sleepValueProvider) {
         super();
         this.statisticsMeasurement = statisticsMeasurement;
         this.sleepValueProvider = sleepValueProvider;
@@ -40,8 +43,7 @@ public class StatisticsModel extends AbstractOsmoModel {
     }
 
     /**
-     * This is here to avoid sleep values to be included
-     * to the measurements.
+     * This is here to avoid sleep values to be included to the measurements.
      */
     private void sleepAfterEachStep() {
         long sleepTime = sleepValueProvider.get();

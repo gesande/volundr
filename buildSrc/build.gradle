@@ -9,8 +9,7 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'java'
 
-repositories {  flatDir { dirs 'lib'
-    }  }
+repositories {  flatDir { dirs 'lib' }  }
 
 dependencies {
     compile gradleApi()
@@ -22,7 +21,7 @@ version = '2.0.0'
 
 eclipse.classpath.defaultOutputDir = file('target/classes')
 
-ext.buildLibrary='my-gradle-build-' + version 
+ext.buildLibrary='my-gradle-build-' + version
 
 eclipse {
     classpath {

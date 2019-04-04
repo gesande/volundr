@@ -4,9 +4,9 @@ public final class PercentileRankCalculator {
     /**
      * Calculate nearest rank.
      * <p>
-     * 
+     *
      * http://en.wikipedia.org/wiki/Percentile
-     * 
+     *
      * @param percentile
      *            percentile (0-100)
      * @param sampleCount
