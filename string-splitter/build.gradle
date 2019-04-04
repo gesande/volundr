@@ -1,6 +1,6 @@
 project(':string-splitter') {
-	apply from : "$codeCoveragePlugin"
-	apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply from : "$codeCoveragePlugin"
+    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
-	dependencies { testCompile "junit:junit:${junitVersion}" }
+    dependencies { testCompile "junit:junit:${junitVersion}" }
 }

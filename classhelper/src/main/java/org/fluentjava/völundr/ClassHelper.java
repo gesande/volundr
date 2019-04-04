@@ -18,7 +18,7 @@ public final class ClassHelper {
     /**
      * Scans all classes accessible from the context class loader which belong
      * to the given package and sub packages.
-     * 
+     *
      * @param packageName
      *            The base package
      * @return The classes
@@ -49,7 +49,7 @@ public final class ClassHelper {
     /**
      * Recursive method used to find all classes in a given directory and
      * subdirs.
-     * 
+     *
      * @param directory
      *            The base directory
      * @param packageName

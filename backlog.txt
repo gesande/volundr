@@ -51,6 +51,7 @@ DONE
 + start 3.0.8
 
 IN PROGRESS 
+introduce spotless + license plugins #build
 
 WAITING
 - graph-jfreechart-fileapi
@@ -59,4 +60,3 @@ WAITING
 - deps versions in ext instead of gradle.properties #build
 - study using spotbugs over findbugs
 - use findbugs downloaded, not statically in version control #build
-- introduce spotless + license plugins #build
