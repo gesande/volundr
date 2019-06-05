@@ -47,6 +47,8 @@ DONE
 + introduced StatisticsSummaryToCsv
 + 3.0.6 release
 + start 3.0.7
++ excluded groovy files from findbugs
++ start 3.0.8
 
 IN PROGRESS 
 
@@ -57,4 +59,4 @@ WAITING
 - deps versions in ext instead of gradle.properties #build
 - study using spotbugs over findbugs
 - use findbugs downloaded, not statically in version control #build
-
+- introduce spotless + license plugins #build
