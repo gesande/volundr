@@ -1,17 +1,31 @@
 project(':graph-jfreechart-api') {
     apply from : "$codeCoveragePlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply plugin: 'maven-publish'
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId 'org.fluentjava.volundr'
+                artifactId 'graph-jfreechart-api'
+
+                from components.java
+
+                artifact sourcesJar { classifier "sources" }
+            }
+        }
+    }
 
     dependencies { 
-    compile project(':fileutil')
-	compile project(':graph-jfreechart')
-	compile project(':statistics')
-	compile project(':stronglytyped-sortedbag')
-	compile "org.jfree:jfreechart:${jfreechartVersion}"
-    compile project(':statistics-valueprovider')
-    compile "org.slf4j:slf4j-api:${slf4jVersion}"
-    testCompile "junit:junit:${junitVersion}"
-    testRuntime "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-    testRuntime "log4j:log4j:${log4jVersion}"
+        compile project(':fileutil')
+        compile project(':graph-jfreechart')
+        compile project(':statistics')
+        compile project(':stronglytyped-sortedbag')
+        compile "org.jfree:jfreechart:${jfreechartVersion}"
+        compile project(':statistics-valueprovider')
+        compile "org.slf4j:slf4j-api:${slf4jVersion}"
+        testCompile "junit:junit:${junitVersion}"
+        testRuntime "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+        testRuntime "log4j:log4j:${log4jVersion}"
     }
 }
