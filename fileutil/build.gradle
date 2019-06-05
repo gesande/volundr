@@ -1,6 +1,7 @@
 project(':fileutil') {
     apply from:"$codeCoveragePlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply plugin: 'maven-publish'
 
     publishing {
         publications {
