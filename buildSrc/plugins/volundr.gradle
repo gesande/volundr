@@ -64,6 +64,10 @@ subprojects { prj ->
 
     pmd { toolVersion = '4.3'   }
 
+	findbugs {
+		excludeFilter = file("${buildScripts}/template/for/findbugs/exclude-filters.xml")
+	}
+
 }
 
 def publishedProjects = subprojects.findAll() { it.path != ':buildSrc' }

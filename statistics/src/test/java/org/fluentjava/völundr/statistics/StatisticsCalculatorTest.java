@@ -219,7 +219,7 @@ public class StatisticsCalculatorTest {
                 stdOfASample.variance(), 0);
     }
 
-    final class StdOfASample extends AbstractStandardDeviationProvider {
+    final static class StdOfASample extends AbstractStandardDeviationProvider {
 
         private final List<Integer> values = new ArrayList<>();
 
