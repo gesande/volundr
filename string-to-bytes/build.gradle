@@ -1,5 +1,19 @@
 project(':string-to-bytes') {
     apply from : "$codeCoveragePlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId 'org.fluentjava.volundr'
+                artifactId 'string-to-bytes'
+
+                from components.java
+
+                artifact sourcesJar { classifier "sources" }
+            }
+        }
+    }
+
     dependencies { testCompile "junit:junit:${junitVersion}" }
 }

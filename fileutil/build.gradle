@@ -2,6 +2,19 @@ project(':fileutil') {
     apply from:"$codeCoveragePlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId 'org.fluentjava.volundr'
+                artifactId 'fileutil'
+
+                from components.java
+
+                artifact sourcesJar { classifier "sources" }
+            }
+        }
+    }
+
     dependencies {
         compile project(':string-to-bytes')
         testCompile "junit:junit:${junitVersion}"
