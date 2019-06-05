@@ -7,7 +7,7 @@ project(':graph-jfreechart') {
         publications {
             maven(MavenPublication) {
                 groupId 'org.fluentjava.volundr'
-                artifactId 'graph-jreechart'
+                artifactId 'graph-jfreechart'
 
                 from components.java
 
