@@ -1,7 +1,11 @@
 //set some initial variables for the build
+plugins {
+    id "org.ajoberstar.grgit" version "4.1.0"
+}
 ext {
     buildScripts="$projectDir/buildSrc"
     buildPlugins="$buildScripts/plugins"
 }
+
 //applying the root stuff from gradle file that exists in buildSrc
 apply from: "$buildPlugins/volundr.gradle"

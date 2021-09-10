@@ -1,0 +1,31 @@
+group="org.fluentjava.völundr.testing.osmo.statistics"
+apply from:"$codeCoveragePlugin"
+apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'org.fluentjava.volundr'
+            artifactId 'osmo-testing-statistics'
+
+            from components.java
+
+            artifact sourcesJar { classifier "sources" }
+        }
+    }
+}
+
+dependencies {
+    compile project(':völundr-osmo-tester')
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
+    runtimeClasspath "commons-collections:commons-collections:$commonsCollectionsVersion"
+
+    //these are needed for statistics and graphs
+    implementation project(':statistics')
+    implementation project(':graph-jfreechart')
+    runtimeClasspath project(':fileutil')
+    runtimeClasspath project(':string-to-bytes')
+    implementation project(':graph-jfreechart-api')
+    runtimeClasspath project(':statistics-valueprovider')
+}

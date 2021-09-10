@@ -51,6 +51,7 @@ DONE
 + start 3.0.8
 
 IN PROGRESS 
+- introduce osmo testing
 
 WAITING
 - graph-jfreechart-fileapi
