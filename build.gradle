@@ -1,7 +1,8 @@
-//set some initial variables for the build
 plugins {
     id "org.ajoberstar.grgit" version "4.1.0"
+    id "com.diffplug.gradle.spotless" version "3.18.0"
 }
+
 ext {
     buildScripts="$projectDir/buildSrc"
     buildPlugins="$buildScripts/plugins"

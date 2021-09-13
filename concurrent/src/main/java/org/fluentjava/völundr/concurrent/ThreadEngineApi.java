@@ -2,7 +2,7 @@ package org.fluentjava.völundr.concurrent;
 
 /**
  * Easy API for running something being or extending Runnable in threads.
- * 
+ *
  */
 public final class ThreadEngineApi<RUNNABLE extends Runnable> {
 

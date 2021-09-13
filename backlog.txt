@@ -49,15 +49,16 @@ DONE
 + start 3.0.7
 + excluded groovy files from findbugs
 + start 3.0.8
++ introduce osmo testing
++ introduce spotless #build
 
 IN PROGRESS 
-- introduce osmo testing
 
 WAITING
+- introduce license plugins #build
+- use spotbugs instead of findbugs #code
+- remake gradle build using conventions #build
 - graph-jfreechart-fileapi
 - introduce readme.md #docs
 - convert dev-setup.txt to md format, also update it correctly #docs
 - deps versions in ext instead of gradle.properties #build
-- study using spotbugs over findbugs
-- use spotbugs instead of findbugs
-- introduce spotless + license plugins #build

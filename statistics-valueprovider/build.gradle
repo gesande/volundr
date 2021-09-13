@@ -21,5 +21,4 @@ project(':statistics-valueprovider') {
         compile project(':stronglytyped-sortedbag')
         testCompile "junit:junit:${junitVersion}"
     }
-
 }

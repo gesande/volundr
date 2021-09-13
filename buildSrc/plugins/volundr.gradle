@@ -53,8 +53,10 @@ reportingSettings {
     findbugsVersion = '3.0.1'
 }
 
+
 subprojects { prj ->
     apply plugin : VolundrContinousBuildPlugin
+    apply plugin: "com.diffplug.gradle.spotless"
 
     compileJava.options.encoding = 'UTF-8'
 
@@ -65,10 +67,38 @@ subprojects { prj ->
 
     pmd { toolVersion = '4.3'   }
 
-	findbugs {
-		excludeFilter = file("${buildScripts}/template/for/findbugs/exclude-filters.xml")
-	}
-
+    findbugs {
+        excludeFilter = file("${buildScripts}/template/for/findbugs/exclude-filters.xml")
+    }
+    spotless {
+        format 'misc', {
+            target '**/*.md', '**/.gitignore'
+            target.exclude '**/mukatee-osmo/**'
+            trimTrailingWhitespace()
+            indentWithSpaces()
+            endWithNewline()
+        }
+        groovyGradle {
+            target '**/*.gradle'
+            greclipse()
+            trimTrailingWhitespace()
+            endWithNewline()
+            paddedCell()
+            indentWithSpaces()
+        }
+        java {
+            importOrder 'java', 'javax', 'org', 'com', ''
+            removeUnusedImports()
+            trimTrailingWhitespace()
+            indentWithSpaces()
+            endWithNewline()
+            eclipse().configFile "${project.properties.jdtInputFile}"
+            target project.fileTree(project.rootDir) {
+                include '**/*.java'
+                exclude '**/build/**', '**/mukatee-osmo/**'
+            }
+        }
+    }
 }
 
 def publishedProjects = subprojects.findAll() { it.path != ':buildSrc' }
@@ -98,7 +128,5 @@ task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') { rep 
         xml.enabled = true // required by coveralls
     }
 
-    doLast {
-		println "Coverage report(s) can be found from file://${buildDir}/reports/jacoco/jacocoAggregateReport/html/index.html"
-    }
+    doLast { println "Coverage report(s) can be found from file://${buildDir}/reports/jacoco/jacocoAggregateReport/html/index.html" }
 }
