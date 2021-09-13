@@ -1,6 +1,7 @@
-package org.fluentjava.völundr.testing.osmo.logging;
+package org.fluentjava.völundr.testing.osmo.model.logging;
 
 import org.fluentjava.völundr.testing.osmo.AbstractOsmoModel;
+import org.fluentjava.völundr.testing.osmo.model.statistics.StatisticsModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +11,8 @@ import osmo.tester.annotation.BeforeStep;
 
 /**
  * This provides basic logging when test step starts or its done. Usually this
- * is added a first model. However if you are using also
- * {@link org.fluentjava.völundr.testing.osmo.statistics.StatisticsModel} add
- * this right after that.
+ * is added a first model. However if you are using also {@link StatisticsModel}
+ * add this right after that.
  */
 public class LoggingModel extends AbstractOsmoModel {
     private static final Logger LOGGER = LoggerFactory

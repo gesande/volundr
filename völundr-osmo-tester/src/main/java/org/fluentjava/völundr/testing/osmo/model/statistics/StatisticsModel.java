@@ -1,6 +1,8 @@
-package org.fluentjava.völundr.testing.osmo.statistics;
+package org.fluentjava.völundr.testing.osmo.model.statistics;
 
 import org.fluentjava.völundr.testing.osmo.AbstractOsmoModel;
+import org.fluentjava.völundr.testing.osmo.statistics.SleepValueProvider;
+import org.fluentjava.völundr.testing.osmo.statistics.StatisticsMeasurement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

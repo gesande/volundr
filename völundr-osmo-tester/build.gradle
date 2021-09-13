@@ -23,6 +23,8 @@ dependencies {
     implementation files("osmo-tester/target/classes") { builtBy "makeOsmoTester" }
     implementation fileTree(dir: "osmo-tester/libs", exclude: "log4j*.jar")
     implementation group: 'com.google.code.findbugs', name: 'annotations', version: '3.0.1'
+    implementation project(':osmo-testing-statistics')
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
 }
 
 task cloneOsmoTester {
@@ -38,9 +40,7 @@ task cloneOsmoTester {
     }
 }
 
-jar {
-    from "${projectDir}/osmo-tester/target/classes"
-}
+jar { from "${projectDir}/osmo-tester/target/classes" }
 
 task makeOsmoTester(type: Exec) {
     dependsOn cloneOsmoTester
