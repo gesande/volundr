@@ -6,6 +6,10 @@ import java.util.List;
 import org.fluentjava.völundr.junit.predicates.Predicate;
 import org.junit.runners.model.FrameworkMethod;
 
+/**
+ * This will not work after JUnit 4.11 since those collections will be
+ * read-only.
+ */
 public final class JUnitUtils {
 
     public static void removeTestMethods(final List<FrameworkMethod> list,
