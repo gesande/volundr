@@ -8,12 +8,12 @@ class ExportAntBuildFilePlugin implements Plugin<Project> {
 
     @Override
     public void apply(final Project project) {
-        project.task('exportAntBuildFile', type: ExportAntBuildFileTask ) { ExportAntBuildFileTask task ->
+        project.task('exportAntBuildFile', type: ExportAntBuildFileTask) { ExportAntBuildFileTask task ->
             group = 'Build'
             description = 'Creates a ant build file for the project which contains the most important targets.'
             task.parent = "buildSrc"
-            task.buildFilename= "völundr.xml"
-            task.defaultTarget= "licenseToCommit"
+            task.buildFilename = "völundr.xml"
+            task.defaultTarget = "licenseToCommit"
             task.targets = [
                 "distributionPackage",
                 "eclipseSettings",

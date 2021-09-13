@@ -30,7 +30,7 @@ public class NewJavaSubProject implements Plugin<Project> {
             }
         }
 
-        project.task("buildGradleForJavaProject",type: ExportGradleBuildFileForNewJavaProject) { ExportGradleBuildFileForNewJavaProject task ->
+        project.task("buildGradleForJavaProject", type: ExportGradleBuildFileForNewJavaProject) { ExportGradleBuildFileForNewJavaProject task ->
             task.parent = task.project.projectDir
             task.projectName = task.project.name
             task.applyFroms = ["\"\$emmaPlugin\""]
@@ -39,7 +39,7 @@ public class NewJavaSubProject implements Plugin<Project> {
             ]
         }
 
-        project.task("buildGradleForJavaLibProject",type: ExportGradleBuildFileForJavaLibraryProject) { ExportGradleBuildFileForJavaLibraryProject task ->
+        project.task("buildGradleForJavaLibProject", type: ExportGradleBuildFileForJavaLibraryProject) { ExportGradleBuildFileForJavaLibraryProject task ->
             task.parent = task.project.projectDir
             task.projectName = task.project.name
             task.applyFroms = [
