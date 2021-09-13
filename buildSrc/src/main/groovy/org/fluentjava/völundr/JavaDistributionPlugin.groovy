@@ -82,4 +82,3 @@ public class JavaDistributionPlugin implements Plugin<Project>{
         }
     }
 }
-

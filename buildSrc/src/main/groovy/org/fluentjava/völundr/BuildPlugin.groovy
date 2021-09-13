@@ -11,7 +11,7 @@ public class BuildPlugin implements Plugin<Project> {
     public void apply(final Project project) {
         project.task("licenseToCommit", type: GradleBuild) { Task task ->
             group = 'Verification'
-            description ='If this passed you have license to commit your changes.'
+            description = 'If this passed you have license to commit your changes.'
             buildFile = 'build.gradle'
             tasks = [
                 'spotlessCheck',

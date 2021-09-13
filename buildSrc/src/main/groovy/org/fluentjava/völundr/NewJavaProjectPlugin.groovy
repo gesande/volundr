@@ -48,4 +48,3 @@ class NewJavaProjectPlugin implements Plugin<Project> {
         }
     }
 }
-
