@@ -1,7 +1,6 @@
 //import my-gradle-build stuff
 import net.sf.mygradlebuild.plugins.EclipseSettingsPlugin
 import net.sf.mygradlebuild.plugins.EnvironmentVariablesPlugin
-import org.fluentjava.völundr.JCenter
 import net.sf.mygradlebuild.plugins.ReportingPlugin
 import net.sf.mygradlebuild.plugins.CodeAnalysis
 import net.sf.mygradlebuild.plugins.ContinousPlugin
@@ -33,7 +32,6 @@ ext {
 }
 
 
-apply plugin : JCenter
 apply plugin : 'java'
 apply plugin : ReportingPlugin
 apply plugin : JavaDistributionPlugin
@@ -60,10 +58,10 @@ reportingSettings {
 
 subprojects { prj ->
     apply plugin : JavaProjectArtifactPlugin
-    apply plugin : ForkPmdSettings
-    apply plugin : JDependWithXmlReports
-    apply plugin : CodeAnalysis
-    apply plugin : ContinousPlugin
+    //apply plugin : ForkPmdSettings
+    //apply plugin : JDependWithXmlReports
+    //apply plugin : 'jdepend'
+    apply plugin : 'pmd'
     apply plugin : ForkEclipseJdtPlugin
     apply plugin : EclipseClasspathPlugin
     apply plugin : ProjectVersion
@@ -79,15 +77,28 @@ subprojects { prj ->
             executionData = files(executionData.findAll { it.exists() })
         }
     }
-
     tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
 
     forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
+
     version = prj.parent.artifactVersion
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
-    pmd { toolVersion = '4.3'   }
+    pmd {
+        toolVersion = "6.20.0"
+        ruleSetFiles = files("${project.rootDir}/conf/pmd-ruleset.xml")
+        /*
+         Gradle defaults to using the basic and braces
+         rulesets up to Gradle 5. Gradle 5 defaults to using
+         the errorprone category.
+         */
+        ruleSets = []
+        // https://pmd.github.io/pmd-6.20.0/pmd_userdocs_incremental_analysis.html
+        //this is an incubating feature and seems to have some issues
+        // disabling it for now
+        //incrementalAnalysis = true
+    }
 
     spotless {
         format 'misc', {
