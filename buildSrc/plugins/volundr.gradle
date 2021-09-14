@@ -1,13 +1,10 @@
 //import my-gradle-build stuff
-import net.sf.mygradlebuild.plugins.EclipseSettingsPlugin
-import net.sf.mygradlebuild.plugins.EnvironmentVariablesPlugin
 import net.sf.mygradlebuild.plugins.ReportingPlugin
 import net.sf.mygradlebuild.plugins.EclipseClasspathPlugin
 import net.sf.mygradlebuild.plugins.ForkEclipseJdtPlugin
 import net.sf.mygradlebuild.plugins.JavaProjectArtifactPlugin
 import net.sf.mygradlebuild.plugins.ProjectVersion
 import org.fluentjava.völundr.BuildPlugin
-import org.fluentjava.völundr.ExportAntBuildFilePlugin
 import org.fluentjava.völundr.JavaDistributionPlugin
 
 ext {
@@ -29,13 +26,11 @@ ext {
 
 
 apply plugin : 'java'
+apply plugin : "eclipse"
+apply plugin : 'jacoco'
 apply plugin : ReportingPlugin
 apply plugin : JavaDistributionPlugin
-apply plugin : EnvironmentVariablesPlugin
-apply plugin : EclipseSettingsPlugin
-apply plugin : ExportAntBuildFilePlugin
 apply plugin : BuildPlugin
-apply plugin : 'jacoco'
 
 allprojects { repositories { mavenCentral() } }
 

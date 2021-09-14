@@ -14,7 +14,7 @@ public class JavaDistributionPlugin implements Plugin<Project>{
             group = 'Distribution'
             description = "Copies project specific source jars to the distribution sources directory."
             doLast {
-                def FileTree tree=project.fileTree("${project.projectDir}")
+                FileTree tree=project.fileTree("${project.projectDir}")
                 tree.include('**/build/libs/*-sources.jar')
                 project.copy {
                     from tree.getFiles()
@@ -28,7 +28,7 @@ public class JavaDistributionPlugin implements Plugin<Project>{
             group = 'Distribution'
             description = 'Copies project specific distribution archives to distribution.'
             doLast {
-                def FileTree tree=project.fileTree("${project.projectDir}")
+                FileTree tree=project.fileTree("${project.projectDir}")
                 tree.include '**/build/distributions/*.zip'
                 project.copy {
                     from 'COPYING'
@@ -43,13 +43,13 @@ public class JavaDistributionPlugin implements Plugin<Project>{
             group = 'Distribution'
             description = "Makes the distribution artifact and copies it to ${project.properties.distributionDir}."
             task.outputs.upToDateWhen { false }
-            def String artifactRevision="${project.properties.artifactVersion}"
-            def String distributionName = project.properties.distributionBasename
+            String artifactRevision="${project.properties.artifactVersion}"
+            String distributionName = project.properties.distributionBasename
             from project.file('distribution')
-            destinationDir = project.file("${project.properties.distributionDir}/artifact-${artifactRevision}")
-            baseName = "$distributionName"
-            version ="${artifactRevision}"
-            extension = 'tar'
+            destinationDirectory = project.file("${project.properties.distributionDir}/artifact-${artifactRevision}")
+            archiveBaseName = "$distributionName"
+            archiveVersion ="${artifactRevision}"
+            archiveExtension = 'tar'
             doLast { println("Archived distribution package can be found from file://${destinationDir}/${distributionName}-${artifactRevision}.tar") }
         }
 
