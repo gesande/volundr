@@ -53,10 +53,10 @@ DONE
 + introduce spotless #build
 
 IN PROGRESS 
+- use spotbugs instead of findbugs #code
 
 WAITING
 - introduce license plugins #build
-- use spotbugs instead of findbugs #code
 - remake gradle build using conventions #build
 - graph-jfreechart-fileapi
 - introduce readme.md #docs

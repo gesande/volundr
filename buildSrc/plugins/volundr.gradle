@@ -3,12 +3,17 @@ import net.sf.mygradlebuild.plugins.EclipseSettingsPlugin
 import net.sf.mygradlebuild.plugins.EnvironmentVariablesPlugin
 import org.fluentjava.völundr.JCenter
 import net.sf.mygradlebuild.plugins.ReportingPlugin
+import net.sf.mygradlebuild.plugins.CodeAnalysis
+import net.sf.mygradlebuild.plugins.ContinousPlugin
+import net.sf.mygradlebuild.plugins.EclipseClasspathPlugin
+import net.sf.mygradlebuild.plugins.ForkEclipseJdtPlugin
+import net.sf.mygradlebuild.plugins.ForkPmdSettings
+import net.sf.mygradlebuild.plugins.JDependWithXmlReports
+import net.sf.mygradlebuild.plugins.JavaProjectArtifactPlugin
+import net.sf.mygradlebuild.plugins.ProjectVersion
 import org.fluentjava.völundr.BuildPlugin
 import org.fluentjava.völundr.ExportAntBuildFilePlugin
 import org.fluentjava.völundr.JavaDistributionPlugin
-import org.fluentjava.völundr.NewJavaProjectPlugin
-import org.fluentjava.völundr.VolundrContinousBuildPlugin
-import org.gradle.api.JavaVersion
 
 ext {
     //make sure these files exist
@@ -50,15 +55,32 @@ allprojects {
 reportingSettings {
     toolsDirectory = "${toolsDir}"
     onlyAnalyze = 'org.fluentjava.völundr'
-    findbugsVersion = '3.0.1'
 }
 
 
 subprojects { prj ->
-    apply plugin : VolundrContinousBuildPlugin
-    apply plugin: "com.diffplug.gradle.spotless"
+    apply plugin : JavaProjectArtifactPlugin
+    apply plugin : ForkPmdSettings
+    apply plugin : JDependWithXmlReports
+    apply plugin : CodeAnalysis
+    apply plugin : ContinousPlugin
+    apply plugin : ForkEclipseJdtPlugin
+    apply plugin : EclipseClasspathPlugin
+    apply plugin : ProjectVersion
+    apply plugin : "com.diffplug.gradle.spotless"
+    apply plugin : "com.github.spotbugs"
 
-    compileJava.options.encoding = 'UTF-8'
+    project.plugins.apply(JacocoPlugin)
+
+    project.task("jacocoMerge", type: JacocoMerge) {
+        executionData project.tasks.withType(Test)
+
+        doFirst {
+            executionData = files(executionData.findAll { it.exists() })
+        }
+    }
+
+    tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
 
     forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
     version = prj.parent.artifactVersion
@@ -67,9 +89,6 @@ subprojects { prj ->
 
     pmd { toolVersion = '4.3'   }
 
-    findbugs {
-        excludeFilter = file("${buildScripts}/template/for/findbugs/exclude-filters.xml")
-    }
     spotless {
         format 'misc', {
             target '**/*.md', '**/.gitignore'
@@ -99,6 +118,14 @@ subprojects { prj ->
             }
         }
     }
+
+    spotbugs {
+        toolVersion = "$spotbugsVersion"
+        effort = 'max'
+        ignoreFailures = false
+        excludeFilter = file("${project.rootDir}/buildSrc/template/for/spotbugs/exclude-filters.xml")
+    }
+
 }
 
 def publishedProjects = subprojects.findAll() { it.path != ':buildSrc' }
@@ -118,10 +145,10 @@ task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') { rep 
     description = 'Generates an aggregate report from all subprojects'
     dependsOn publishedProjects.test, jacocoMerge
 
-    additionalSourceDirs = files(publishedProjects.sourceSets.main.allSource.srcDirs)
-    sourceDirectories = files(publishedProjects.sourceSets.main.allSource.srcDirs)
-    classDirectories = files(publishedProjects.sourceSets.main.output)
-    executionData jacocoMerge.destinationFile
+    additionalSourceDirs.setFrom(files(publishedProjects.sourceSets.main.allSource.srcDirs))
+    sourceDirectories.setFrom(files(publishedProjects.sourceSets.main.allSource.srcDirs))
+    classDirectories.setFrom(files(publishedProjects.sourceSets.main.output))
+    executionData.setFrom(jacocoMerge.destinationFile)
 
     reports {
         html.enabled = true // human readable
@@ -129,4 +156,8 @@ task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') { rep 
     }
 
     doLast { println "Coverage report(s) can be found from file://${buildDir}/reports/jacoco/jacocoAggregateReport/html/index.html" }
+}
+
+tasks.named('wrapper') {
+    distributionType = Wrapper.DistributionType.ALL
 }

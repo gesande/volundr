@@ -36,10 +36,11 @@ public class BuildPlugin implements Plugin<Project> {
                 'statistics-valueprovider:continous',
                 'graph-jfreechart:continous',
                 'graph-jfreechart-api:continous',
+                'völundr-osmo-tester:continous',
+                'osmo-testing-statistics:continous',
                 'exportAntBuildFile',
                 'aggregateTestReport',
                 'aggregateJDependReport',
-                'aggregateFindbugsReport',
                 'jacocoAggregateReport',
                 'archiveAggregateReports'
             ]
@@ -93,10 +94,12 @@ public class BuildPlugin implements Plugin<Project> {
                 'statistics-valueprovider:release',
                 'graph-jfreechart:release',
                 'graph-jfreechart-api:release',
+                'völundr-osmo-tester:release',
+                'osmo-testing-statistics:release',
                 'makeDistributionPackage'
             ]
 
-            doLast { println "Distribution package ready to be uploaded to the repository." }
+            doLast { println "Distribution package ready to be uploaded to the repository of your choosing." }
         }
     }
 }

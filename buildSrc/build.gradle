@@ -12,9 +12,9 @@ apply plugin: 'java'
 repositories {  flatDir { dirs 'lib' }  }
 
 dependencies {
-    compile gradleApi()
-    compile localGroovy()
-    compile project.fileTree(dir: 'lib', include: '*.jar', exclude: '*-sources.jar')
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation project.fileTree(dir: 'lib', include: 'my-gradle-build-2.0.0.jar')
 }
 
 version = '2.0.0'
