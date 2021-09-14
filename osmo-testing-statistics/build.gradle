@@ -1,6 +1,6 @@
 group="org.fluentjava.völundr.testing.osmo.statistics"
 apply from:"$codeCoveragePlugin"
-apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 apply plugin: 'maven-publish'
 
 publishing {

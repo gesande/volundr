@@ -1,6 +1,6 @@
 project(':völundr-smithy') {
     apply from : "$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 
     dependencies {
         implementation project(':asynchronous-stream-reader')

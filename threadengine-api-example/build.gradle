@@ -1,5 +1,5 @@
 project(':threadengine-api-example') {
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 
     version = project.properties.artifactVersion
 

@@ -1,20 +1,8 @@
-//import my-gradle-build stuff
-import net.sf.mygradlebuild.plugins.ReportingPlugin
-import net.sf.mygradlebuild.plugins.EclipseClasspathPlugin
-import net.sf.mygradlebuild.plugins.ForkEclipseJdtPlugin
-import net.sf.mygradlebuild.plugins.JavaProjectArtifactPlugin
-import net.sf.mygradlebuild.plugins.ProjectVersion
-import org.fluentjava.völundr.BuildPlugin
-import org.fluentjava.völundr.JavaDistributionPlugin
-
 ext {
     //make sure these files exist
     jdtInputFile="${buildScripts}/template/for/eclipse/org.eclipse.jdt.core.prefs"
-    pmdSettings="${buildScripts}/template/for/pmd/.pmd"
 
     distributionDir="$buildDir/distributions"
-
-    toolsDir="${projectDir}/tools"
 
     codeCoveragePlugin="${buildScripts}/plugins/jacoco.gradle"
 
@@ -28,15 +16,14 @@ ext {
 apply plugin : 'java'
 apply plugin : "eclipse"
 apply plugin : 'jacoco'
-apply plugin : ReportingPlugin
-apply plugin : JavaDistributionPlugin
-apply plugin : BuildPlugin
+apply plugin : org.fluentjava.völundr.ReportingPlugin
+apply plugin : org.fluentjava.völundr.JavaDistributionPlugin
+apply plugin : org.fluentjava.völundr.BuildPlugin
 
-allprojects { repositories { mavenCentral() } }
-
-reportingSettings {
-    toolsDirectory = "${toolsDir}"
-    onlyAnalyze = 'org.fluentjava.völundr'
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
 spotless {
@@ -72,10 +59,10 @@ subprojects { prj ->
     apply plugin : 'pmd'
     apply plugin : "com.diffplug.spotless"
     apply plugin : "com.github.spotbugs"
-    apply plugin : JavaProjectArtifactPlugin
-    apply plugin : ForkEclipseJdtPlugin
-    apply plugin : EclipseClasspathPlugin
-    apply plugin : ProjectVersion
+    apply plugin : org.fluentjava.völundr.JavaProjectArtifactPlugin
+    apply plugin : org.fluentjava.völundr.ForkEclipseJdtPlugin
+    apply plugin : org.fluentjava.völundr.EclipseClasspathPlugin
+    apply plugin : org.fluentjava.völundr.ProjectVersion
 
     project.plugins.apply(JacocoPlugin)
 
@@ -121,7 +108,6 @@ subprojects { prj ->
         ignoreFailures = false
         excludeFilter = file("${project.rootDir}/buildSrc/template/for/spotbugs/exclude-filters.xml")
     }
-
 }
 
 def publishedProjects = subprojects.findAll() { it.path != ':buildSrc' }

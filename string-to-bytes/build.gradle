@@ -1,6 +1,6 @@
 project(':string-to-bytes') {
     apply from : "$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
     apply plugin: 'maven-publish'
 
     publishing {

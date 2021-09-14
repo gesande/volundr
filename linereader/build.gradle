@@ -1,6 +1,6 @@
 project(':linereader'){
     apply from:"$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 
     dependencies { testImplementation "junit:junit:${junitVersion}" }
 }

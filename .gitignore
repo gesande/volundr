@@ -4,6 +4,7 @@
 .settings
 .gradle
 .metadata
+bin
 build
 target
 idea

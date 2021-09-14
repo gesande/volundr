@@ -1,6 +1,6 @@
 project(':as-expected') {
     apply from : "$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 
     dependencies { implementation "junit:junit:${junitVersion}" }
 }
