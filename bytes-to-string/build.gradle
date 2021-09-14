@@ -1,6 +1,3 @@
-project(':bytes-to-string') {
-    apply from : "$codeCoveragePlugin"
-    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 
-    dependencies { testImplementation "junit:junit:${junitVersion}" }
-}
+dependencies { testImplementation "junit:junit:${junitVersion}" }

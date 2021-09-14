@@ -1,5 +1,4 @@
 import org.ajoberstar.grgit.Grgit
-apply from:"$codeCoveragePlugin"
 apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 apply plugin: 'maven-publish'
 

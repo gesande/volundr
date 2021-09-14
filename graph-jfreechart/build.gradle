@@ -1,29 +1,24 @@
-project(':graph-jfreechart') {
-    apply from : "$codeCoveragePlugin"
-    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
-    apply plugin: 'maven-publish'
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+apply plugin: 'maven-publish'
 
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                groupId 'org.fluentjava.volundr'
-                artifactId 'graph-jfreechart'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'org.fluentjava.volundr'
+            artifactId 'graph-jfreechart'
 
-                from components.java
+            from components.java
 
-                artifact sourcesJar { classifier "sources" }
-            }
+            artifact sourcesJar { classifier "sources" }
         }
     }
+}
 
-    dependencies {
-        implementation project(':fileutil')
-        implementation "org.jfree:jfreechart:${jfreechartVersion}"
-        implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-        testImplementation "junit:junit:${junitVersion}"
-        testImplementation project(':statistics-valueprovider')
-        testImplementation project(':statistics')
-        testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntimeOnly "log4j:log4j:${log4jVersion}"
-    }
+dependencies {
+    implementation project(':fileutil')
+    implementation "org.jfree:jfreechart:${jfreechartVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation project(':statistics-valueprovider')
+    testImplementation project(':statistics')
 }

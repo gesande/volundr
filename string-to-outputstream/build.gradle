@@ -1,5 +1,2 @@
-project(':string-to-outputstream') {
-    apply from : "$codeCoveragePlugin"
-    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
-    dependencies { testImplementation "junit:junit:${junitVersion}" }
-}
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+dependencies { testImplementation "junit:junit:${junitVersion}" }

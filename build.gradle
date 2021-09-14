@@ -14,7 +14,168 @@ plugins {
 ext {
     buildScripts="$projectDir/buildSrc"
     buildPlugins="$buildScripts/plugins"
+    //make sure these files exist
+    jdtInputFile="${buildScripts}/template/for/eclipse/org.eclipse.jdt.core.prefs"
+
+    distributionDir="$buildDir/distributions"
+
+    codeCoveragePlugin="${buildScripts}/plugins/jacoco.gradle"
+
+    artifactVersion='3.0.7'
+
+    distributionExcludes = ["*-lib.jar"]
+    distributionBasename = 'völundr-distribution'
 }
 
-//applying the root stuff from gradle file that exists in buildSrc
-apply from: "$buildPlugins/volundr.gradle"
+apply plugin : 'java'
+apply plugin : 'jacoco'
+apply plugin : org.fluentjava.völundr.ReportingPlugin
+apply plugin : org.fluentjava.völundr.JavaDistributionPlugin
+apply plugin : org.fluentjava.völundr.BuildPlugin
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+dependencyCheck {
+    skipConfigurations = [
+        'jacocoAgent',
+        'pmd',
+        'spotbugs',
+        'antClasspath'
+    ]
+    skipProjects = [":buildSrc"]
+    cve {
+        urlModified = "https://freedumbytes.gitlab.io/setup/nist-nvd-mirror/nvdcve-1.1-modified.json.gz"
+        urlBase = "https://freedumbytes.gitlab.io/setup/nist-nvd-mirror/nvdcve-1.1-%d.json.gz"
+    }
+}
+
+spotless {
+    format 'misc', {
+        target '**/*.md', '**/.gitignore'
+        target.exclude '**/mukatee-osmo/**'
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+    groovyGradle {
+        target '**/*.gradle'
+        greclipse()
+        trimTrailingWhitespace()
+        endWithNewline()
+        indentWithSpaces()
+    }
+    java {
+        importOrder 'java', 'javax', 'org', 'com', ''
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+        eclipse().configFile "${project.properties.jdtInputFile}"
+        target project.fileTree(project.rootDir) {
+            include '**/*.java'
+            exclude '**/build/**', '**/mukatee-osmo/**'
+        }
+    }
+}
+
+subprojects { prj ->
+    apply plugin : 'jacoco'
+    apply plugin : 'java'
+    apply plugin : 'pmd'
+    apply plugin : "com.diffplug.spotless"
+    apply plugin : "com.github.spotbugs"
+    apply plugin : org.fluentjava.völundr.JavaProjectArtifactPlugin
+    apply plugin : org.fluentjava.völundr.ForkEclipseJdtPlugin
+    apply plugin : org.fluentjava.völundr.EclipseClasspathPlugin
+    apply plugin : org.fluentjava.völundr.ProjectVersion
+
+    project.plugins.apply(JacocoPlugin)
+
+    project.task("jacocoMerge", type: JacocoMerge) {
+        executionData project.tasks.withType(Test)
+
+        doFirst {
+            executionData = files(executionData.findAll { it.exists() })
+        }
+    }
+    tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+
+    forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
+
+    version = prj.parent.artifactVersion
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    pmd {
+        ignoreFailures = true //need to fix those
+        toolVersion = "6.20.0"
+        ruleSetFiles = files("${project.rootDir}/conf/pmd-ruleset.xml")
+        /*
+         Gradle defaults to using the basic and braces
+         rulesets up to Gradle 5. Gradle 5 defaults to using
+         the errorprone category.
+         */
+        ruleSets = []
+        // https://pmd.github.io/pmd-6.20.0/pmd_userdocs_incremental_analysis.html
+        //this is an incubating feature and seems to have some issues
+        // disabling it for now
+        //incrementalAnalysis = true
+    }
+
+    dependencies {
+        testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+        testRuntimeOnly "log4j:log4j:${log4jVersion}"
+    }
+
+    spotbugs {
+        toolVersion = "$spotbugsVersion"
+        effort = 'max'
+        excludeFilter = file("${project.rootDir}/buildSrc/template/for/spotbugs/exclude-filters.xml")
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled false
+            csv.enabled false
+            html.destination file("${buildDir}/jacocoHtml")
+        }
+    }
+}
+
+def publishedProjects = subprojects.findAll() { it.path != ':buildSrc' }
+
+task jacocoMerge(type: JacocoMerge) {
+    destinationFile = file("${buildDir}/jacoco/merged.exec")
+    publishedProjects.each { subproject ->
+        executionData subproject.tasks.withType(Test)
+    }
+
+    doFirst {
+        executionData = files(executionData.findAll { it.exists() })
+    }
+}
+
+task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') { rep ->
+    description = 'Generates an aggregate report from all subprojects'
+    dependsOn publishedProjects.test, jacocoMerge
+
+    additionalSourceDirs.setFrom(files(publishedProjects.sourceSets.main.allSource.srcDirs))
+    sourceDirectories.setFrom(files(publishedProjects.sourceSets.main.allSource.srcDirs))
+    classDirectories.setFrom(files(publishedProjects.sourceSets.main.output))
+    executionData.setFrom(jacocoMerge.destinationFile)
+
+    reports {
+        html.enabled = true // human readable
+        xml.enabled = true // computer readable
+    }
+
+    doLast { println "Coverage report(s) can be found from file://${buildDir}/reports/jacoco/jacocoAggregateReport/html/index.html" }
+}
+
+tasks.named('wrapper') {
+    distributionType = Wrapper.DistributionType.ALL
+}
