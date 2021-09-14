@@ -62,3 +62,4 @@ WAITING
 - introduce readme.md #docs
 - convert dev-setup.txt to md format, also update it correctly #docs
 - deps versions in ext instead of gradle.properties #build
+- fix new pmd issues #code

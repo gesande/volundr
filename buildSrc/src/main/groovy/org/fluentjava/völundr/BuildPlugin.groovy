@@ -9,45 +9,7 @@ public class BuildPlugin implements Plugin<Project> {
 
     @Override
     public void apply(final Project project) {
-        project.task("licenseToCommit", type: GradleBuild) { Task task ->
-            group = 'Verification'
-            description = 'If this passed you have license to commit your changes.'
-            buildFile = 'build.gradle'
-            tasks = [
-                'spotlessCheck',
-                'concurrent:continous',
-                'stronglytyped-sortedbag:continous',
-                'linereader:continous',
-                'fileutil:continous',
-                'junit-utils:continous',
-                'classhelper:continous',
-                'asynchronous-stream-reader:continous',
-                'stream-reader:continous',
-                'string-to-outputstream:continous',
-                'inputstream-to-string:continous',
-                'visiting-inputstreams:continous',
-                'string-to-bytes:continous',
-                'string-to-inputstream:continous',
-                'völundr-smithy:continous',
-                'statistics:continous',
-                'string-splitter:continous',
-                'bytes-to-string:continous',
-                'as-expected:continous',
-                'statistics-valueprovider:continous',
-                'graph-jfreechart:continous',
-                'graph-jfreechart-api:continous',
-                'völundr-osmo-tester:continous',
-                'osmo-testing-statistics:continous',
-                'exportAntBuildFile',
-                'aggregateTestReport',
-                'aggregateJDependReport',
-                'jacocoAggregateReport',
-                'archiveAggregateReports'
-            ]
-            doLast { println "You've now license to commit, good work!" }
-        }
-
-        project.task("distributionPackage", type: GradleBuild, dependsOn: ['licenseToCommit']) { Task task ->
+        project.task("distributionPackage", type: GradleBuild, dependsOn: ['build']) { Task task ->
             group = 'Distribution'
             description = 'Distribution package for the whole thing including continous build.'
             buildFile = 'build.gradle'
