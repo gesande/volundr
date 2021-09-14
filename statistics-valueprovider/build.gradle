@@ -1,24 +1,21 @@
-project(':statistics-valueprovider') {
-    apply from : "$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
-    apply plugin: 'maven-publish'
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+apply plugin: 'maven-publish'
 
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                groupId 'org.fluentjava.volundr'
-                artifactId 'statistics-valueprovider'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'org.fluentjava.volundr'
+            artifactId 'statistics-valueprovider'
 
-                from components.java
+            from components.java
 
-                artifact sourcesJar { classifier "sources" }
-            }
+            artifact sourcesJar { classifier "sources" }
         }
     }
+}
 
-    dependencies {
-        compile project(':statistics')
-        compile project(':stronglytyped-sortedbag')
-        testCompile "junit:junit:${junitVersion}"
-    }
+dependencies {
+    implementation project(':statistics')
+    implementation project(':stronglytyped-sortedbag')
+    testImplementation "junit:junit:${junitVersion}"
 }

@@ -1,8 +1,7 @@
-project(':visiting-inputstreams') {
-    apply from : "$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
-    dependencies {
-        compile project(':asynchronous-stream-reader')
-        testCompile "junit:junit:${junitVersion}"
-    }
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+dependencies {
+    implementation project(':asynchronous-stream-reader')
+    implementation project(':stream-reader')
+    implementation project(':linereader')
+    testImplementation "junit:junit:${junitVersion}"
 }

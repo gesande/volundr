@@ -1,20 +1,17 @@
-project(':statistics') { prj ->
-    apply from : "$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
-    apply plugin: 'maven-publish'
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+apply plugin: 'maven-publish'
 
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                groupId 'org.fluentjava.volundr'
-                artifactId 'statistics'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'org.fluentjava.volundr'
+            artifactId 'statistics'
 
-                from components.java
+            from components.java
 
-                artifact sourcesJar { classifier "sources" }
-            }
+            artifact sourcesJar { classifier "sources" }
         }
     }
-
-    dependencies { testCompile "junit:junit:${junitVersion}" }
 }
+
+dependencies { testImplementation "junit:junit:${junitVersion}" }

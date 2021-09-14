@@ -53,12 +53,13 @@ DONE
 + introduce spotless #build
 
 IN PROGRESS 
+- use spotbugs instead of findbugs #code
 
 WAITING
 - introduce license plugins #build
-- use spotbugs instead of findbugs #code
 - remake gradle build using conventions #build
 - graph-jfreechart-fileapi
 - introduce readme.md #docs
 - convert dev-setup.txt to md format, also update it correctly #docs
 - deps versions in ext instead of gradle.properties #build
+- fix new pmd issues #code

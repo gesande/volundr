@@ -1,11 +1,6 @@
-project(':concurrent') {
-    apply from:"$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 
-    dependencies {
-        compile "org.slf4j:slf4j-api:${slf4jVersion}"
-        testCompile "junit:junit:${junitVersion}"
-        testRuntime "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntime "log4j:log4j:${log4jVersion}"
-    }
+dependencies {
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    testImplementation "junit:junit:${junitVersion}"
 }

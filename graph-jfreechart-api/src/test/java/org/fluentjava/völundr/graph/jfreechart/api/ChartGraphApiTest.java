@@ -36,7 +36,7 @@ public class ChartGraphApiTest {
         StatisticsListProvider<Integer> stats = StatisticsListProviderFactory
                 .integerValues(values);
 
-        String graphName = "ChartGraphApiTest-writeGraphFromStatisticsListProviderIntValues";
+        String graphName = "ChartGraphApiTest-writeGraphFromStatisticsListProviderIntValues-samples";
         new ChartGraphApi(targetPath).createLineChart("legendTitle",
                 "graphTitle", "xAxisTitle", graphName, stats);
         byte[] bytes = Files

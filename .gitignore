@@ -4,8 +4,10 @@
 .settings
 .gradle
 .metadata
+bin
 build
 target
 idea
 .idea
 mukatee-osmo
+osmo-tester

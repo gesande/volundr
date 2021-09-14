@@ -1,14 +1,14 @@
 project(':threadengine-api-example') {
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 
     version = project.properties.artifactVersion
 
     dependencies {
-        testCompile project(':concurrent')
-        testCompile "org.slf4j:slf4j-api:${slf4jVersion}"
-        testCompile "junit:junit:${junitVersion}"
-        testRuntime "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntime "log4j:log4j:${log4jVersion}"
+        testImplementation project(':concurrent')
+        testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
+        testImplementation "junit:junit:${junitVersion}"
+        testImplementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+        testImplementation "log4j:log4j:${log4jVersion}"
     }
     artifacts { archives testSourcesJar }
 }

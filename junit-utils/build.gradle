@@ -1,6 +1,3 @@
-project(':junit-utils') {
-    apply from:"$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 
-    dependencies { compile "junit:junit:${junitVersion}" }
-}
+dependencies { implementation "junit:junit:${junitVersion}" }

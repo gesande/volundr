@@ -1,9 +1,6 @@
-project(':string-to-inputstream') {
-    apply from : "$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
-    dependencies {
-        compile project(':string-to-bytes')
-        testCompile "junit:junit:${junitVersion}"
-        testCompile project(':linereader')
-    }
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+dependencies {
+    implementation project(':string-to-bytes')
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation project(':linereader')
 }

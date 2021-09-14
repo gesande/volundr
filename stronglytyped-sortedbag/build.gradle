@@ -1,23 +1,20 @@
-project(':stronglytyped-sortedbag'){
-    apply from:"$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
-    apply plugin: 'maven-publish'
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+apply plugin: 'maven-publish'
 
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                groupId 'org.fluentjava.volundr'
-                artifactId 'stronglytyped-sortedbag'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'org.fluentjava.volundr'
+            artifactId 'stronglytyped-sortedbag'
 
-                from components.java
+            from components.java
 
-                artifact sourcesJar { classifier "sources" }
-            }
+            artifact sourcesJar { classifier "sources" }
         }
     }
+}
 
-    dependencies {
-        compile "commons-collections:commons-collections:${commonsCollectionsVersion}"
-        testCompile "junit:junit:${junitVersion}"
-    }
+dependencies {
+    implementation "commons-collections:commons-collections:${commonsCollectionsVersion}"
+    testImplementation "junit:junit:${junitVersion}"
 }

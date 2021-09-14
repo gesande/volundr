@@ -1,18 +1,16 @@
-project(':völundr-smithy') {
-    apply from : "$codeCoveragePlugin"
-    apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
+apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 
-    dependencies {
-        compile project(':asynchronous-stream-reader')
-        compile project(':inputstream-to-string')
-        compile project(':linereader')
-        compile project(':stream-reader')
-        compile project(':string-to-outputstream')
-        compile project(':string-to-bytes')
-        compile project(':stronglytyped-sortedbag')
-        compile project(':visiting-inputstreams')
-        compile project(':bytes-to-string')
-        testCompile "junit:junit:${junitVersion}"
-        testCompile project(':as-expected')
-    }
+dependencies {
+    implementation project(':asynchronous-stream-reader')
+    implementation project(':concurrent')
+    implementation project(':inputstream-to-string')
+    implementation project(':linereader')
+    implementation project(':stream-reader')
+    implementation project(':string-to-outputstream')
+    implementation project(':string-to-bytes')
+    implementation project(':stronglytyped-sortedbag')
+    implementation project(':visiting-inputstreams')
+    implementation project(':bytes-to-string')
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation project(':as-expected')
 }
