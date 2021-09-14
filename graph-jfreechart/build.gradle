@@ -17,12 +17,13 @@ project(':graph-jfreechart') {
     }
 
     dependencies {
-        compile project(':fileutil')
-        compile "org.jfree:jfreechart:${jfreechartVersion}"
-        compile "org.slf4j:slf4j-api:${slf4jVersion}"
-        testCompile "junit:junit:${junitVersion}"
-        testCompile project(':statistics-valueprovider')
-        testRuntime "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntime "log4j:log4j:${log4jVersion}"
+        implementation project(':fileutil')
+        implementation "org.jfree:jfreechart:${jfreechartVersion}"
+        implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+        testImplementation "junit:junit:${junitVersion}"
+        testImplementation project(':statistics-valueprovider')
+        testImplementation project(':statistics')
+        testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+        testRuntimeOnly "log4j:log4j:${log4jVersion}"
     }
 }

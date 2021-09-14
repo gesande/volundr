@@ -3,8 +3,9 @@ project(':stream-reader') {
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
     dependencies {
-        compile project(':linereader')
-        testCompile "junit:junit:${junitVersion}"
-        testCompile project(':string-to-inputstream')
+        implementation project(':linereader')
+        testImplementation "junit:junit:${junitVersion}"
+        testImplementation project(':string-to-inputstream')
+        testImplementation project(':string-to-bytes')
     }
 }

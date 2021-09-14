@@ -17,8 +17,8 @@ project(':statistics-valueprovider') {
     }
 
     dependencies {
-        compile project(':statistics')
-        compile project(':stronglytyped-sortedbag')
-        testCompile "junit:junit:${junitVersion}"
+        implementation project(':statistics')
+        implementation project(':stronglytyped-sortedbag')
+        testImplementation "junit:junit:${junitVersion}"
     }
 }

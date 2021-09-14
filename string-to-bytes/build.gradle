@@ -16,5 +16,5 @@ project(':string-to-bytes') {
         }
     }
 
-    dependencies { testCompile "junit:junit:${junitVersion}" }
+    dependencies { testImplementation "junit:junit:${junitVersion}" }
 }

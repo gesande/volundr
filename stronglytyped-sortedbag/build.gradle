@@ -17,7 +17,7 @@ project(':stronglytyped-sortedbag'){
     }
 
     dependencies {
-        compile "commons-collections:commons-collections:${commonsCollectionsVersion}"
-        testCompile "junit:junit:${junitVersion}"
+        implementation "commons-collections:commons-collections:${commonsCollectionsVersion}"
+        testImplementation "junit:junit:${junitVersion}"
     }
 }

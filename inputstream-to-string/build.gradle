@@ -2,7 +2,7 @@ project(':inputstream-to-string') {
     apply from : "$codeCoveragePlugin"
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
     dependencies {
-        compile "commons-io:commons-io:${commonsIoVersion}"
-        testCompile "junit:junit:${junitVersion}"
+        implementation "commons-io:commons-io:${commonsIoVersion}"
+        testImplementation "junit:junit:${junitVersion}"
     }
 }

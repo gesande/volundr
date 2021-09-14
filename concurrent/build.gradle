@@ -3,9 +3,9 @@ project(':concurrent') {
     apply plugin : net.sf.mygradlebuild.plugins.JavaProjectDistribution
 
     dependencies {
-        compile "org.slf4j:slf4j-api:${slf4jVersion}"
-        testCompile "junit:junit:${junitVersion}"
-        testRuntime "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntime "log4j:log4j:${log4jVersion}"
+        implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+        testImplementation "junit:junit:${junitVersion}"
+        testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+        testRuntimeOnly "log4j:log4j:${log4jVersion}"
     }
 }

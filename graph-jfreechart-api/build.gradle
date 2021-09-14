@@ -17,15 +17,15 @@ project(':graph-jfreechart-api') {
     }
 
     dependencies {
-        compile project(':fileutil')
-        compile project(':graph-jfreechart')
-        compile project(':statistics')
-        compile project(':stronglytyped-sortedbag')
-        compile "org.jfree:jfreechart:${jfreechartVersion}"
-        compile project(':statistics-valueprovider')
-        compile "org.slf4j:slf4j-api:${slf4jVersion}"
-        testCompile "junit:junit:${junitVersion}"
-        testRuntime "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntime "log4j:log4j:${log4jVersion}"
+        implementation project(':fileutil')
+        implementation project(':graph-jfreechart')
+        implementation project(':statistics')
+        implementation project(':stronglytyped-sortedbag')
+        implementation "org.jfree:jfreechart:${jfreechartVersion}"
+        implementation project(':statistics-valueprovider')
+        implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+        testImplementation "junit:junit:${junitVersion}"
+        testImplementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+        testImplementation "log4j:log4j:${log4jVersion}"
     }
 }

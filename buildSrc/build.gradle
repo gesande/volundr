@@ -9,7 +9,11 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'java'
 
-repositories {  flatDir { dirs 'lib' }  }
+repositories {
+    flatDir {
+        dirs 'lib'
+    }
+}
 
 dependencies {
     implementation gradleApi()

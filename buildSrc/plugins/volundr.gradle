@@ -2,12 +2,8 @@
 import net.sf.mygradlebuild.plugins.EclipseSettingsPlugin
 import net.sf.mygradlebuild.plugins.EnvironmentVariablesPlugin
 import net.sf.mygradlebuild.plugins.ReportingPlugin
-import net.sf.mygradlebuild.plugins.CodeAnalysis
-import net.sf.mygradlebuild.plugins.ContinousPlugin
 import net.sf.mygradlebuild.plugins.EclipseClasspathPlugin
 import net.sf.mygradlebuild.plugins.ForkEclipseJdtPlugin
-import net.sf.mygradlebuild.plugins.ForkPmdSettings
-import net.sf.mygradlebuild.plugins.JDependWithXmlReports
 import net.sf.mygradlebuild.plugins.JavaProjectArtifactPlugin
 import net.sf.mygradlebuild.plugins.ProjectVersion
 import org.fluentjava.völundr.BuildPlugin
@@ -41,32 +37,50 @@ apply plugin : ExportAntBuildFilePlugin
 apply plugin : BuildPlugin
 apply plugin : 'jacoco'
 
-allprojects {
-    // In this section you declare where to find the dependencies of your project
-    repositories {
-        // Use jcenter for resolving your dependencies.
-        // You can declare any Maven/Ivy/file repository here.
-        jcenter()
-    }
-}
+allprojects { repositories { mavenCentral() } }
 
 reportingSettings {
     toolsDirectory = "${toolsDir}"
     onlyAnalyze = 'org.fluentjava.völundr'
 }
 
+spotless {
+    format 'misc', {
+        target '**/*.md', '**/.gitignore'
+        target.exclude '**/mukatee-osmo/**'
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+    groovyGradle {
+        target '**/*.gradle'
+        greclipse()
+        trimTrailingWhitespace()
+        endWithNewline()
+        indentWithSpaces()
+    }
+    java {
+        importOrder 'java', 'javax', 'org', 'com', ''
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+        eclipse().configFile "${project.properties.jdtInputFile}"
+        target project.fileTree(project.rootDir) {
+            include '**/*.java'
+            exclude '**/build/**', '**/mukatee-osmo/**'
+        }
+    }
+}
 
 subprojects { prj ->
-    apply plugin : JavaProjectArtifactPlugin
-    //apply plugin : ForkPmdSettings
-    //apply plugin : JDependWithXmlReports
-    //apply plugin : 'jdepend'
     apply plugin : 'pmd'
+    apply plugin : "com.diffplug.spotless"
+    apply plugin : "com.github.spotbugs"
+    apply plugin : JavaProjectArtifactPlugin
     apply plugin : ForkEclipseJdtPlugin
     apply plugin : EclipseClasspathPlugin
     apply plugin : ProjectVersion
-    apply plugin : "com.diffplug.gradle.spotless"
-    apply plugin : "com.github.spotbugs"
 
     project.plugins.apply(JacocoPlugin)
 
@@ -100,34 +114,9 @@ subprojects { prj ->
         //incrementalAnalysis = true
     }
 
-    spotless {
-        format 'misc', {
-            target '**/*.md', '**/.gitignore'
-            target.exclude '**/mukatee-osmo/**'
-            trimTrailingWhitespace()
-            indentWithSpaces()
-            endWithNewline()
-        }
-        groovyGradle {
-            target '**/*.gradle'
-            greclipse()
-            trimTrailingWhitespace()
-            endWithNewline()
-            paddedCell()
-            indentWithSpaces()
-        }
-        java {
-            importOrder 'java', 'javax', 'org', 'com', ''
-            removeUnusedImports()
-            trimTrailingWhitespace()
-            indentWithSpaces()
-            endWithNewline()
-            eclipse().configFile "${project.properties.jdtInputFile}"
-            target project.fileTree(project.rootDir) {
-                include '**/*.java'
-                exclude '**/build/**', '**/mukatee-osmo/**'
-            }
-        }
+    dependencies {
+        testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+        testRuntimeOnly "log4j:log4j:${log4jVersion}"
     }
 
     spotbugs {

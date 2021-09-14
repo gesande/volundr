@@ -1,4 +1,3 @@
-include 'buildSrc'
 include 'junit-utils','classhelper','linereader','stronglytyped-sortedbag'
 include 'fileutil','concurrent','threadengine-api-example','stream-reader'
 include 'asynchronous-stream-reader','string-to-outputstream'

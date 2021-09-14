@@ -18,13 +18,14 @@ publishing {
 
 dependencies {
     implementation "org.slf4j:slf4j-api:$slf4jVersion"
-    runtimeClasspath "commons-collections:commons-collections:$commonsCollectionsVersion"
+    implementation "commons-collections:commons-collections:$commonsCollectionsVersion"
 
     //these are needed for statistics and graphs
     implementation project(':statistics')
     implementation project(':graph-jfreechart')
-    runtimeClasspath project(':fileutil')
-    runtimeClasspath project(':string-to-bytes')
+    implementation project(':fileutil')
+    implementation project(':string-to-bytes')
     implementation project(':graph-jfreechart-api')
-    runtimeClasspath project(':statistics-valueprovider')
+    implementation project(':statistics-valueprovider')
+
 }
