@@ -6,7 +6,7 @@ import org.gradle.api.Task
 import org.gradle.api.file.FileTree
 import org.gradle.api.tasks.bundling.Tar
 
-public class JavaDistributionPlugin implements Plugin<Project>{
+public class JavaDistributionPlugin implements Plugin<Project> {
 
     @Override
     public void apply(final Project project) {
@@ -14,7 +14,7 @@ public class JavaDistributionPlugin implements Plugin<Project>{
             group = 'Distribution'
             description = "Copies project specific source jars to the distribution sources directory."
             doLast {
-                FileTree tree=project.fileTree("${project.projectDir}")
+                FileTree tree = project.fileTree("${project.projectDir}")
                 tree.include('**/build/libs/*-sources.jar')
                 project.copy {
                     from tree.getFiles()
@@ -28,7 +28,7 @@ public class JavaDistributionPlugin implements Plugin<Project>{
             group = 'Distribution'
             description = 'Copies project specific distribution archives to distribution.'
             doLast {
-                FileTree tree=project.fileTree("${project.projectDir}")
+                FileTree tree = project.fileTree("${project.projectDir}")
                 tree.include '**/build/distributions/*.zip'
                 project.copy {
                     from 'COPYING'
@@ -38,29 +38,29 @@ public class JavaDistributionPlugin implements Plugin<Project>{
             }
         }
 
-        project.task("archiveDistribution", type: Tar )  { Tar task ->
+        project.task("archiveDistribution", type: Tar) { Tar task ->
             task.dependsOn("copyDistributionArchives")
             group = 'Distribution'
             description = "Makes the distribution artifact and copies it to ${project.properties.distributionDir}."
             task.outputs.upToDateWhen { false }
-            String artifactRevision="${project.properties.artifactVersion}"
+            String artifactRevision = "${project.properties.artifactVersion}"
             String distributionName = project.properties.distributionBasename
             from project.file('distribution')
             destinationDirectory = project.file("${project.properties.distributionDir}/artifact-${artifactRevision}")
             archiveBaseName = "$distributionName"
-            archiveVersion ="${artifactRevision}"
+            archiveVersion = "${artifactRevision}"
             archiveExtension = 'tar'
             doLast { println("Archived distribution package can be found from file://${destinationDir}/${distributionName}-${artifactRevision}.tar") }
         }
 
-        project.task ("copyDistributionFiles") { Task task ->
+        project.task("copyDistributionFiles") { Task task ->
             task.dependsOn("archiveDistribution")
             task.outputs.upToDateWhen { false }
             group = 'Distribution'
             description = "Copies the distribution artifact and copies it under ${project.properties.distributionDir}."
             task.doLast {
-                def artifactRevision="${project.properties.artifactVersion}"
-                def targetDir ="${project.properties.distributionDir}/distribution-${artifactRevision}"
+                def artifactRevision = "${project.properties.artifactVersion}"
+                def targetDir = "${project.properties.distributionDir}/distribution-${artifactRevision}"
                 project.file("${targetDir}").mkdirs()
                 project.copy {
                     from project.file('distribution')
@@ -70,14 +70,14 @@ public class JavaDistributionPlugin implements Plugin<Project>{
             }
         }
 
-        project.task ("makeDistributionPackage") { Task task ->
-            task.dependsOn( "copyDistributionFiles")
+        project.task("makeDistributionPackage") { Task task ->
+            task.dependsOn("copyDistributionFiles")
 
             group = 'Distribution'
             description = "Makes the distribution package."
             doLast {
                 project.delete("distribution")
-                println( "Distribution package done.")
+                println("Distribution package done.")
             }
         }
     }
