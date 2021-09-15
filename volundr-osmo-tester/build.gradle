@@ -19,8 +19,8 @@ group="org.fluentjava.volundr.testing.osmo"
 
 dependencies {
     //osmo-tester dependency as built classes
-    implementation files("osmo-tester/target/classes") { builtBy "makeOsmoTester" }
-    implementation fileTree(dir: "osmo-tester/libs", exclude: "log4j*.jar")
+    implementation files("${projectDir}/osmo-tester/target/classes") { builtBy "makeOsmoTester" }
+    implementation fileTree(dir: "${projectDir}/osmo-tester/libs", exclude: "log4j*.jar")
     implementation project(':osmo-testing-statistics')
     implementation "org.slf4j:slf4j-api:$slf4jVersion"
 }
