@@ -9,7 +9,7 @@ plugins {
     id "jacoco"
     id "pmd"
     id "eclipse"
-    id "com.github.spotbugs" version "4.7.2"
+    id "com.github.spotbugs" version "4.7.5"
     id "org.ajoberstar.grgit" version "4.1.0"
     id "com.diffplug.spotless" version "5.11.1"
     id "org.owasp.dependencycheck" version "6.2.2"
@@ -41,7 +41,7 @@ ext {
     commonsIoVersion="2.11.0"
     commonsCollectionsVersion="3.2.2"
     jfreechartVersion="1.5.3"
-    spotbugsVersion="4.3.0"
+    spotbugsVersion="4.4.1"
 }
 
 allprojects {
@@ -50,9 +50,9 @@ allprojects {
     }
 }
 
-apply plugin : org.fluentjava.völundr.ReportingPlugin
-apply plugin : org.fluentjava.völundr.JavaDistributionPlugin
-apply plugin : org.fluentjava.völundr.BuildPlugin
+apply plugin : org.fluentjava.volundr.ReportingPlugin
+apply plugin : org.fluentjava.volundr.JavaDistributionPlugin
+apply plugin : org.fluentjava.volundr.BuildPlugin
 
 dependencyCheck {
     skipConfigurations = [
@@ -96,10 +96,17 @@ spotless {
         }
     }
 }
-subprojects {
+
+subprojects { prj ->
     apply plugin : 'java'
     apply plugin : 'pmd'
     apply plugin : "com.github.spotbugs"
+    apply plugin : 'eclipse'
+    apply plugin : 'jacoco'
+    apply plugin : org.fluentjava.volundr.JavaProjectArtifactPlugin
+    apply plugin : org.fluentjava.volundr.ForkEclipseJdtPlugin
+    apply plugin : org.fluentjava.volundr.EclipseClasspathPlugin
+    apply plugin : org.fluentjava.volundr.ProjectVersion
 
     spotbugs {
         toolVersion = "$spotbugsVersion"
@@ -121,17 +128,15 @@ subprojects {
         // disabling it for now
         //incrementalAnalysis = true
     }
-}
 
-subprojects { prj ->
-    apply plugin : 'java'
-    apply plugin : 'pmd'
-    apply plugin : 'eclipse'
-    apply plugin : 'jacoco'
-    apply plugin : org.fluentjava.völundr.JavaProjectArtifactPlugin
-    apply plugin : org.fluentjava.völundr.ForkEclipseJdtPlugin
-    apply plugin : org.fluentjava.völundr.EclipseClasspathPlugin
-    apply plugin : org.fluentjava.völundr.ProjectVersion
+    tasks.withType(com.github.spotbugs.snom.SpotBugsTask) { task ->
+        task.reports {
+            xml.enabled = project.hasProperty('CI') && "${CI}".toBoolean()
+        }
+        task.reports {
+            html.enabled = !(project.hasProperty('CI') && "${CI}".toBoolean())
+        }
+    }
 
     project.plugins.apply(JacocoPlugin)
 
@@ -151,6 +156,7 @@ subprojects { prj ->
     targetCompatibility = JavaVersion.VERSION_1_8
 
     dependencies {
+        compileOnly "com.github.spotbugs:spotbugs-annotations:$spotbugsVersion"
         testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
         testRuntimeOnly "log4j:log4j:${log4jVersion}"
     }

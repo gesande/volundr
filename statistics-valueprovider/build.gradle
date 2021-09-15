@@ -1,4 +1,4 @@
-apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+apply plugin : org.fluentjava.volundr.JavaProjectDistribution
 apply plugin: 'maven-publish'
 
 publishing {

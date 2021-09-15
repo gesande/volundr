@@ -1,5 +1,5 @@
 project(':threadengine-api-example') {
-    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+    apply plugin : org.fluentjava.volundr.JavaProjectDistribution
 
     version = project.properties.artifactVersion
 

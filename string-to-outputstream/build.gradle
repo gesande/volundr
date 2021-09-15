@@ -1,2 +1,2 @@
-apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+apply plugin : org.fluentjava.volundr.JavaProjectDistribution
 dependencies { testImplementation "junit:junit:${junitVersion}" }

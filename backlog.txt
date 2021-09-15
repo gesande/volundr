@@ -53,10 +53,10 @@ DONE
 + introduce spotless #build
 + deps versions in ext instead of gradle.properties #build
 + introduced dependency update reporting
-IN PROGRESS 
++ use spotbugs instead of findbugs #code (requires völundr -> volundr)
+IN PROGRESS
 
 WAITING
-- use spotbugs instead of findbugs #code (requires völundr -> volundr)
 - fix new pmd issues #code
 - introduce license plugins #build
 - remake gradle build using conventions #build
