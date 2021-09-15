@@ -5,10 +5,19 @@ buildscript {
 }
 
 plugins {
+    id "java"
+    id "jacoco"
+    id "pmd"
+    id "eclipse"
+    id "com.github.spotbugs" version "4.7.2"
     id "org.ajoberstar.grgit" version "4.1.0"
     id "com.diffplug.spotless" version "5.11.1"
-    id "com.github.spotbugs" version "4.7.2"
     id "org.owasp.dependencycheck" version "6.2.2"
+    /*
+     id "nebula.lint" version "17.1.0"
+     id "nebula.resolution-rules" version "7.8.7"
+     */
+    id "com.github.ben-manes.versions" version "0.39.0"
 }
 
 ext {
@@ -25,19 +34,25 @@ ext {
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
-}
 
-apply plugin : 'java'
-apply plugin : 'jacoco'
-apply plugin : org.fluentjava.völundr.ReportingPlugin
-apply plugin : org.fluentjava.völundr.JavaDistributionPlugin
-apply plugin : org.fluentjava.völundr.BuildPlugin
+    slf4jVersion="1.7.32"
+    log4jVersion="1.2.17"
+    junitVersion="4.11"
+    commonsIoVersion="2.11.0"
+    commonsCollectionsVersion="3.2.2"
+    jfreechartVersion="1.5.3"
+    spotbugsVersion="4.3.0"
+}
 
 allprojects {
     repositories {
         mavenCentral()
     }
 }
+
+apply plugin : org.fluentjava.völundr.ReportingPlugin
+apply plugin : org.fluentjava.völundr.JavaDistributionPlugin
+apply plugin : org.fluentjava.völundr.BuildPlugin
 
 dependencyCheck {
     skipConfigurations = [
@@ -81,13 +96,38 @@ spotless {
         }
     }
 }
-
-subprojects { prj ->
-    apply plugin : 'jacoco'
+subprojects {
     apply plugin : 'java'
     apply plugin : 'pmd'
-    apply plugin : "com.diffplug.spotless"
     apply plugin : "com.github.spotbugs"
+
+    spotbugs {
+        toolVersion = "$spotbugsVersion"
+        effort = 'max'
+    }
+
+    pmd {
+        ignoreFailures = true //need to fix those
+        toolVersion = "6.20.0"
+        ruleSetFiles = files("${project.rootDir}/conf/pmd-ruleset.xml")
+        /*
+         Gradle defaults to using the basic and braces
+         rulesets up to Gradle 5. Gradle 5 defaults to using
+         the errorprone category.
+         */
+        ruleSets = []
+        // https://pmd.github.io/pmd-6.20.0/pmd_userdocs_incremental_analysis.html
+        //this is an incubating feature and seems to have some issues
+        // disabling it for now
+        //incrementalAnalysis = true
+    }
+}
+
+subprojects { prj ->
+    apply plugin : 'java'
+    apply plugin : 'pmd'
+    apply plugin : 'eclipse'
+    apply plugin : 'jacoco'
     apply plugin : org.fluentjava.völundr.JavaProjectArtifactPlugin
     apply plugin : org.fluentjava.völundr.ForkEclipseJdtPlugin
     apply plugin : org.fluentjava.völundr.EclipseClasspathPlugin
@@ -110,31 +150,9 @@ subprojects { prj ->
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
-    pmd {
-        ignoreFailures = true //need to fix those
-        toolVersion = "6.20.0"
-        ruleSetFiles = files("${project.rootDir}/conf/pmd-ruleset.xml")
-        /*
-         Gradle defaults to using the basic and braces
-         rulesets up to Gradle 5. Gradle 5 defaults to using
-         the errorprone category.
-         */
-        ruleSets = []
-        // https://pmd.github.io/pmd-6.20.0/pmd_userdocs_incremental_analysis.html
-        //this is an incubating feature and seems to have some issues
-        // disabling it for now
-        //incrementalAnalysis = true
-    }
-
     dependencies {
         testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
         testRuntimeOnly "log4j:log4j:${log4jVersion}"
-    }
-
-    spotbugs {
-        toolVersion = "$spotbugsVersion"
-        effort = 'max'
-        excludeFilter = file("${project.rootDir}/buildSrc/template/for/spotbugs/exclude-filters.xml")
     }
 
     jacocoTestReport {
@@ -178,4 +196,18 @@ task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') { rep 
 
 tasks.named('wrapper') {
     distributionType = Wrapper.DistributionType.ALL
+}
+
+def isNonStable = { String group, String module, String version ->
+    return (version ==~ /(?i).*[-.](alpha|beta|SNAP|milestone|M1|rc)-?[0-9]*$/)
+}
+
+subprojects {
+    task allDependencies(type: DependencyReportTask) {}
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        isNonStable(it.candidate.group, it.candidate.module, it.candidate.version)
+    }
 }

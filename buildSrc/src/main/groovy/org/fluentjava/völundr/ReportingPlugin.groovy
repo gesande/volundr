@@ -5,14 +5,14 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.bundling.Compression
 import org.gradle.api.tasks.bundling.Tar
 
-public class ReportingPlugin implements Plugin<Project>{
+public class ReportingPlugin implements Plugin<Project> {
 
     @Override
     public void apply(final Project project) {
         project.configurations { antClasspath }
         project.dependencies { antClasspath 'org.apache.ant:ant-junit:1.8.2' }
 
-        project.task ("reportingOptions") {
+        project.task("reportingOptions") {
             group = 'Reporting'
             description = "Prints out reporting plugin options"
             doLast {
@@ -20,7 +20,7 @@ public class ReportingPlugin implements Plugin<Project>{
             }
         }
 
-        project.task ("aggregateTestReport") {
+        project.task("aggregateTestReport") {
             group = 'Reporting'
             description = "Makes aggregate test report with ant-junit."
 
@@ -52,12 +52,12 @@ public class ReportingPlugin implements Plugin<Project>{
         project.gradle.projectsEvaluated { addTasksAfterProjectsEvaluated(project) }
     }
 
-    static void addTasksAfterProjectsEvaluated(final Project project){
-        project.task("archiveAggregateReports", type: Tar)  { Tar task ->
+    static void addTasksAfterProjectsEvaluated(final Project project) {
+        project.task("archiveAggregateReports", type: Tar) { Tar task ->
             group = 'Archive'
             description = 'Archive aggregate reports including junit tests/pmd'
             def timestamp = new Date(System.currentTimeMillis()).format("yyyyMMdd-HHmmss")
-            from ("${project.buildDir}/reports")
+            from("${project.buildDir}/reports")
             // Set destination directory.
             File parent = project.file("${project.buildDir}/reports").getParentFile()
             task.destinationDirectory = parent

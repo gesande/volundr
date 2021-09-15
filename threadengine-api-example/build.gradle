@@ -7,8 +7,6 @@ project(':threadengine-api-example') {
         testImplementation project(':concurrent')
         testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
         testImplementation "junit:junit:${junitVersion}"
-        testImplementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testImplementation "log4j:log4j:${log4jVersion}"
     }
     artifacts { archives testSourcesJar }
 }

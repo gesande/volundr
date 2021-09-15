@@ -4,7 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 
-class EclipseClasspathPlugin implements Plugin<Project>{
+class EclipseClasspathPlugin implements Plugin<Project> {
 
     @Override
     public void apply(final Project project) {
@@ -19,7 +19,7 @@ class EclipseClasspathPlugin implements Plugin<Project>{
             description = "Deletes project specific eclipse target -directory."
             doLast {
                 project.delete('target')
-                println( "Target -directory deleted from project ${task.project.name}.")
+                println("Target -directory deleted from project ${task.project.name}.")
             }
         }
 
@@ -28,7 +28,7 @@ class EclipseClasspathPlugin implements Plugin<Project>{
             description = "Deletes project specific eclipse target/classes -directory."
             doLast {
                 project.delete('target/classes')
-                println( "Classes -directory deleted from project ${task.project.name}/target.")
+                println("Classes -directory deleted from project ${task.project.name}/target.")
             }
         }
     }
