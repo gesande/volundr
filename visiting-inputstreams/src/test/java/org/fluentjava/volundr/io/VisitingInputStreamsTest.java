@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -18,21 +19,15 @@ public class VisitingInputStreamsTest {
 
     @Test
     public void visitStreams() {
-        final Charset charset = Charset.forName("UTF-8");
+        final Charset charset = StandardCharsets.UTF_8;
         final List<String> lines = new ArrayList<>();
         final InputStream stream1 = new ByteArrayInputStream(
                 "1first line\n1second line\n".getBytes(charset));
         final InputStream stream2 = new ByteArrayInputStream(
                 "2first line\n2second line\n2third line".getBytes(charset));
         new VisitingInputStreams(VisitingInputStreamsHandler.DEFAULT_HANDLER,
-                new InputStreamReaderFactory(charset),
-                new StreamReadFailedNotifier() {
-
-                    @Override
-                    public void readFailed(final InputStream stream,
-                            final Throwable t) {
-                        throw new RuntimeException(t);
-                    }
+                new InputStreamReaderFactory(charset), (stream, t) -> {
+                    throw new RuntimeException(t);
                 }).readStreams(new LineVisitor() {
 
                     @Override
@@ -55,13 +50,14 @@ public class VisitingInputStreamsTest {
         assertTrue(lines.contains("2third line"));
     }
 
+    @SuppressWarnings("PMD.CloseResource")
     @Test
     public void closeFailed() {
         final AtomicBoolean closeFailed = new AtomicBoolean(false);
         final InputStream closeFailedStream = new InputStream() {
 
             @Override
-            public int read() throws IOException {
+            public int read() {
                 return -1;
             }
 
@@ -85,13 +81,9 @@ public class VisitingInputStreamsTest {
                 closeFailed.set(true);
             }
         }, new InputStreamReaderFactory(Charset.defaultCharset()),
-                new StreamReadFailedNotifier() {
-
-                    @Override
-                    public void readFailed(InputStream stream, Throwable t) {
-                        readFailed.set(true);
-                        assertEquals(closeFailedStream, stream);
-                    }
+                (stream, t) -> {
+                    readFailed.set(true);
+                    assertEquals(closeFailedStream, stream);
                 }).readStreams(new LineVisitor() {
 
                     @Override
@@ -108,13 +100,14 @@ public class VisitingInputStreamsTest {
         assertTrue(readFailed.get());
     }
 
+    @SuppressWarnings("PMD.CloseResource")
     @Test
     public void closeStreamFailedGetsCalled() {
         final AtomicBoolean closeFailed = new AtomicBoolean(false);
         final InputStream closeFailedStream = new InputStream() {
 
             @Override
-            public int read() throws IOException {
+            public int read() {
                 return -1;
             }
 
@@ -128,14 +121,9 @@ public class VisitingInputStreamsTest {
             new VisitingInputStreams(
                     VisitingInputStreamsHandler.DEFAULT_HANDLER,
                     new InputStreamReaderFactory(Charset.defaultCharset()),
-                    new StreamReadFailedNotifier() {
-
-                        @Override
-                        public void readFailed(InputStream stream,
-                                Throwable t) {
-                            readFailed.set(true);
-                            assertEquals(closeFailedStream, stream);
-                        }
+                    (stream, t) -> {
+                        readFailed.set(true);
+                        assertEquals(closeFailedStream, stream);
                     }).readStreams(new LineVisitor() {
 
                         @Override

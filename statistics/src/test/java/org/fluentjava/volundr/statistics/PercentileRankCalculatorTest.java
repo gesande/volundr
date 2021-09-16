@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+//TODO: use parametrized tests when switching to Junit5
 public class PercentileRankCalculatorTest {
 
+    @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
     @Test
     public void nearestRank() {
         final int samples = 2;
@@ -32,6 +34,7 @@ public class PercentileRankCalculatorTest {
         assertEquals(2.5, nearestRank(100, samples), 0);
     }
 
+    @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
     @Test
     public void nearestRank100() {
         final int samples = 100;

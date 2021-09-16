@@ -16,13 +16,13 @@ public abstract class AbstractStandardDeviationProvider
         stdOfAPopulation {
             @Override
             BiFunction<Double, Long, Double> std() {
-                return (s, n) -> (s / n);
+                return (s, n) -> s / n;
             }
         },
         stdOfASample {
             @Override
             BiFunction<Double, Long, Double> std() {
-                return (s, n) -> (s / (n - 1));
+                return (s, n) -> s / (n - 1);
             }
         };
 

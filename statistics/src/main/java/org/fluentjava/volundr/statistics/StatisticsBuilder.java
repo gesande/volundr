@@ -12,6 +12,7 @@ public final class StatisticsBuilder {
     }
 
     private final StatisticsListProvider<?> provider;
+    @SuppressWarnings("PMD.UseConcurrentHashMap")
     private final Map<Field, BiConsumer<StringBuilder, StatisticsListProvider<?>>> statsBuilder = new TreeMap<>();
 
     private StatisticsBuilder(StatisticsListProvider<?> provider) {

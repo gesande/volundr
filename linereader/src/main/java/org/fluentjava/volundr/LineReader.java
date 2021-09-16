@@ -14,13 +14,12 @@ public final class LineReader {
         this.charset = charset;
     }
 
+    @SuppressWarnings("PMD.AssignmentInOperand")
     public void read(final InputStream stream, final LineVisitor visitor)
             throws IOException {
-        final DataInputStream in = new DataInputStream(stream);
-        try {
-            final BufferedReader br = new BufferedReader(
-                    new InputStreamReader(in, charSet()));
-            try {
+        try (DataInputStream in = new DataInputStream(stream)) {
+            try (BufferedReader br = new BufferedReader(
+                    new InputStreamReader(in, charSet()))) {
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     if (strLine.isEmpty()) {
@@ -29,11 +28,7 @@ public final class LineReader {
                         visitor.visit(strLine);
                     }
                 }
-            } finally {
-                br.close();
             }
-        } finally {
-            in.close();
         }
     }
 

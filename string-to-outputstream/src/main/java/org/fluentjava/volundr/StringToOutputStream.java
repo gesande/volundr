@@ -3,6 +3,7 @@ package org.fluentjava.volundr;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public final class StringToOutputStream {
 
@@ -21,7 +22,7 @@ public final class StringToOutputStream {
 
     public static StringToOutputStream usingUtf8(
             final OutputStream streamToWrite) {
-        return forCharset(streamToWrite, Charset.forName("UTF-8"));
+        return forCharset(streamToWrite, StandardCharsets.UTF_8);
     }
 
     public static StringToOutputStream usingDefaultCharset(

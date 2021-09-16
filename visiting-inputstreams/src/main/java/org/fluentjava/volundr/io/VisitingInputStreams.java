@@ -43,6 +43,7 @@ public final class VisitingInputStreams {
         }
     }
 
+    @SuppressWarnings("PMD.CloseResource")
     private void closeStreams(final InputStream... streams) {
         for (final InputStream stream : streams) {
             closeStream(stream);

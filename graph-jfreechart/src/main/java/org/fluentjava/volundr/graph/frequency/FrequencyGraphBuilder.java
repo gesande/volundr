@@ -8,7 +8,7 @@ import org.fluentjava.volundr.graph.SampleGraph;
 public final class FrequencyGraphBuilder {
 
     private static final String LEGEND_TITLE = "Frequency";
-    private SampleGraph sampleGraph;
+    private final SampleGraph sampleGraph;
 
     private FrequencyGraphBuilder(SampleGraph sampleGraph) {
         this.sampleGraph = sampleGraph;

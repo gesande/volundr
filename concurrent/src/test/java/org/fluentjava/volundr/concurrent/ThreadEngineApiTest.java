@@ -8,61 +8,42 @@ import org.junit.Test;
 
 public class ThreadEngineApiTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void nullRunnables() {
-        new ThreadEngineApi<>().threadNamePrefix("my-test-threads-").run();
+        ThreadEngineApi.builder().threadNamePrefix("my-test-threads-")
+                .runnables((Runnable) null).build().run();
     }
 
     @Test
     public void empty() {
-        new ThreadEngineApi<>().threadNamePrefix("my-test-threads-")
-                .runnables(new Runnable[0]).run();
+        ThreadEngineApi.builder().threadNamePrefix("my-test-threads-")
+                .runnables().build().run();
     }
 
     @Test
     public void runRunnables() {
         final AtomicBoolean runned = new AtomicBoolean(false);
-        final Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                runned.set(true);
-            }
-        };
-        new ThreadEngineApi<>().threadNamePrefix("my-test-threads-")
-                .runnables(new Runnable[] { r }).run();
+        final Runnable r = () -> runned.set(true);
+        ThreadEngineApi.builder().threadNamePrefix("my-test-threads-")
+                .runnables(r).build().run();
         assertTrue(runned.get());
     }
 
     @Test
     public void interruptThreads() throws InterruptedException {
         final AtomicBoolean wasInterrupted = new AtomicBoolean(false);
-        final Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    wasInterrupted.set(true);
-                }
+        final Runnable r = () -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                wasInterrupted.set(true);
             }
         };
-        final ThreadEngineApi<Runnable> threadEngineApi = new ThreadEngineApi<>();
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                threadEngineApi.threadNamePrefix("my-test-threads-")
-                        .runnables(new Runnable[] { r }).run();
-            }
-        }).start();
+        ThreadEngineApi<Runnable> threadEngineApi = ThreadEngineApi.builder()
+                .threadNamePrefix("my-test-threads-").runnables(r).build();
+        new Thread(threadEngineApi::run).start();
         Thread.sleep(100);
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                threadEngineApi.interrupt();
-            }
-        }).start();
+        new Thread(threadEngineApi::interrupt).start();
         Thread.sleep(100);
         assertTrue(wasInterrupted.get());
     }

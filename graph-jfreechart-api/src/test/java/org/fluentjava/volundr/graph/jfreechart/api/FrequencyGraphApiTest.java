@@ -1,5 +1,7 @@
 package org.fluentjava.volundr.graph.jfreechart.api;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,6 +15,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+@SuppressWarnings("PMD.UseProperClassLoader")
 public class FrequencyGraphApiTest {
     private static byte[] goldenMasterBytes;
     private static String targetPath;
@@ -20,8 +23,8 @@ public class FrequencyGraphApiTest {
     @BeforeClass
     public static void loadGoldenMaster() throws IOException {
         File goldenMaster = new File(
-                FrequencyGraphApiTest.class.getClassLoader()
-                        .getResource("frequency-goldenMaster.png").getFile());
+                requireNonNull(FrequencyGraphApiTest.class.getClassLoader()
+                        .getResource("frequency-goldenMaster.png")).getFile());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";

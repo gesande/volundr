@@ -25,6 +25,7 @@ public final class ClassHelper {
      * @throws ClassNotFoundException
      * @throws IOException
      */
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static Class<?>[] getClasses(final String packageName)
             throws IOException, ClassNotFoundException {
         final ClassLoader classLoader = Thread.currentThread()
@@ -43,14 +44,14 @@ public final class ClassHelper {
         for (final Path directory : dirs) {
             classes.addAll(findClasses(directory, packageName));
         }
-        return classes.toArray(new Class[classes.size()]);
+        return classes.toArray(new Class[0]);
     }
 
     /**
      * Recursive method used to find all classes in a given directory and
      * subdirs.
      *
-     * @param directory
+     * @param path
      *            The base directory
      * @param packageName
      *            The package name for classes found inside the base directory

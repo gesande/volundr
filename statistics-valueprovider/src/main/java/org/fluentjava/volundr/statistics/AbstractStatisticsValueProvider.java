@@ -16,6 +16,7 @@ public abstract class AbstractStatisticsValueProvider<T extends Number & Compara
         this.values = values;
     }
 
+    @SuppressWarnings("PMD.AvoidSynchronizedAtMethodLevel")
     public synchronized void addSample(final T value) {
         values().add(value);
         addToTotal(value);
@@ -88,6 +89,7 @@ public abstract class AbstractStatisticsValueProvider<T extends Number & Compara
         return hasSamples() ? this.total / (double) sampleCount() : 0.0000;
     }
 
+    @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
     @Override
     public T median() {
         final long size = values().size();

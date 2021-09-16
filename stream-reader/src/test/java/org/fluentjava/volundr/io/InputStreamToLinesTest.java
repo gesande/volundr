@@ -19,19 +19,20 @@ public class InputStreamToLinesTest {
     public void visit() throws IOException {
         final String lines = "line1\nline2\nline3";
         final Charset charset = Charset.defaultCharset();
-        final InputStream inputStream = toByteArrayStream(lines, charset);
         final List<String> values = new ArrayList<>();
-        new InputStreamToLines(new LineVisitor() {
-            @Override
-            public void visit(final String line) {
-                values.add(line);
-            }
+        try (InputStream inputStream = toByteArrayStream(lines, charset)) {
+            new InputStreamToLines(new LineVisitor() {
+                @Override
+                public void visit(final String line) {
+                    values.add(line);
+                }
 
-            @Override
-            public void emptyLine() {
-                throw new FailIHave("You shouldn't come here!");
-            }
-        }, charset).readFrom(inputStream);
+                @Override
+                public void emptyLine() {
+                    throw new FailIHave("You shouldn't come here!");
+                }
+            }, charset).readFrom(inputStream);
+        }
 
         assertEquals(3, values.size());
         assertTrue(values.contains("line1"));
@@ -96,6 +97,7 @@ public class InputStreamToLinesTest {
         }
     }
 
+    @Test
     public void whenSomethingGoesWrongVisitingEmptyLine() {
         final AtomicBoolean failed = new AtomicBoolean(false);
         final String lines = "line1\n\nline2\nline3";

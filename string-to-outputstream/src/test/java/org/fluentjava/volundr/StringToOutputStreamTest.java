@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
@@ -29,6 +30,6 @@ public class StringToOutputStreamTest {
         final String data = "line1\n" + "line2\n" + "line3\n" + "line3\n"
                 + "line4\n";
         writer.write(data);
-        assertEquals(data, stream.toString(Charset.forName("UTF-8").name()));
+        assertEquals(data, stream.toString(StandardCharsets.UTF_8.name()));
     }
 }

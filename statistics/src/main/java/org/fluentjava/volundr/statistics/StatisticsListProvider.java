@@ -9,10 +9,11 @@ public final class StatisticsListProvider<T extends Number & Comparable<T>>
         MeanProvider<Double>, MedianProvider<T>, PercentileProvider<T> {
     private final List<T> values;
     private final NumberValueProvider<T> provider;
-    private StdFunction stdFunction;
+    private final StdFunction stdFunction;
 
     private StatisticsListProvider(final List<T> values,
             NumberValueProvider<T> provider, StdFunction stdFunction) {
+        super();
         this.values = values;
         this.provider = provider;
         this.stdFunction = stdFunction;
@@ -50,7 +51,7 @@ public final class StatisticsListProvider<T extends Number & Comparable<T>>
 
     @Override
     public Double mean() {
-        if (values().size() == 0) {
+        if (values().isEmpty()) {
             return 0.0;
         }
         long sum = this.provider.sum(values());
@@ -68,8 +69,7 @@ public final class StatisticsListProvider<T extends Number & Comparable<T>>
 
     @Override
     protected double variance(StdFunction func) {
-        return calculateVariance(values(), func,
-                (value, mean) -> provider.delta(value, mean));
+        return calculateVariance(values(), func, provider::delta);
     }
 
     @Override

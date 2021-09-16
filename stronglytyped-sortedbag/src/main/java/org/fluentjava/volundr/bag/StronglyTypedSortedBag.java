@@ -22,12 +22,12 @@ public final class StronglyTypedSortedBag<TYPE> {
         return bag().getCount(value);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "PMD.NullAssignment" })
     public TYPE findFirst() {
         return (TYPE) (bag().isEmpty() ? null : bag().first());
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "PMD.NullAssignment" })
     public TYPE findLast() {
         return (TYPE) (bag().isEmpty() ? null : bag().last());
     }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+@SuppressWarnings("PMD.AddEmptyString")
 public class DefaultStatisticsConsumerTest {
 
     @Test

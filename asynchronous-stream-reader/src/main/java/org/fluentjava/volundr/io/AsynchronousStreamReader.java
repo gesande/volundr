@@ -29,23 +29,22 @@ public final class AsynchronousStreamReader {
                 .forNamePrefix("async-stream-reader-thread-");
     }
 
+    @SuppressWarnings({ "PMD.CloseResource",
+            "PMD.AvoidInstantiatingObjectsInLoops",
+            "PMD.AvoidCatchingThrowable" })
     public void readFrom(final InputStream... streams) {
         tasks().clear();
         for (final InputStream stream : streams) {
-            final Thread thread = threadFactory().newThread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        LOGGER.info("Reading the stream...");
-                        streamReaderFactory().streamReader(visitor())
-                                .readFrom(stream);
-                        LOGGER.info("Stream has been read successfully.");
-                    } catch (Throwable t) {
-                        LOGGER.error("Reading the stream failed!", t);
-                        readFailNotifier().readFailed(stream, t);
-                    }
+            final Thread thread = threadFactory().newThread(() -> {
+                try {
+                    LOGGER.info("Reading the stream...");
+                    streamReaderFactory().streamReader(visitor())
+                            .readFrom(stream);
+                    LOGGER.info("Stream has been read successfully.");
+                } catch (Throwable t) {
+                    LOGGER.error("Reading the stream failed!", t);
+                    readFailNotifier().readFailed(stream, t);
                 }
-
             });
             tasks().add(thread);
             thread.start();

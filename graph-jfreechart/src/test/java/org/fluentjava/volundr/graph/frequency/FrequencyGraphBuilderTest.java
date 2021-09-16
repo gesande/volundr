@@ -1,5 +1,7 @@
 package org.fluentjava.volundr.graph.frequency;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,6 +21,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+@SuppressWarnings("PMD.UseProperClassLoader")
 public class FrequencyGraphBuilderTest {
 
     private static byte[] goldenMasterBytes;
@@ -27,8 +30,9 @@ public class FrequencyGraphBuilderTest {
 
     @BeforeClass
     public static void loadGoldenMaster() throws IOException {
-        File goldenMaster = new File(FrequencyGraphBuilderTest.class
-                .getClassLoader().getResource("goldenMaster.png").getFile());
+        File goldenMaster = new File(
+                requireNonNull(FrequencyGraphBuilderTest.class.getClassLoader()
+                        .getResource("goldenMaster.png")).getFile());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";
@@ -51,30 +55,22 @@ public class FrequencyGraphBuilderTest {
                 return true;
             }
 
-            @SuppressWarnings("incomplete-switch")
             @Override
             public long countFor(long value) {
                 switch ((int) value) {
-                case 0:
-                    return 0;
-                case 1:
-                    return 0;
                 case 2:
-                    return 1;
                 case 3:
+                case 7:
+                case 8:
                     return 1;
                 case 4:
+                case 6:
                     return 2;
                 case 5:
                     return 3;
-                case 6:
-                    return 2;
-                case 7:
-                    return 1;
-                case 8:
-                    return 1;
+                default:
+                    return 0;
                 }
-                return 0;
             }
         };
         DefaultDatasetAdapterFactory lineChartAdapterProvider = new DefaultDatasetAdapterFactory();

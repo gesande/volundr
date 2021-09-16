@@ -7,7 +7,7 @@ public final class StatisticsCalculator implements MaxValueProvider<Integer>,
         MedianProvider<Integer>, PercentileProvider<Integer>,
         StandardDeviationProvider, VarianceProvider {
 
-    private StatisticsListProvider<Integer> provider;
+    private final StatisticsListProvider<Integer> provider;
 
     private StatisticsCalculator(
             final StatisticsListProvider<Integer> provider) {

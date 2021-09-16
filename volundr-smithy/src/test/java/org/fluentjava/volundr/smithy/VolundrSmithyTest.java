@@ -46,10 +46,11 @@ public class VolundrSmithyTest {
     public void asyncTreeBag() {
         final StronglyTypedSortedBag<String> synchronizedTreeBag = smithy()
                 .synchronizedTreeBag();
-        final ThreadEngineApi<Runnable> api = new ThreadEngineApi<>()
-                .threadNamePrefix("asynctreebag");
-        api.runnables(() -> synchronizedTreeBag.add("100"),
-                () -> synchronizedTreeBag.add("101"));
+        ThreadEngineApi.Builder<Runnable> builder = ThreadEngineApi.builder();
+        ThreadEngineApi<Runnable> api = builder.threadNamePrefix("asynctreebag")
+                .runnables(() -> synchronizedTreeBag.add("100"),
+                        () -> synchronizedTreeBag.add("101"))
+                .build();
         api.run();
         assertFalse(synchronizedTreeBag.isEmpty());
         assertEquals(2, synchronizedTreeBag.size());
@@ -75,7 +76,7 @@ public class VolundrSmithyTest {
 
                     @Override
                     public void visit(final String line) {
-                        result.append(line).append("\n");
+                        result.append(line).append('\n');
                     }
 
                     @Override
@@ -119,7 +120,7 @@ public class VolundrSmithyTest {
 
             @Override
             public void visit(final String line) {
-                result.append(line).append("\n");
+                result.append(line).append('\n');
             }
 
             @Override
@@ -156,7 +157,7 @@ public class VolundrSmithyTest {
 
             @Override
             public void visit(final String line) {
-                result.append(line).append("\n");
+                result.append(line).append('\n');
             }
 
             @Override
@@ -193,7 +194,7 @@ public class VolundrSmithyTest {
 
             @Override
             public void visit(final String line) {
-                result.append(line).append("\n");
+                result.append(line).append('\n');
             }
 
             @Override
@@ -250,7 +251,7 @@ public class VolundrSmithyTest {
 
             @Override
             public void visit(final String line) {
-                result.append(line).append("\n");
+                result.append(line).append('\n');
             }
 
             @Override
@@ -290,8 +291,8 @@ public class VolundrSmithyTest {
         assertEquals(3182764, values.size());
         final StringBuilder result = new StringBuilder();
         for (final String sample : values.uniqueSamples()) {
-            result.append(values.count(sample)).append(",").append(sample)
-                    .append("\n");
+            result.append(values.count(sample)).append(',').append(sample)
+                    .append('\n');
         }
         final AsExpected<Void> expected = expected(result.toString());
         expected.line("1060928,line1");

@@ -46,12 +46,6 @@
             <property name="allowedResourceTypes" value="java.io.ByteArrayOutputStream | java.io.ByteArrayInputStream | java.io.StringWriter | java.io.CharArrayWriter | java.util.stream.Stream | io.prometheus.client.Histogram.Timer | com.rabbitmq.client.Channel" />
         </properties>
     </rule>
-    <rule ref="category/java/design.xml/ExcessiveMethodLength">
-        <properties>
-            <!-- test methods might get long, right-->
-            <property name="minimum" value="150.0" />
-        </properties>
-    </rule>
     <rule ref="category/java/design.xml/TooManyFields">
         <properties>
             <property name="maxfields" value="20" />

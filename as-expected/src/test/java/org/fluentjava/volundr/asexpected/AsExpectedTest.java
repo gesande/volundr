@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 
+@SuppressWarnings("PMD.AvoidCatchingThrowable")
 public class AsExpectedTest {
 
     @Test
@@ -37,7 +38,7 @@ public class AsExpectedTest {
     }
 
     @Test
-    public void asExpectedWithSpecialCharacters() {
+    public void expectedWithSpecialCharacters() {
         final AsExpected<Void> expected = AsExpected.expected("actuál\n");
         final AtomicBoolean failed = new AtomicBoolean(false);
         try {

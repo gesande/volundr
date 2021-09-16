@@ -41,7 +41,7 @@ public final class ImageData {
         adapter().add(x, y);
     }
 
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP")
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public DatasetAdapter<?, ?> adapter() {
         return this.adapter;
     }

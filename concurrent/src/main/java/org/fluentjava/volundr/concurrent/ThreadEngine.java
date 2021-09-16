@@ -1,23 +1,23 @@
 package org.fluentjava.volundr.concurrent;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 final class ThreadEngine {
-    private final static Logger LOG = LoggerFactory
+    private final static Logger LOGGER = LoggerFactory
             .getLogger(ThreadEngine.class);
     private final ThreadFactory threadFactory;
-
-    private Thread threads[] = null;
+    private final List<Thread> threads = new ArrayList<>();
 
     public ThreadEngine(final ThreadFactory threadFactory) {
         this.threadFactory = threadFactory;
-    }
-
-    private Thread[] threads() {
-        return this.threads;
     }
 
     /**
@@ -27,9 +27,9 @@ final class ThreadEngine {
     @SafeVarargs
     public final <RUNNABLE extends Runnable> void run(
             final RUNNABLE... runnables) {
-        validate(runnables);
+        requireNonNull(runnables);
         if (runnables.length == 0) {
-            log().info(
+            LOGGER.info(
                     "There was nothing to do, no runnables were given. Exiting.");
             return;
         }
@@ -39,30 +39,16 @@ final class ThreadEngine {
         clearThreads();
     }
 
-    @SafeVarargs
-    private static final <T extends Runnable> void validate(
-            final T... runnables) {
-        if (runnables == null) {
-            throw new IllegalArgumentException("runnables is null");
-        }
-    }
-
     private void clearThreads() {
-        this.threads = null;
-        log().debug("Threads 'cleared'.");
-    }
-
-    private static Logger log() {
-        return LOG;
+        this.threads.clear();
+        LOGGER.debug("Threads 'cleared'.");
     }
 
     @SafeVarargs
     private final <T extends Runnable> void initializeWith(
             final T... runnables) {
-        this.threads = new Thread[runnables.length];
-        for (int i = 0; i < threads().length; i++) {
-            this.threads[i] = threadFactory().newThread(runnables[i]);
-        }
+        Arrays.asList(runnables)
+                .forEach(t -> threads.add(threadFactory().newThread(t)));
     }
 
     private ThreadFactory threadFactory() {
@@ -70,29 +56,25 @@ final class ThreadEngine {
     }
 
     private void startThreads() {
-        log().debug("Starting  threads...");
-        for (int i = 0; i < threads().length; i++) {
-            threads()[i].start();
-        }
-        log().debug("Threads started.");
+        LOGGER.debug("Starting  threads...");
+        threads.forEach(Thread::start);
+        LOGGER.debug("Threads started.");
     }
 
     private void joinThreads() {
-        try {
-            for (int i = 0; i < threads().length; i++) {
-                threads()[i].join();
+        threads.forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException ignore) {
+                LOGGER.warn("Thread join interrupted");
             }
-        } catch (final InterruptedException ignore) {
-            log().warn("Thread join interrupted");
-        }
+        });
     }
 
     public void interruptThreads() {
-        log().debug("Interrupting threads...");
-        for (int i = 0; i < threads().length; i++) {
-            threads()[i].interrupt();
-        }
-        log().debug("Threads interrupted.");
+        LOGGER.debug("Interrupting threads...");
+        threads.forEach(Thread::interrupt);
+        LOGGER.debug("Threads interrupted.");
     }
 
 }

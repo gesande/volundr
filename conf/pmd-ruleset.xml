@@ -52,7 +52,6 @@
     <rule ref="category/java/bestpractices.xml">
         <exclude name="GuardLogStatement"/>
         <exclude name="UseVarargs"/>
-        <!-- assertions used in end2end tests -->
         <exclude name="UseAssertTrueInsteadOfAssertEquals"/>
     </rule>
 

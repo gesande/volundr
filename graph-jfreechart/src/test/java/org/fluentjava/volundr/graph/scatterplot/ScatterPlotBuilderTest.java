@@ -1,5 +1,7 @@
 package org.fluentjava.volundr.graph.scatterplot;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,6 +15,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+@SuppressWarnings("PMD.UseProperClassLoader")
 public class ScatterPlotBuilderTest {
 
     private static byte[] goldenMasterBytes;
@@ -22,8 +25,8 @@ public class ScatterPlotBuilderTest {
     @BeforeClass
     public static void loadGoldenMaster() throws IOException {
         File goldenMaster = new File(
-                FrequencyGraphBuilderTest.class.getClassLoader()
-                        .getResource("plotGoldenMaster.png").getFile());
+                requireNonNull(FrequencyGraphBuilderTest.class.getClassLoader()
+                        .getResource("plotGoldenMaster.png")).getFile());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";

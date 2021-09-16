@@ -98,7 +98,7 @@ public final class VolundrSmithy {
         return StronglyTypedSortedBag.treeBag();
     }
 
-    @SuppressWarnings("static-method")
+    @SuppressWarnings({ "static-method", "PMD.CloseResource" })
     public void readStreamsWith(final int threads, final int awaitTermination,
             final TimeUnit timeUnitForAwaitTermination,
             final StreamReader reader, final InputStream... streams) {
@@ -106,18 +106,14 @@ public final class VolundrSmithy {
                 NamedThreadFactory.forNamePrefix("stream-reader-"));
         final CountDownLatch latch = new CountDownLatch(streams.length);
         for (final InputStream stream : streams) {
-            executor.execute(new Runnable() {
-
-                @Override
-                public void run() {
-                    try {
-                        reader.readFrom(stream);
-                    } catch (IOException e) {
-                        throw new RuntimeException(
-                                "Reading the stats stream failed!", e);
-                    } finally {
-                        latch.countDown();
-                    }
+            executor.execute(() -> {
+                try {
+                    reader.readFrom(stream);
+                } catch (IOException e) {
+                    throw new VolundrSmithyException(
+                            "Reading the stats stream failed!", e);
+                } finally {
+                    latch.countDown();
                 }
             });
         }
@@ -132,7 +128,7 @@ public final class VolundrSmithy {
             executor.awaitTermination(awaitTermination,
                     timeUnitForAwaitTermination);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new VolundrSmithyException(e);
         }
     }
 

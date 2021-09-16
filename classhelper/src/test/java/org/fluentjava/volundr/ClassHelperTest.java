@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.fluentjava.shouldfind.ThisShouldBeFound;
@@ -25,9 +26,7 @@ public class ClassHelperTest {
                 .getClasses("org.fluentjava.shouldfind");
         LOG.debug("Classes = {}", Arrays.toString(classes));
         final List<Class<?>> classList = new ArrayList<>();
-        for (final Class<?> clazz : classes) {
-            classList.add(clazz);
-        }
+        Collections.addAll(classList, classes);
         assertTrue(classList.contains(ThisShouldBeFound.class));
     }
 
@@ -37,9 +36,7 @@ public class ClassHelperTest {
         final Class<?>[] classes = ClassHelper.getClasses("org.fluentjava");
         LOG.debug("Classes = {}", Arrays.toString(classes));
         final List<Class<?>> classList = new ArrayList<>();
-        for (final Class<?> clazz : classes) {
-            classList.add(clazz);
-        }
+        Collections.addAll(classList, classes);
         assertTrue(classList.contains(ThisShouldBeFound.class));
         assertTrue(classList.contains(ClassHelperTest.class));
     }
@@ -51,9 +48,7 @@ public class ClassHelperTest {
                 .getClasses("org.fluentjava.völundr");
         LOG.debug("Classes = {}", Arrays.toString(classes));
         final List<Class<?>> classList = new ArrayList<>();
-        for (final Class<?> clazz : classes) {
-            classList.add(clazz);
-        }
+        Collections.addAll(classList, classes);
         assertTrue(classList.contains(ContainingUtf8Characters.class));
     }
 

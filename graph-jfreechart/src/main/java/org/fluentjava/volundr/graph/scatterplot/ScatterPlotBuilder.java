@@ -43,7 +43,7 @@ public class ScatterPlotBuilder {
                 scatterPlotAdapterProvider.forScatterPlot(legendTitle,
                         yAxisTitle));
         return new ScatterPlotData() {
-            boolean hasSamples = false;
+            boolean hasSamples;
 
             @Override
             public ImageData imageData() {
@@ -51,11 +51,13 @@ public class ScatterPlotBuilder {
             }
 
             @Override
-            public synchronized void report(Number x, Number y) {
-                if (!hasSamples) {
-                    hasSamples = true;
+            public void report(Number x, Number y) {
+                synchronized (this) {
+                    if (!hasSamples) {
+                        hasSamples = true;
+                    }
+                    imageData().add(x, y);
                 }
-                imageData().add(x, y);
             }
 
             @Override

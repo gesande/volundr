@@ -1,6 +1,7 @@
 package org.fluentjava.volundr.testing.osmo.model.statistics;
 
 import org.fluentjava.volundr.testing.osmo.AbstractOsmoModel;
+import org.fluentjava.volundr.testing.osmo.VolundrOsmoException;
 import org.fluentjava.volundr.testing.osmo.statistics.SleepValueProvider;
 import org.fluentjava.volundr.testing.osmo.statistics.StatisticsMeasurement;
 import org.slf4j.Logger;
@@ -53,7 +54,7 @@ public class StatisticsModel extends AbstractOsmoModel {
         try {
             Thread.sleep(sleepTime);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new VolundrOsmoException(e);
         }
     }
 }

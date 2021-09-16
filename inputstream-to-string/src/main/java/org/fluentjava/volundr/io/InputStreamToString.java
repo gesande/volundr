@@ -8,7 +8,7 @@ import org.apache.commons.io.IOUtils;
 
 public final class InputStreamToString {
 
-    private Charset charset;
+    private final Charset charset;
 
     private InputStreamToString(final Charset charset) {
         this.charset = charset;

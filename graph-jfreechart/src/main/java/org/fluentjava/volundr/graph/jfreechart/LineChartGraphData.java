@@ -14,9 +14,10 @@ public final class LineChartGraphData
     private final XYSeries series;
     private final String title;
     private Range range;
-    private Paint paint;
+    private final Paint paint;
     private final static XYSeriesFactory SERIES_FACTORY = new XYSeriesFactory();
 
+    @SuppressWarnings("PMD.NullAssignment") // TODO: refactor this
     LineChartGraphData(final String legendTitle, final Paint paint) {
         this.title = legendTitle;
         this.paint = paint;
@@ -40,7 +41,7 @@ public final class LineChartGraphData
         series().add(x, y, false);
     }
 
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP")
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public XYSeries series() {
         return this.series;
     }

@@ -9,11 +9,8 @@ public class NamedThreadFactoryTest {
 
     @Test
     public void newThread() {
-        final Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                //
-            }
+        final Runnable r = () -> {
+            //
         };
         final Thread newThread = NamedThreadFactory.forNamePrefix("prefix")
                 .newThread(r);

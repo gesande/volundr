@@ -10,11 +10,13 @@ public final class MedianResolver {
      * http://en.wikipedia.org/wiki/Median
      *
      * @param list
+     *            list of values
      * @return the middle value if number of entries is not even in the list
      *         otherwise the middle two values and an average of them
      */
+    @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
     public static int resolveFrom(final List<Integer> list) {
-        Integer result = 0;
+        Integer result;
         final int size = list.size();
         // If the number of entries in the list is not even.
         if (size % 2 == 1) {
@@ -29,8 +31,9 @@ public final class MedianResolver {
         return result;
     }
 
+    @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
     public static long resolveFromLong(final List<Long> list) {
-        Long result = Long.valueOf(0);
+        Long result;
         final int size = list.size();
         // If the number of entries in the list is not even.
         if (size % 2 == 1) {

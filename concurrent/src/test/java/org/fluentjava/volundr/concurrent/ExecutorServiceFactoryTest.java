@@ -14,13 +14,7 @@ public class ExecutorServiceFactoryTest {
         final ExecutorService newFixedThreadPool = new ExecutorServiceFactory()
                 .newFixedThreadPool(1, "my-thread");
         final AtomicInteger i = new AtomicInteger(0);
-        newFixedThreadPool.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                i.getAndIncrement();
-            }
-        });
+        newFixedThreadPool.execute(i::getAndIncrement);
         Thread.sleep(10);
         assertEquals(1, i.get());
     }

@@ -1,5 +1,7 @@
 package org.fluentjava.volundr.graph.jfreechart.api;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,6 +19,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+@SuppressWarnings("PMD.UseProperClassLoader")
 public class ChartGraphApiTest {
     private static String targetPath;
 
@@ -178,9 +181,10 @@ public class ChartGraphApiTest {
 
     private static byte[] goldenMasterBytesOf(String goldenMasterNamePrefix)
             throws IOException {
-        File goldenMaster = new File(ChartGraphApiTest.class.getClassLoader()
-                .getResource(goldenMasterNamePrefix + "-goldenMaster.png")
-                .getFile());
+        File goldenMaster = new File(requireNonNull(
+                ChartGraphApiTest.class.getClassLoader().getResource(
+                        goldenMasterNamePrefix + "-goldenMaster.png"))
+                                .getFile());
         return Files.readAllBytes(Paths.get(goldenMaster.getPath()));
     }
 }

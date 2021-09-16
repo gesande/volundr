@@ -54,10 +54,13 @@ DONE
 + deps versions in ext instead of gradle.properties #build
 + introduced dependency update reporting
 + use spotbugs instead of findbugs #code (requires völundr -> volundr)
++ fix new pmd issues #code
+
 IN PROGRESS
 
 WAITING
-- fix new pmd issues #code
+- update to Junit5
+- refactoring range stuff around LineChartGraphData
 - introduce license plugins #build
 - remake gradle build using conventions #build
 - graph-jfreechart-fileapi

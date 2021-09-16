@@ -2,11 +2,12 @@ package org.fluentjava.volundr.fileio;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public final class FileWriter {
 
@@ -28,7 +29,8 @@ public final class FileWriter {
 
     private static Writer writerFor(final File file, Charset charset)
             throws IOException {
-        return new OutputStreamWriter(new FileOutputStream(file), charset);
+        return new OutputStreamWriter(
+                Files.newOutputStream(Paths.get(file.toURI())), charset);
     }
 
     private static File toFile(final File parent, final String fileName) {

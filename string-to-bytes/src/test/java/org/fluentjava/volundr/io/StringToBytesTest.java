@@ -1,8 +1,8 @@
 package org.fluentjava.volundr.io;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -11,20 +11,20 @@ public class StringToBytesTest {
 
     @Test
     public void convertToBytes() {
-        assertTrue(Arrays.equals(
+        assertArrayEquals(
                 println(new byte[] { 118, -61, -74, 108, 117, 110, 100, 114 }),
-                println(StringToBytes.forCharset(Charset.forName("UTF-8"))
-                        .convert("völundr"))));
+                println(StringToBytes.forCharset(StandardCharsets.UTF_8)
+                        .convert("völundr")));
     }
 
     @Test
     public void convertToBytesDefaultCharset() {
-        assertTrue(Arrays.equals(
+        assertArrayEquals(
                 println(new byte[] { 118, -61, -74, 108, 117, 110, 100, 114 }),
-                println(StringToBytes.withDefaultCharset()
-                        .convert("völundr"))));
+                println(StringToBytes.withDefaultCharset().convert("völundr")));
     }
 
+    @SuppressWarnings("PMD.SystemPrintln")
     private static byte[] println(byte[] a) {
         System.out.println(Arrays.toString(a));
         return a;

@@ -6,6 +6,7 @@ public final class AsExpected<PARENT> extends AbstractExpected<PARENT> {
     private final PARENT parent;
 
     public AsExpected(final String actual, final PARENT parent) {
+        super();
         this.actual = actual;
         this.parent = parent;
     }

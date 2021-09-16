@@ -18,22 +18,25 @@ public class LineReaderTest {
 
     @Test
     public void noEmptyLines() throws IOException {
-        final InputStream stream = inputStreamWith3Lines();
-        final AtomicBoolean emptyLineDetected = new AtomicBoolean(false);
-        final List<String> lines = new ArrayList<>(3);
-        new LineReader(Charset.defaultCharset()).read(stream,
-                new LineVisitor() {
+        final AtomicBoolean emptyLineDetected;
+        final List<String> lines;
+        try (InputStream stream = inputStreamWith3Lines()) {
+            emptyLineDetected = new AtomicBoolean(false);
+            lines = new ArrayList<>(3);
+            new LineReader(Charset.defaultCharset()).read(stream,
+                    new LineVisitor() {
 
-                    @Override
-                    public void visit(final String line) {
-                        lines.add(line);
-                    }
+                        @Override
+                        public void visit(final String line) {
+                            lines.add(line);
+                        }
 
-                    @Override
-                    public void emptyLine() {
-                        emptyLineDetected.getAndSet(true);
-                    }
-                });
+                        @Override
+                        public void emptyLine() {
+                            emptyLineDetected.getAndSet(true);
+                        }
+                    });
+        }
         assertEquals(3, lines.size());
         assertFalse(emptyLineDetected.get());
         assertEquals("line1", lines.get(0));
@@ -43,23 +46,26 @@ public class LineReaderTest {
 
     @Test
     public void emptyLines() throws IOException {
-        final InputStream byteArrayInputStream = contentsWithEmptyLine();
-        final AtomicBoolean emptyLineDetected = new AtomicBoolean(false);
-        final List<String> lines = new ArrayList<>(3);
-        new LineReader(Charset.defaultCharset()).read(byteArrayInputStream,
-                new LineVisitor() {
+        final AtomicBoolean emptyLineDetected;
+        final List<String> lines;
+        try (InputStream byteArrayInputStream = contentsWithEmptyLine()) {
+            emptyLineDetected = new AtomicBoolean(false);
+            lines = new ArrayList<>(3);
+            new LineReader(Charset.defaultCharset()).read(byteArrayInputStream,
+                    new LineVisitor() {
 
-                    @Override
-                    public void visit(final String line) {
-                        lines.add(line);
-                    }
+                        @Override
+                        public void visit(final String line) {
+                            lines.add(line);
+                        }
 
-                    @Override
-                    public void emptyLine() {
-                        lines.add("");
-                        emptyLineDetected.getAndSet(true);
-                    }
-                });
+                        @Override
+                        public void emptyLine() {
+                            lines.add("");
+                            emptyLineDetected.getAndSet(true);
+                        }
+                    });
+        }
         assertEquals(3, lines.size());
         assertTrue(emptyLineDetected.get());
         assertEquals("line1", lines.get(0));

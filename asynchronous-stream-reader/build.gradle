@@ -9,7 +9,5 @@ project(':asynchronous-stream-reader') {
         testImplementation "junit:junit:${junitVersion}"
         testImplementation project(':string-to-inputstream')
         testImplementation project(':string-to-bytes')
-        testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntimeOnly "log4j:log4j:${log4jVersion}"
     }
 }

@@ -6,34 +6,44 @@ import java.io.StringReader;
 
 public final class StatisticsSummaryToCsv {
 
+    @SuppressWarnings("PMD.AssignmentInOperand")
     public static CsvSummary convertToCsv(String summary) {
-        final StringReader reader = new StringReader(summary);
-        final BufferedReader br = new BufferedReader(reader);
-        try {
-            StringBuilder cols = new StringBuilder();
-            StringBuilder rows = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(":");
-                String field = values[0].replaceAll("\\s{2,}", " ").trim()
-                        .replaceAll(" ", "_");
-                String value = values[1].trim();
-                cols.append(field + ",");
-                rows.append(value + ",");
-            }
-            String string = cols.toString();
-            String string2 = rows.toString();
-            return new CsvSummary(string.substring(0, string.length() - 1),
-                    string2.substring(0, string2.length() - 1));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
+        // TODO: use try-with-resources block
+        try (StringReader reader = new StringReader(summary)) {
             try {
-                br.close();
+                try (BufferedReader br = new BufferedReader(reader)) {
+                    try {
+                        StringBuilder cols = new StringBuilder();
+                        StringBuilder rows = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            String[] values = line.split(":");
+                            String field = values[0].replaceAll("\\s{2,}", " ")
+                                    .trim().replaceAll(" ", "_");
+                            String value = values[1].trim();
+                            cols.append(field).append(',');
+                            rows.append(value).append(',');
+                        }
+                        String string = cols.toString();
+                        String string2 = rows.toString();
+                        return new CsvSummary(
+                                string.substring(0, string.length() - 1),
+                                string2.substring(0, string2.length() - 1));
+                    } catch (IOException e) {
+                        throw new StatisticsSummaryToCsvException(e);
+                    }
+                }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new StatisticsSummaryToCsvException(e);
             }
-            reader.close();
+        }
+    }
+
+    private static final class StatisticsSummaryToCsvException
+            extends RuntimeException {
+
+        public StatisticsSummaryToCsvException(Throwable cause) {
+            super(cause);
         }
     }
 

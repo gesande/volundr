@@ -9,8 +9,8 @@ import org.jfree.data.xy.XYSeries;
 final class XYSeriesAdapter
         implements DatasetAdapter<LineChartGraphData, Paint> {
 
-    private XYSeries series;
-    private String legendTitle;
+    private final XYSeries series;
+    private final String legendTitle;
     private final static XYSeriesFactory SERIES_FACTORY = new XYSeriesFactory();
 
     XYSeriesAdapter(final String legendTitle) {

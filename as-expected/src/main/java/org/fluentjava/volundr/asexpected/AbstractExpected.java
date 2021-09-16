@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Original idea for this was got from Ville Oikarinen.
  */
+@SuppressWarnings("PMD.AvoidStringBufferField")
 public abstract class AbstractExpected<PARENT> implements Expected<PARENT> {
     private final StringBuilder expected = new StringBuilder();
 
@@ -14,6 +15,7 @@ public abstract class AbstractExpected<PARENT> implements Expected<PARENT> {
         return this;
     }
 
+    @SuppressWarnings("PMD.SystemPrintln")
     @Override
     public PARENT end() {
         final String buildExpected = buildExpected();
