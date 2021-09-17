@@ -16,7 +16,7 @@ class JavaProjectDistribution implements Plugin<Project> {
             description = "Makes the project specific distribution archive."
             task.dependsOn("jar")
             task.from project.jar
-            task.from project.configurations.runtime
+            task.from project.configurations.runtimeClasspath
             task.exclude(project.properties.distributionExcludes)
             doLast { println "Following libraries were excluded when making the $project.name dist: ${project.properties.distributionExcludes} " }
         }
@@ -31,7 +31,7 @@ class JavaProjectDistribution implements Plugin<Project> {
             description = "Makes the project specific test code distribution archive."
             task.dependsOn 'jar'
             task.from project.testSourcesJar
-            task.from project.configurations.testRuntime
+            task.from project.configurations.testRuntimeClasspath
             task.exclude(project.properties.distributionExcludes)
             doLast { println "Following libraries were excluded when making the $project.name testCodeDist: ${project.properties.distributionExcludes} " }
         }

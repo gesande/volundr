@@ -57,10 +57,11 @@ DONE
 + fix new pmd issues #code
 
 IN PROGRESS
+use nebula lint for gradle
 
 WAITING
 - breakup junit-utils (introduce junit-predicate)
-- use nebula lint for gradle
+- bump com.diffplug.spotless to 5.15.0 -> configuration has changed
 - replace Thread.sleep in tests with awaitility library
 - update to Junit5
 - refactoring range stuff around LineChartGraphData

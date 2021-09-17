@@ -10,7 +10,7 @@ public class ReportingPlugin implements Plugin<Project> {
     @Override
     public void apply(final Project project) {
         project.configurations { antClasspath }
-        project.dependencies { antClasspath 'org.apache.ant:ant-junit:1.8.2' }
+        project.dependencies { antClasspath 'org.apache.ant:ant-junit:1.10.11' }
 
         project.task("reportingOptions") {
             group = 'Reporting'

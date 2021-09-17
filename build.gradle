@@ -1,7 +1,5 @@
 buildscript {
-    dependencies {
-        classpath "com.google.guava:guava:30.1.1-jre"
-    }
+    repositories { mavenCentral() }
 }
 
 plugins {
@@ -9,14 +7,13 @@ plugins {
     id "jacoco"
     id "pmd"
     id "eclipse"
+    id "nebula.lint" version "17.2.1"
+    id "nebula.resolution-rules" version "8.0.0"
     id "com.github.spotbugs" version "4.7.5"
     id "org.ajoberstar.grgit" version "4.1.0"
+    //5.15.0 will require configuration changes
     id "com.diffplug.spotless" version "5.11.1"
-    id "org.owasp.dependencycheck" version "6.2.2"
-    /*
-     id "nebula.lint" version "17.1.0"
-     id "nebula.resolution-rules" version "7.8.7"
-     */
+    id "org.owasp.dependencycheck" version "6.3.1"
     id "com.github.ben-manes.versions" version "0.39.0"
 }
 
@@ -45,8 +42,47 @@ ext {
 }
 
 allprojects {
+    apply plugin : "nebula.lint"
+    apply plugin : "nebula.resolution-rules"
+
     repositories {
         mavenCentral()
+    }
+
+    //turn it off, since default true makes IDEA to run it all the time
+    gradleLint.alwaysRun=false
+    gradleLint {
+        rules = ['unused-dependency']
+        /*
+         rules = [
+         'duplicate-dependency-class',
+         'transitive-duplicate-dependency-class',
+         'recommended-versions'
+         ]
+         criticalRules = [
+         'dependency-parentheses',
+         'minimum-version-rule',
+         'undeclared-dependency',
+         'overridden-dependency-version',
+         'unused-dependency',
+         'unused-exclude-by-dep',
+         'unused-exclude-by-conf'
+         ]
+         */
+        /*
+         all-dependency replaces
+         'overridden-dependency-version',
+         'unused-dependency',
+         'unused-exclude-by-dep',
+         'unused-exclude-by-conf'
+         rules but it also includes (undocumented)
+         'duplicate-dependency-class',
+         'transitive-duplicate-dependency-class',
+         'recommended-versions'
+         rules
+         */
+        skipForTask('makeOsmoTester')
+        skipForTask('assemble')
     }
 }
 
@@ -70,7 +106,7 @@ dependencyCheck {
 
 spotless {
     format 'misc', {
-        target '**/*.md', '**/.gitignore'
+        target '**/*.md', '**/.gitignore', '**/log4j.properties'
         target.exclude '**/mukatee-osmo/**'
         trimTrailingWhitespace()
         indentWithSpaces()
@@ -175,7 +211,7 @@ subprojects { prj ->
     }
 }
 
-def publishedProjects = subprojects.findAll() { it.path != ':buildSrc' }
+def publishedProjects = subprojects.findAll()
 
 task jacocoMerge(type: JacocoMerge) {
     destinationFile = file("${buildDir}/jacoco/merged.exec")
