@@ -59,6 +59,8 @@ DONE
 IN PROGRESS
 
 WAITING
+- use nebula lint for gradle
+- replace Thread.sleep in tests with awaitility library
 - update to Junit5
 - refactoring range stuff around LineChartGraphData
 - introduce license plugins #build

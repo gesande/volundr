@@ -85,7 +85,7 @@ public class StronglyTypedSortedBagTest {
         final Runnable runnable2 = () -> bag.add("value2");
         new Thread(runnable1).start();
         new Thread(runnable2).start();
-        Thread.sleep(50);
+        Thread.sleep(100);
         assertEquals(2, bag.uniqueSamples().size());
         assertEquals(1, bag.count("value1"));
         assertEquals(1, bag.count("value2"));
