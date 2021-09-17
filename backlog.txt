@@ -59,6 +59,7 @@ DONE
 IN PROGRESS
 
 WAITING
+- breakup junit-utils (introduce junit-predicate)
 - use nebula lint for gradle
 - replace Thread.sleep in tests with awaitility library
 - update to Junit5
