@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class ThreadEngineApiExample {
 
-    private final static Logger LOG = LoggerFactory
+    private final static Logger LOGGER = LoggerFactory
             .getLogger(ThreadEngineApiExample.class);
 
     @Test
@@ -19,14 +19,11 @@ public class ThreadEngineApiExample {
         CountDownLatch latch = new CountDownLatch(1);
         Runnable runnable = () -> {
             latch.countDown();
-            log().info("My runnable got run. Nice :)");
+            LOGGER.info("My runnable got run. Nice :)");
         };
         ThreadEngineApi.builder().threadNamePrefix("threadname-prefix-")
                 .runnables(runnable).build().run();
         assertTrue(latch.await(1, TimeUnit.SECONDS));
     }
 
-    private static Logger log() {
-        return LOG;
-    }
 }

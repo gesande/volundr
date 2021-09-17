@@ -16,13 +16,12 @@ public class DefaultStatisticsConsumerTest {
         DefaultStatisticsConsumer consumer = DefaultStatisticsConsumer
                 .statsConsumer("title", latencies);
 
-        consumer.consumeStatistics(stats -> {
-            assertEquals("title\n" + "samples       : 0\n"
-                    + "max           : 0\n" + "min           : 0\n"
-                    + "mean          : 0.0\n" + "median        : 0\n"
-                    + "95 percentile : 0\n" + "std           : NaN\n"
-                    + "variance      : NaN\n" + "", stats);
-        });
+        consumer.consumeStatistics(
+                stats -> assertEquals("title\n" + "samples       : 0\n"
+                        + "max           : 0\n" + "min           : 0\n"
+                        + "mean          : 0.0\n" + "median        : 0\n"
+                        + "95 percentile : 0\n" + "std           : NaN\n"
+                        + "variance      : NaN\n" + "", stats));
     }
 
     @Test
@@ -34,15 +33,13 @@ public class DefaultStatisticsConsumerTest {
         DefaultStatisticsConsumer consumer = DefaultStatisticsConsumer
                 .statsConsumer("title", latencies);
 
-        consumer.consumeStatistics(stats -> {
-            assertEquals(
-                    "title\n" + "samples       : 100\n" + "max           : 99\n"
-                            + "min           : 0\n" + "mean          : 49.5\n"
-                            + "median        : 49\n" + "95 percentile : 95\n"
-                            + "std           : 28.86607004772212\n"
-                            + "variance      : 833.25\n" + "",
-                    stats);
-        });
+        consumer.consumeStatistics(stats -> assertEquals(
+                "title\n" + "samples       : 100\n" + "max           : 99\n"
+                        + "min           : 0\n" + "mean          : 49.5\n"
+                        + "median        : 49\n" + "95 percentile : 95\n"
+                        + "std           : 28.86607004772212\n"
+                        + "variance      : 833.25\n" + "",
+                stats));
     }
 
 }

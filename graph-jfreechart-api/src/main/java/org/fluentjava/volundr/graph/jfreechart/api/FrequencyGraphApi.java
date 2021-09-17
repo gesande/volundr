@@ -29,7 +29,7 @@ public final class FrequencyGraphApi {
             String graphName, StatisticsListProvider<Integer> statistics) {
         final StronglyTypedSortedBag<Integer> bag = StronglyTypedSortedBag
                 .treeBag();
-        statistics.accept(value -> bag.add(value));
+        statistics.accept(bag::add);
         final FrequencyData frequencyData = new FrequencyData() {
 
             @Override
@@ -55,7 +55,7 @@ public final class FrequencyGraphApi {
             StatisticsListProvider<Long> statistics) {
         final StronglyTypedSortedBag<Long> bag = StronglyTypedSortedBag
                 .treeBag();
-        statistics.accept(value -> bag.add(value));
+        statistics.accept(bag::add);
         final FrequencyData frequencyData = new FrequencyData() {
 
             @Override

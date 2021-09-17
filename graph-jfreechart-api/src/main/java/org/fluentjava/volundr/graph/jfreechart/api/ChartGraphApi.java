@@ -65,9 +65,8 @@ public class ChartGraphApi {
             String graphName, AbstractStatisticsValueProvider<T> statistics) {
         final ImageData data = ImageData.noStatistics(graphTitle, xAxisTitle,
                 ADAPTER_FACTORY.forBarChart(legendTitle));
-        statistics.acceptUniqueSamples(sample -> {
-            data.add(statistics.countFor(sample), sample);
-        });
+        statistics.acceptUniqueSamples(
+                sample -> data.add(statistics.countFor(sample), sample));
         data.range(statistics.sampleCount());
         if (statistics.hasSamples()) { // no need to create an empty graph
             imageFactory.createBarChart(graphName, data);

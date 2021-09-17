@@ -10,11 +10,11 @@ public final class StatisticsValueProviderFactory {
 
     public static AbstractStatisticsValueProvider<Long> longValues() {
         return new AbstractStatisticsValueProvider<Long>(
-                StronglyTypedSortedBag.<Long> synchronizedTreeBag()) {
+                StronglyTypedSortedBag.synchronizedTreeBag()) {
 
             @Override
             protected Long zero() {
-                return Long.valueOf(0);
+                return 0L;
             }
 
             @Override

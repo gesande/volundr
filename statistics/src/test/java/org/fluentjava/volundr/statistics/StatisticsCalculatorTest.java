@@ -247,7 +247,7 @@ public class StatisticsCalculatorTest {
     @Test
     public void empty() {
         final StatisticsCalculator empty = StatisticsCalculator
-                .fromValues(new ArrayList<Integer>());
+                .fromValues(new ArrayList<>());
         assertEquals(0, empty.max(), 0);
         assertEquals(0, empty.min(), 0);
         assertEquals(0, empty.mean(), 0);

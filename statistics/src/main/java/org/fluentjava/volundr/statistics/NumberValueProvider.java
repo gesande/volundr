@@ -42,7 +42,7 @@ final class IntegerNumberProvider extends NumberValueProvider<Integer> {
 
     @Override
     Integer zero() {
-        return Integer.valueOf(0);
+        return 0;
     }
 
     @Override
@@ -82,7 +82,7 @@ final class LongNumberProvider extends NumberValueProvider<Long> {
 
     @Override
     Long zero() {
-        return Long.valueOf(0);
+        return 0L;
     }
 
     @Override

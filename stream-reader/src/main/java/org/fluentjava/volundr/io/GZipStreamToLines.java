@@ -13,11 +13,8 @@ public class GZipStreamToLines implements StreamReader {
 
     @Override
     public void readFrom(final InputStream inputStream) throws IOException {
-        final GZIPInputStream gzipStream = new GZIPInputStream(inputStream);
-        try {
+        try (GZIPInputStream gzipStream = new GZIPInputStream(inputStream)) {
             this.reader.readFrom(gzipStream);
-        } finally {
-            gzipStream.close();
         }
     }
 

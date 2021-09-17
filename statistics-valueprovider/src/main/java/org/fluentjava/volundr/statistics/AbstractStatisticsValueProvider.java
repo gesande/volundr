@@ -122,7 +122,7 @@ public abstract class AbstractStatisticsValueProvider<T extends Number & Compara
     protected abstract T calculateMean(T value1, T value2);
 
     public void acceptUniqueSamples(Consumer<? super T> consumer) {
-        values().uniqueSamples().forEach(val -> consumer.accept(val));
+        values().uniqueSamples().forEach(consumer);
     }
 
 }

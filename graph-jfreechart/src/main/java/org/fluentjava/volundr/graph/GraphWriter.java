@@ -2,10 +2,10 @@ package org.fluentjava.volundr.graph;
 
 public interface GraphWriter {
 
-    public boolean hasSomethingToWrite();
+    boolean hasSomethingToWrite();
 
-    public String id();
+    String id();
 
-    public void writeImage(final ImageFactory imageFactory);
+    void writeImage(final ImageFactory imageFactory);
 
 }

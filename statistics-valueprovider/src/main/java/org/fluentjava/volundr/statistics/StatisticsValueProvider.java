@@ -6,7 +6,7 @@ public class StatisticsValueProvider
         extends AbstractStatisticsValueProvider<Integer> {
 
     public StatisticsValueProvider() {
-        super(StronglyTypedSortedBag.<Integer> synchronizedTreeBag());
+        super(StronglyTypedSortedBag.synchronizedTreeBag());
     }
 
     @Override
@@ -16,7 +16,7 @@ public class StatisticsValueProvider
 
     @Override
     protected Integer zero() {
-        return Integer.valueOf(0);
+        return 0;
     }
 
     @Override

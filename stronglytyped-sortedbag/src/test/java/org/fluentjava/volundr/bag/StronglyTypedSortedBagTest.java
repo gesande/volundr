@@ -81,18 +81,8 @@ public class StronglyTypedSortedBagTest {
     public void multiThreadUseOfBag() throws InterruptedException {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
                 .synchronizedTreeBag();
-        final Runnable runnable1 = new Runnable() {
-            @Override
-            public void run() {
-                bag.add("value1");
-            }
-        };
-        final Runnable runnable2 = new Runnable() {
-            @Override
-            public void run() {
-                bag.add("value2");
-            }
-        };
+        final Runnable runnable1 = () -> bag.add("value1");
+        final Runnable runnable2 = () -> bag.add("value2");
         new Thread(runnable1).start();
         new Thread(runnable2).start();
         Thread.sleep(50);

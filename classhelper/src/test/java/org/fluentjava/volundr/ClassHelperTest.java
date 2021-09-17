@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ClassHelperTest {
-    private final static Logger LOG = LoggerFactory
+    private final static Logger LOGGER = LoggerFactory
             .getLogger(ClassHelperTest.class);
 
     @Test
@@ -24,7 +24,7 @@ public class ClassHelperTest {
             throws IOException, ClassNotFoundException {
         final Class<?>[] classes = ClassHelper
                 .getClasses("org.fluentjava.shouldfind");
-        LOG.debug("Classes = {}", Arrays.toString(classes));
+        LOGGER.debug("Classes = {}", Arrays.toString(classes));
         final List<Class<?>> classList = new ArrayList<>();
         Collections.addAll(classList, classes);
         assertTrue(classList.contains(ThisShouldBeFound.class));
@@ -34,7 +34,7 @@ public class ClassHelperTest {
     public void classesForAPackageRecursive()
             throws IOException, ClassNotFoundException {
         final Class<?>[] classes = ClassHelper.getClasses("org.fluentjava");
-        LOG.debug("Classes = {}", Arrays.toString(classes));
+        LOGGER.debug("Classes = {}", Arrays.toString(classes));
         final List<Class<?>> classList = new ArrayList<>();
         Collections.addAll(classList, classes);
         assertTrue(classList.contains(ThisShouldBeFound.class));
@@ -46,7 +46,7 @@ public class ClassHelperTest {
             throws IOException, ClassNotFoundException {
         final Class<?>[] classes = ClassHelper
                 .getClasses("org.fluentjava.völundr");
-        LOG.debug("Classes = {}", Arrays.toString(classes));
+        LOGGER.debug("Classes = {}", Arrays.toString(classes));
         final List<Class<?>> classList = new ArrayList<>();
         Collections.addAll(classList, classes);
         assertTrue(classList.contains(ContainingUtf8Characters.class));
