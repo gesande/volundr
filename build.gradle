@@ -1,7 +1,3 @@
-buildscript {
-    repositories { mavenCentral() }
-}
-
 plugins {
     id "java"
     id "jacoco"
@@ -15,6 +11,36 @@ plugins {
     id "com.diffplug.spotless" version "5.11.1"
     id "org.owasp.dependencycheck" version "6.3.1"
     id "com.github.ben-manes.versions" version "0.39.0"
+    //brings versionDetails
+    id "com.palantir.git-version" version "0.12.3"
+}
+
+def parseVersion = {
+    def versionName = new ByteArrayOutputStream()
+
+    exec {
+        commandLine 'git', 'log', '--format=%cd-%h', '--date=format:%y.%m%d', '-n', '1'
+        standardOutput = versionName
+    }
+
+    def gitDetails = versionDetails()
+    version = versionName.toString().trim()
+
+    if (gitDetails.branchName != null && gitDetails.branchName != 'master') {
+        version = "dev-" + version + "-" + gitDetails.branchName
+    }
+
+    def dirty = ""
+    status = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'status', '--porcelain'
+        standardOutput = status
+    }
+    if (status.toString().trim().length()>0) {
+        dirty = "-DIRTY"
+    }
+    version = version + dirty
+    return version
 }
 
 ext {
@@ -27,7 +53,7 @@ ext {
 
     codeCoveragePlugin="${buildScripts}/plugins/jacoco.gradle"
 
-    artifactVersion='3.0.7'
+    artifactVersion = parseVersion()
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
@@ -41,7 +67,9 @@ ext {
     spotbugsVersion="4.4.1"
 }
 
+
 allprojects {
+    apply plugin: 'eclipse'
     apply plugin : "nebula.lint"
     apply plugin : "nebula.resolution-rules"
 
