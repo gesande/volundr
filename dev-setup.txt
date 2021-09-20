@@ -1,9 +1,0 @@
-install groovy (v1.8)
-install gradle (v.1.3)
-install eclipse (kepler)
-import eclipse formatting settings from ./build/eclipse/formatting/settings.xml
-install eclipse-groovy plugin: http://groovy.codehaus.org/Eclipse+Plugin
-install eclipse-gradle plugin: https://github.com/spring-projects/eclipse-integration-gradle/
-build eclipse settings: gradle eclipseSettings
-import the projects to eclipse
-done

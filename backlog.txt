@@ -55,6 +55,7 @@ DONE
 + introduced dependency update reporting
 + use spotbugs instead of findbugs #code (requires völundr -> volundr)
 + fix new pmd issues #code
++ convert dev-setup.txt to md format, also update it correctly #docs
 
 IN PROGRESS
 use nebula lint for gradle
@@ -69,4 +70,3 @@ WAITING
 - remake gradle build using conventions #build
 - graph-jfreechart-fileapi
 - introduce readme.md #docs
-- convert dev-setup.txt to md format, also update it correctly #docs
