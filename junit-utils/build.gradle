@@ -1,3 +1,12 @@
-apply plugin : org.fluentjava.volundr.JavaProjectDistribution
-
-dependencies { implementation "junit:junit:4.11" }
+dependencies {
+    implementation("junit:junit") {
+        version {
+            strictly "4.11"
+        }
+    }
+    testImplementation("junit:junit") {
+        version {
+            strictly "4.11"
+        }
+    }
+}

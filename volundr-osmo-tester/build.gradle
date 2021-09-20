@@ -1,5 +1,4 @@
 import org.ajoberstar.grgit.Grgit
-apply plugin : org.fluentjava.volundr.JavaProjectDistribution
 apply plugin: 'maven-publish'
 
 publishing {
@@ -21,8 +20,8 @@ dependencies {
     //osmo-tester dependency as built classes
     implementation files("${projectDir}/osmo-tester/target/classes") { builtBy "makeOsmoTester" }
     implementation fileTree(dir: "${projectDir}/osmo-tester/libs", exclude: "log4j*.jar")
+
     implementation project(':osmo-testing-statistics')
-    implementation "org.slf4j:slf4j-api:$slf4jVersion"
 }
 
 task cloneOsmoTester {

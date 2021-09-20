@@ -4,7 +4,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.bundling.Zip
 
-
 class JavaProjectDistribution implements Plugin<Project> {
 
     @Override
@@ -42,8 +41,8 @@ class JavaProjectDistribution implements Plugin<Project> {
         }
 
         project.task('testCodeRelease', dependsOn: [
-                'testCodeDist',
-                'testSourcesJar'
+            'testCodeDist',
+            'testSourcesJar'
         ]) {
             group = 'Distribution'
             description = "Defines the project specific test code release distributions."

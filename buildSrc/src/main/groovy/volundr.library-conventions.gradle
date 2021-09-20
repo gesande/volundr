@@ -1,0 +1,107 @@
+plugins {
+    id 'java'
+    id "pmd"
+    id "jacoco"
+    id "com.diffplug.spotless"
+    id 'com.github.spotbugs'
+}
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+}
+
+project.plugins.apply JacocoPlugin
+project.plugins.apply org.fluentjava.volundr.ProjectVersion
+project.plugins.apply org.fluentjava.volundr.JavaProjectArtifactPlugin
+project.plugins.apply org.fluentjava.volundr.ForkEclipseJdtPlugin
+project.plugins.apply org.fluentjava.volundr.EclipseClasspathPlugin
+project.plugins.apply org.fluentjava.volundr.JavaProjectDistribution
+
+dependencies {
+    constraints {
+        implementation group: "org.slf4j", name: "slf4j-api", version: "${slf4jVersion}"
+        testImplementation group: "org.slf4j", name: "slf4j-api", version: "${slf4jVersion}"
+
+        testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+        testRuntimeOnly "log4j:log4j:${log4jVersion}"
+        implementation("junit:junit") {
+            version {
+                prefer "$junitVersion"
+            }
+        }
+        testImplementation("junit:junit") {
+            version {
+                prefer "$junitVersion"
+            }
+        }
+
+        implementation "commons-io:commons-io:${commonsIoVersion}"
+        implementation "commons-collections:commons-collections:$commonsCollectionsVersion"
+        implementation "org.jfree:jfreechart:${jfreechartVersion}"
+        compileOnly "com.github.spotbugs:spotbugs-annotations:$spotbugsVersion"
+    }
+    //logging abstraction
+    implementation group: "org.slf4j", name: "slf4j-api"
+    //SuppressFBWarnings
+    compileOnly "com.github.spotbugs:spotbugs-annotations"
+    //unit tests
+    testImplementation("junit:junit")
+    //logging impl
+    testRuntimeOnly "org.slf4j:slf4j-log4j12"
+    testRuntimeOnly "log4j:log4j"
+}
+
+forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
+
+version = rootProject.artifactVersion
+
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+project.task("jacocoMerge", type: JacocoMerge) {
+    executionData project.tasks.withType(Test)
+
+    doFirst {
+        executionData = files(executionData.findAll { it.exists() })
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+pmdTest {
+    afterEvaluate {
+        ruleSetFiles = files("${buildScripts}/template/for/pmd/pmd-ruleset-for-tests.xml")
+    }
+}
+
+spotbugs {
+    toolVersion = "$spotbugsVersion"
+    effort = 'max'
+    maxHeapSize = '2g'
+}
+
+pmd {
+    ignoreFailures = false //need to fix those
+    toolVersion = "6.20.0"
+    ruleSetFiles = files("${buildScripts}/template/for/pmd/pmd-ruleset.xml")
+    /*
+     Gradle defaults to using the basic and braces
+     rulesets up to Gradle 5. Gradle 5 defaults to using
+     the errorprone category.
+     */
+    ruleSets = []
+    // https://pmd.github.io/pmd-6.20.0/pmd_userdocs_incremental_analysis.html
+    //this is an incubating feature and seems to have some issues
+    // disabling it for now
+    //incrementalAnalysis = true
+}

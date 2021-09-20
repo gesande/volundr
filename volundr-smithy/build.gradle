@@ -1,5 +1,3 @@
-apply plugin : org.fluentjava.volundr.JavaProjectDistribution
-
 dependencies {
     implementation project(':asynchronous-stream-reader')
     implementation project(':concurrent')
@@ -11,7 +9,6 @@ dependencies {
     implementation project(':stronglytyped-sortedbag')
     implementation project(':visiting-inputstreams')
     implementation project(':bytes-to-string')
-    testImplementation "junit:junit:${junitVersion}"
     testImplementation project(':as-expected')
-    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    testImplementation "org.slf4j:slf4j-api"
 }

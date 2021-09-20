@@ -1,18 +1,32 @@
+buildscript {
+    dependencies {
+        classpath "com.google.guava:guava:29.0-jre"
+    }
+}
+
 plugins {
-    id "java"
-    id "jacoco"
-    id "pmd"
-    id "eclipse"
-    id "nebula.lint" version "17.2.1"
-    id "nebula.resolution-rules" version "8.0.0"
     id "com.github.spotbugs" version "4.7.5"
-    id "org.ajoberstar.grgit" version "4.1.0"
-    //5.15.0 will require configuration changes
-    id "com.diffplug.spotless" version "5.11.1"
-    id "org.owasp.dependencycheck" version "6.3.1"
+    //dependency updates
     id "com.github.ben-manes.versions" version "0.39.0"
+    id "pmd"
+    id "java"
+    id "eclipse"
     //brings versionDetails
     id "com.palantir.git-version" version "0.12.3"
+    // formatting
+    id "com.diffplug.spotless" version "5.15.1"
+    id "jacoco"
+    // CVE check
+    id "org.owasp.dependencycheck" version "6.3.1"
+    id "org.ajoberstar.grgit" version "4.1.0"
+    // lint build
+    id "nebula.lint" version "17.2.1"
+    id "nebula.resolution-rules" version "8.0.0"
+}
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
 }
 
 def parseVersion = {
@@ -36,7 +50,7 @@ def parseVersion = {
         commandLine 'git', 'status', '--porcelain'
         standardOutput = status
     }
-    if (status.toString().trim().length()>0) {
+    if (status.toString().trim().length() > 0) {
         dirty = "-DIRTY"
     }
     version = version + dirty
@@ -45,13 +59,10 @@ def parseVersion = {
 
 ext {
     buildScripts="$projectDir/buildSrc"
-    buildPlugins="$buildScripts/plugins"
     //make sure these files exist
     jdtInputFile="${buildScripts}/template/for/eclipse/org.eclipse.jdt.core.prefs"
 
     distributionDir="$buildDir/distributions"
-
-    codeCoveragePlugin="${buildScripts}/plugins/jacoco.gradle"
 
     artifactVersion = parseVersion()
 
@@ -67,132 +78,15 @@ ext {
     spotbugsVersion="4.4.1"
 }
 
-
-allprojects {
-    apply plugin: 'eclipse'
-    apply plugin : "nebula.lint"
-    apply plugin : "nebula.resolution-rules"
-
-    repositories {
-        mavenCentral()
-    }
-
-    //turn it off, since default true makes IDEA to run it all the time
-    gradleLint.alwaysRun=false
-    gradleLint {
-        rules = ['unused-dependency']
-        /*
-         rules = [
-         'duplicate-dependency-class',
-         'transitive-duplicate-dependency-class',
-         'recommended-versions'
-         ]
-         criticalRules = [
-         'dependency-parentheses',
-         'minimum-version-rule',
-         'undeclared-dependency',
-         'overridden-dependency-version',
-         'unused-dependency',
-         'unused-exclude-by-dep',
-         'unused-exclude-by-conf'
-         ]
-         */
-        /*
-         all-dependency replaces
-         'overridden-dependency-version',
-         'unused-dependency',
-         'unused-exclude-by-dep',
-         'unused-exclude-by-conf'
-         rules but it also includes (undocumented)
-         'duplicate-dependency-class',
-         'transitive-duplicate-dependency-class',
-         'recommended-versions'
-         rules
-         */
-        skipForTask('makeOsmoTester')
-        skipForTask('assemble')
-    }
-}
-
 apply plugin : org.fluentjava.volundr.ReportingPlugin
 apply plugin : org.fluentjava.volundr.JavaDistributionPlugin
 apply plugin : org.fluentjava.volundr.BuildPlugin
+apply plugin : "volundr.lint-conventions"
+apply plugin : "volundr.dependencycheck-conventions"
+apply plugin : "volundr.dependencyupdates-conventions"
 
-dependencyCheck {
-    skipConfigurations = [
-        'jacocoAgent',
-        'pmd',
-        'spotbugs',
-        'antClasspath'
-    ]
-    skipProjects = [":buildSrc"]
-    cve {
-        urlModified = "https://freedumbytes.gitlab.io/setup/nist-nvd-mirror/nvdcve-1.1-modified.json.gz"
-        urlBase = "https://freedumbytes.gitlab.io/setup/nist-nvd-mirror/nvdcve-1.1-%d.json.gz"
-    }
-}
-
-spotless {
-    format 'misc', {
-        target '**/*.md', '**/.gitignore', '**/log4j.properties'
-        target.exclude '**/mukatee-osmo/**'
-        trimTrailingWhitespace()
-        indentWithSpaces()
-        endWithNewline()
-    }
-    groovyGradle {
-        target '**/*.gradle'
-        greclipse()
-        trimTrailingWhitespace()
-        endWithNewline()
-        indentWithSpaces()
-    }
-    java {
-        importOrder 'java', 'javax', 'org', 'com', ''
-        removeUnusedImports()
-        trimTrailingWhitespace()
-        indentWithSpaces()
-        endWithNewline()
-        eclipse().configFile "${project.properties.jdtInputFile}"
-        target project.fileTree(project.rootDir) {
-            include '**/*.java'
-            exclude '**/build/**', '**/mukatee-osmo/**'
-        }
-    }
-}
-
-subprojects { prj ->
-    apply plugin : 'java'
-    apply plugin : 'pmd'
-    apply plugin : "com.github.spotbugs"
-    apply plugin : 'eclipse'
-    apply plugin : 'jacoco'
-    apply plugin : org.fluentjava.volundr.JavaProjectArtifactPlugin
-    apply plugin : org.fluentjava.volundr.ForkEclipseJdtPlugin
-    apply plugin : org.fluentjava.volundr.EclipseClasspathPlugin
-    apply plugin : org.fluentjava.volundr.ProjectVersion
-
-    spotbugs {
-        toolVersion = "$spotbugsVersion"
-        effort = 'max'
-    }
-
-    pmd {
-        ignoreFailures = false //need to fix those
-        toolVersion = "6.20.0"
-        ruleSetFiles = files("${project.rootDir}/conf/pmd-ruleset.xml")
-        /*
-         Gradle defaults to using the basic and braces
-         rulesets up to Gradle 5. Gradle 5 defaults to using
-         the errorprone category.
-         */
-        ruleSets = []
-        // https://pmd.github.io/pmd-6.20.0/pmd_userdocs_incremental_analysis.html
-        //this is an incubating feature and seems to have some issues
-        // disabling it for now
-        //incrementalAnalysis = true
-    }
-
+subprojects {
+    apply plugin : "volundr.library-conventions"
     tasks.withType(com.github.spotbugs.snom.SpotBugsTask) { task ->
         task.reports {
             xml.enabled = project.hasProperty('CI') && "${CI}".toBoolean()
@@ -201,44 +95,11 @@ subprojects { prj ->
             html.enabled = !(project.hasProperty('CI') && "${CI}".toBoolean())
         }
     }
-
-    project.plugins.apply(JacocoPlugin)
-
-    project.task("jacocoMerge", type: JacocoMerge) {
-        executionData project.tasks.withType(Test)
-
-        doFirst {
-            executionData = files(executionData.findAll { it.exists() })
-        }
-    }
-    tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
-
-    forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
-
-    version = prj.parent.artifactVersion
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-
-    dependencies {
-        compileOnly "com.github.spotbugs:spotbugs-annotations:$spotbugsVersion"
-        testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntimeOnly "log4j:log4j:${log4jVersion}"
-    }
-
-    jacocoTestReport {
-        reports {
-            xml.enabled false
-            csv.enabled false
-            html.destination file("${buildDir}/jacocoHtml")
-        }
-    }
-    pmdTest {
-        afterEvaluate {
-            ruleSetFiles = files("${project.rootDir}/conf/pmd-ruleset-for-tests.xml")
-        }
-    }
 }
 
+/*
+    Don't put {} around subprojects.findAll(), it'll be resolved totally different way
+ */
 def publishedProjects = subprojects.findAll()
 
 task jacocoMerge(type: JacocoMerge) {
@@ -269,20 +130,7 @@ task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') { rep 
     doLast { println "Coverage report(s) can be found from file://${buildDir}/reports/jacoco/jacocoAggregateReport/html/index.html" }
 }
 
+//ALL brings also sources for Gradle API
 tasks.named('wrapper') {
     distributionType = Wrapper.DistributionType.ALL
-}
-
-def isNonStable = { String group, String module, String version ->
-    return (version ==~ /(?i).*[-.](alpha|beta|SNAP|milestone|M1|rc)-?[0-9]*$/)
-}
-
-subprojects {
-    task allDependencies(type: DependencyReportTask) {}
-}
-
-tasks.named("dependencyUpdates").configure {
-    rejectVersionIf {
-        isNonStable(it.candidate.group, it.candidate.module, it.candidate.version)
-    }
 }

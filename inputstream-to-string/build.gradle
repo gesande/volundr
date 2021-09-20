@@ -1,5 +1,3 @@
-apply plugin : org.fluentjava.volundr.JavaProjectDistribution
 dependencies {
-    implementation "commons-io:commons-io:${commonsIoVersion}"
-    testImplementation "junit:junit:${junitVersion}"
+    implementation "commons-io:commons-io"
 }

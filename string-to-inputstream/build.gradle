@@ -1,6 +1,4 @@
-apply plugin : org.fluentjava.volundr.JavaProjectDistribution
 dependencies {
     implementation project(':string-to-bytes')
-    testImplementation "junit:junit:${junitVersion}"
     testImplementation project(':linereader')
 }

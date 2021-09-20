@@ -1,0 +1,37 @@
+spotless {
+    format 'misc', {
+        target project.fileTree(project.rootDir) {
+            include '**/*.md', '**/.gitignore', '**/log4j.properties'
+            exclude '**/mukatee-osmo/**'
+        }
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+    groovy {
+        target '**/*.groovy'
+        greclipse()
+        trimTrailingWhitespace()
+        endWithNewline()
+        indentWithSpaces()
+    }
+    groovyGradle {
+        target '**/*.gradle'
+        greclipse()
+        trimTrailingWhitespace()
+        endWithNewline()
+        indentWithSpaces()
+    }
+    java {
+        importOrder 'java', 'javax', 'org', 'com', ''
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+        eclipse().configFile "${project.properties.jdtInputFile}"
+        target project.fileTree(project.rootDir) {
+            include '**/*.java'
+            exclude '**/build/**', '**/mukatee-osmo/**'
+        }
+    }
+}

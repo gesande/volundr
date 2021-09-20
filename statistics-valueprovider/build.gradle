@@ -1,4 +1,3 @@
-apply plugin : org.fluentjava.volundr.JavaProjectDistribution
 apply plugin: 'maven-publish'
 
 publishing {
@@ -17,5 +16,4 @@ publishing {
 dependencies {
     implementation project(':statistics')
     implementation project(':stronglytyped-sortedbag')
-    testImplementation "junit:junit:${junitVersion}"
 }

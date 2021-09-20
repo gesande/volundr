@@ -1,12 +1,7 @@
-project(':threadengine-api-example') {
-    apply plugin : org.fluentjava.volundr.JavaProjectDistribution
+version = project.properties.artifactVersion
 
-    version = project.properties.artifactVersion
-
-    dependencies {
-        testImplementation project(':concurrent')
-        testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
-        testImplementation "junit:junit:${junitVersion}"
-    }
-    artifacts { archives testSourcesJar }
+dependencies {
+    testImplementation project(':concurrent')
+    testImplementation "org.slf4j:slf4j-api"
 }
+artifacts { archives testSourcesJar }
