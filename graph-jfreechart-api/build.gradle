@@ -18,6 +18,5 @@ dependencies {
     implementation project(':graph-jfreechart')
     implementation project(':statistics')
     implementation project(':stronglytyped-sortedbag')
-    implementation "org.jfree:jfreechart"
     implementation project(':statistics-valueprovider')
 }

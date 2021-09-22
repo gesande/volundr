@@ -7,8 +7,6 @@ allprojects {
     //turn it off, since default true makes IDEA to run it all the time
     gradleLint.alwaysRun = false
     gradleLint {
-        rules = ['unused-dependency']
-        /*
          rules = [
          'duplicate-dependency-class',
          'transitive-duplicate-dependency-class',
@@ -23,7 +21,6 @@ allprojects {
          'unused-exclude-by-dep',
          'unused-exclude-by-conf'
          ]
-         */
         /*
          all-dependency replaces
          'overridden-dependency-version',

@@ -15,8 +15,6 @@ publishing {
 }
 
 dependencies {
-    implementation "commons-collections:commons-collections"
-
     //these are needed for statistics and graphs
     implementation project(':statistics')
     implementation project(':graph-jfreechart')
