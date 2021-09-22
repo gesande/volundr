@@ -50,7 +50,7 @@ public class JavaDistributionPlugin implements Plugin<Project> {
             archiveBaseName = "$distributionName"
             archiveVersion = "${artifactRevision}"
             archiveExtension = 'tar'
-            doLast { println("Archived distribution package can be found from file://${destinationDir}/${distributionName}-${artifactRevision}.tar") }
+            doLast { println("Archived distribution package can be found from file://${destinationDirectory.get()}/${distributionName}-${artifactRevision}.tar") }
         }
 
         project.task("copyDistributionFiles") { Task task ->
