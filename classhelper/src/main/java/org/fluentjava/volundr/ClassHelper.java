@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Improved version of https://dzone.com/articles/get-all-classes-within-package
  */
@@ -28,21 +30,16 @@ public final class ClassHelper {
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static Class<?>[] getClasses(final String packageName)
             throws IOException, ClassNotFoundException {
-        final ClassLoader classLoader = Thread.currentThread()
-                .getContextClassLoader();
-        assert classLoader != null;
+        final ClassLoader classLoader = requireNonNull(Thread.currentThread()
+                .getContextClassLoader());
         final String path = packageName.replace('.', '/');
         final Enumeration<URL> resources = classLoader.getResources(path);
-        final List<Path> dirs = new ArrayList<>();
+        final List<Class<?>> classes = new ArrayList<>();
         while (resources.hasMoreElements()) {
             final URL resource = resources.nextElement();
             final File f = new File(
                     URLDecoder.decode(resource.getPath(), "UTF-8"));
-            dirs.add(Paths.get(f.getAbsolutePath()));
-        }
-        final List<Class<?>> classes = new ArrayList<>();
-        for (final Path directory : dirs) {
-            classes.addAll(findClasses(directory, packageName));
+            classes.addAll(findClasses(Paths.get(f.getAbsolutePath()), packageName));
         }
         return classes.toArray(new Class[0]);
     }
