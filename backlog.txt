@@ -59,11 +59,11 @@ DONE
 + use nebula lint for gradle
 + bump com.diffplug.spotless to 5.15.0 -> configuration has changed
 + remake gradle build using conventions #build
++ write osmo test runner example #examples
 
 IN PROGRESS
 
 WAITING
-- write osmo test runner example #examples
 - breakup junit-utils -> introduce volundr-predicate #refactoring
 - introduce graph-jfreechart-fileapi
 - replace Thread.sleep in tests with awaitility library #refactoring
