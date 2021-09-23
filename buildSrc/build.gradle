@@ -1,5 +1,6 @@
 plugins {
     id 'groovy'
+    //for Gradle conventions
     id 'groovy-gradle-plugin'
 }
 
@@ -9,10 +10,12 @@ apply plugin: 'java'
 
 repositories {
     mavenCentral()
+    //so that external plugins (if any) can be resolved in dependencies section
     gradlePluginPortal()
 }
 
 dependencies {
+    //you could define those plugins and their versions here
     implementation gradleApi()
     implementation localGroovy()
 }
