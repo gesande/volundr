@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public final class StatsConsumer implements Consumer<String> {
+public final class StatisticsConsumer implements Consumer<String> {
     private final List<String> stats = new ArrayList<>();
 
     @Override

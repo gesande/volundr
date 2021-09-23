@@ -50,10 +50,10 @@ class TestStepStatisticsPublisher {
 
     public void publish(List<Long> latencies, Consumer<String> consumer) {
         statisticsApiBuilder.withValues(latencies)
-                .statsTitle("Test step " + name
-                        + " latency statistics (in milliseconds):")
+                .statsTitle("Test step '" + name
+                        + "' latency statistics (in milliseconds):")
                 .consumedBy(consumer)
-                .frequencyGraph("Test step " + name + " latency statistics",
+                .frequencyGraph("Test step '" + name + "' latency statistics",
                         "Latencies (ms)",
                         "test-step-" + name + "-latency-frequency-statistics")
                 .publish();

@@ -18,6 +18,9 @@ project.plugins.apply org.fluentjava.volundr.ForkEclipseJdtPlugin
 project.plugins.apply org.fluentjava.volundr.EclipseClasspathPlugin
 project.plugins.apply org.fluentjava.volundr.JavaProjectDistribution
 
+repositories {
+    mavenCentral()
+}
 dependencies {
     constraints {
         implementation group: "org.slf4j", name: "slf4j-api", version: "${slf4jVersion}"
@@ -40,11 +43,13 @@ dependencies {
         implementation "commons-collections:commons-collections:$commonsCollectionsVersion"
         implementation "org.jfree:jfreechart:${jfreechartVersion}"
         compileOnly "com.github.spotbugs:spotbugs-annotations:$spotbugsVersion"
+        testCompileOnly "com.github.spotbugs:spotbugs-annotations:$spotbugsVersion"
     }
     //logging abstraction
     implementation group: "org.slf4j", name: "slf4j-api"
     //SuppressFBWarnings
     compileOnly "com.github.spotbugs:spotbugs-annotations"
+    testCompileOnly "com.github.spotbugs:spotbugs-annotations"
     //unit tests
     testImplementation("junit:junit")
     //logging impl

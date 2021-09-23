@@ -58,8 +58,8 @@ public class StatisticsMeasurement {
         values.forEach(stepStats -> stepStats.consumeStatistics(statsConsumer));
     }
 
-    public static StatisticsMeasurement create(StatsConsumer statsConsumer,
-            Clock clock, String targetPath) {
+    public static StatisticsMeasurement create(StatisticsConsumer statsConsumer,
+                                               Clock clock, String targetPath) {
         return new StatisticsMeasurement(statsConsumer, clock,
                 StatisticsApiBuilderImpl.withTargetPath(targetPath));
     }

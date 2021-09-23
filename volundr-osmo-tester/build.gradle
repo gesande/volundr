@@ -19,8 +19,9 @@ group="org.fluentjava.volundr.testing.osmo"
 dependencies {
     //osmo-tester dependency as built classes
     implementation files("${projectDir}/osmo-tester/target/classes") { builtBy "makeOsmoTester" }
-    implementation fileTree(dir: "${projectDir}/osmo-tester/libs", exclude: "log4j*.jar")
+    implementation fileTree(dir: "${projectDir}/osmo-tester/libs")
 
+    //this will bring commons-collections dependency
     implementation project(':osmo-testing-statistics')
 }
 
@@ -49,9 +50,12 @@ task makeOsmoTester(type: Exec) {
             include "classes/**"
             into "${projectDir}/osmo-tester/target"
         }
+        //we're using a bit newer version of commons-collections
+        delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "commons-collections*.jar")
+        /* if we need to remove log4j / commons-lang libraries later on, we do it like this
         delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "log4j*.jar")
         delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "commons-lang*.jar")
-        delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "commons-collections*.jar")
+         */
     }
 }
 
