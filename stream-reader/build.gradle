@@ -1,8 +1,5 @@
-apply plugin : org.fluentjava.völundr.JavaProjectDistribution
-
 dependencies {
     implementation project(':linereader')
-    testImplementation "junit:junit:${junitVersion}"
     testImplementation project(':string-to-inputstream')
     testImplementation project(':string-to-bytes')
 }

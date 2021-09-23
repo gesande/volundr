@@ -1,4 +1,3 @@
-apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 apply plugin: 'maven-publish'
 
 publishing {
@@ -19,8 +18,5 @@ dependencies {
     implementation project(':graph-jfreechart')
     implementation project(':statistics')
     implementation project(':stronglytyped-sortedbag')
-    implementation "org.jfree:jfreechart:${jfreechartVersion}"
     implementation project(':statistics-valueprovider')
-    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    testImplementation "junit:junit:${junitVersion}"
 }

@@ -1,0 +1,14 @@
+dependencies {
+    implementation project(':asynchronous-stream-reader')
+    implementation project(':concurrent')
+    implementation project(':inputstream-to-string')
+    implementation project(':linereader')
+    implementation project(':stream-reader')
+    implementation project(':string-to-outputstream')
+    implementation project(':string-to-bytes')
+    implementation project(':stronglytyped-sortedbag')
+    implementation project(':visiting-inputstreams')
+    implementation project(':bytes-to-string')
+    testImplementation project(':as-expected')
+    testImplementation "org.slf4j:slf4j-api"
+}

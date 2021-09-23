@@ -1,2 +1,0 @@
-apply plugin : org.fluentjava.völundr.JavaProjectDistribution
-dependencies { testImplementation "junit:junit:${junitVersion}" }

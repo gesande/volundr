@@ -1,15 +1,8 @@
-project(':asynchronous-stream-reader') {
-    apply plugin : org.fluentjava.völundr.JavaProjectDistribution
+dependencies {
+    implementation project(':linereader')
+    implementation project(':concurrent')
+    implementation project(':stream-reader')
 
-    dependencies {
-        implementation project(':linereader')
-        implementation project(':concurrent')
-        implementation project(':stream-reader')
-        implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-        testImplementation "junit:junit:${junitVersion}"
-        testImplementation project(':string-to-inputstream')
-        testImplementation project(':string-to-bytes')
-        testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-        testRuntimeOnly "log4j:log4j:${log4jVersion}"
-    }
+    testImplementation project(':string-to-inputstream')
+    testImplementation project(':string-to-bytes')
 }

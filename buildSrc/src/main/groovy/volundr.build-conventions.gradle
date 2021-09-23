@@ -1,0 +1,3 @@
+project.plugins.apply(org.fluentjava.volundr.ReportingPlugin)
+project.plugins.apply(org.fluentjava.volundr.JavaDistributionPlugin)
+project.plugins.apply(org.fluentjava.volundr.BuildPlugin)

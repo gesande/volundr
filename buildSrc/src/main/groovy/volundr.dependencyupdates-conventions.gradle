@@ -1,0 +1,11 @@
+def isNonStable = { String group, String module, String version ->
+    return (version ==~ /(?i).*[-.](alpha|beta|SNAP|milestone|M1|rc)-?[0-9]*$/)
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        isNonStable(it.candidate.group, it.candidate.module, it.candidate.version)
+    }
+    outputDir = "build/reports/dependencyUpdates"
+}
+

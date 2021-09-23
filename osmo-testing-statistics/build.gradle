@@ -1,7 +1,5 @@
-group="org.fluentjava.völundr.testing.osmo.statistics"
-
-apply plugin : org.fluentjava.völundr.JavaProjectDistribution
 apply plugin: 'maven-publish'
+group="org.fluentjava.volundr.testing.osmo.statistics"
 
 publishing {
     publications {
@@ -17,9 +15,6 @@ publishing {
 }
 
 dependencies {
-    implementation "org.slf4j:slf4j-api:$slf4jVersion"
-    implementation "commons-collections:commons-collections:$commonsCollectionsVersion"
-
     //these are needed for statistics and graphs
     implementation project(':statistics')
     implementation project(':graph-jfreechart')

@@ -1,0 +1,60 @@
+import org.ajoberstar.grgit.Grgit
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'org.fluentjava.volundr'
+            artifactId 'volundr-osmo-tester'
+
+            from components.java
+
+            artifact sourcesJar { classifier "sources" }
+        }
+    }
+}
+
+group="org.fluentjava.volundr.testing.osmo"
+
+dependencies {
+    //osmo-tester dependency as built classes
+    implementation files("${projectDir}/osmo-tester/target/classes") { builtBy "makeOsmoTester" }
+    implementation fileTree(dir: "${projectDir}/osmo-tester/libs", exclude: "log4j*.jar")
+
+    implementation project(':osmo-testing-statistics')
+}
+
+task cloneOsmoTester {
+    doLast {
+        def folder = new File("${rootProject.projectDir}/mukatee-osmo")
+        if( !folder.exists() ) {
+            Grgit.clone(dir: folder.getPath(), uri: 'git@github.com:mukatee/osmo.git', refToCheckout: 'master')
+            println "Osmo-tester cloned to "+folder.getPath()
+        }
+        else {
+            println(folder.getPath() +" already exists.")
+        }
+    }
+}
+
+jar { from "${projectDir}/osmo-tester/target/classes" }
+
+task makeOsmoTester(type: Exec) {
+    dependsOn cloneOsmoTester
+    workingDir "${rootProject.projectDir}/mukatee-osmo/osmotester/"
+    commandLine "mvn", "clean", "compile", "dependency:copy-dependencies", "-DincludeScope=compile", "-DoutputDirectory=${projectDir}/osmo-tester/libs", "-Dmaven.wagon.http.pool=false", "--batch-mode"
+    doLast {
+        copy {
+            from fileTree("$workingDir/target")
+            include "classes/**"
+            into "${projectDir}/osmo-tester/target"
+        }
+        delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "log4j*.jar")
+        delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "commons-lang*.jar")
+        delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "commons-collections*.jar")
+    }
+}
+
+clean { delete "osmo-tester" }
+
+build.dependsOn "makeOsmoTester"

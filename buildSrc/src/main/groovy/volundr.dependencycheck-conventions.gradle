@@ -1,0 +1,13 @@
+dependencyCheck {
+    skipConfigurations = [
+            'jacocoAgent',
+            'pmd',
+            'spotbugs',
+            'antClasspath'
+    ]
+    skipProjects = [":buildSrc"]
+    cve {
+        urlModified = "https://freedumbytes.gitlab.io/setup/nist-nvd-mirror/nvdcve-1.1-modified.json.gz"
+        urlBase = "https://freedumbytes.gitlab.io/setup/nist-nvd-mirror/nvdcve-1.1-%d.json.gz"
+    }
+}

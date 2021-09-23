@@ -53,13 +53,23 @@ DONE
 + introduce spotless #build
 + deps versions in ext instead of gradle.properties #build
 + introduced dependency update reporting
-IN PROGRESS 
++ use spotbugs instead of findbugs #code (requires völundr -> volundr)
++ fix new pmd issues #code
++ convert dev-setup.txt to md format, also update it correctly #docs
++ use nebula lint for gradle
++ bump com.diffplug.spotless to 5.15.0 -> configuration has changed
++ remake gradle build using conventions #build
+
+IN PROGRESS
 
 WAITING
-- use spotbugs instead of findbugs #code (requires völundr -> volundr)
-- fix new pmd issues #code
+- write osmo test runner example #examples
+- breakup junit-utils -> introduce volundr-predicate #refactoring
+- introduce graph-jfreechart-fileapi
+- replace Thread.sleep in tests with awaitility library #refactoring
+- update to Junit5
+- refactoring range stuff around LineChartGraphData #refactoring
+- investigate https://docs.gradle.org/current/samples/sample_jvm_multi_project_with_code_coverage.html #build #gradle7
 - introduce license plugins #build
-- remake gradle build using conventions #build
-- graph-jfreechart-fileapi
 - introduce readme.md #docs
-- convert dev-setup.txt to md format, also update it correctly #docs
+- prepare for Gradle 7 #build
