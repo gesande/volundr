@@ -22,7 +22,7 @@ public final class ClassHelper {
      * to the given package and sub packages.
      *
      * @param packageName
-     *            The base package
+     *                        The base package
      * @return The classes
      * @throws ClassNotFoundException
      * @throws IOException
@@ -30,8 +30,8 @@ public final class ClassHelper {
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static Class<?>[] getClasses(final String packageName)
             throws IOException, ClassNotFoundException {
-        final ClassLoader classLoader = requireNonNull(Thread.currentThread()
-                .getContextClassLoader());
+        final ClassLoader classLoader = requireNonNull(
+                Thread.currentThread().getContextClassLoader());
         final String path = packageName.replace('.', '/');
         final Enumeration<URL> resources = classLoader.getResources(path);
         final List<Class<?>> classes = new ArrayList<>();
@@ -39,7 +39,8 @@ public final class ClassHelper {
             final URL resource = resources.nextElement();
             final File f = new File(
                     URLDecoder.decode(resource.getPath(), "UTF-8"));
-            classes.addAll(findClasses(Paths.get(f.getAbsolutePath()), packageName));
+            classes.addAll(
+                    findClasses(Paths.get(f.getAbsolutePath()), packageName));
         }
         return classes.toArray(new Class[0]);
     }
@@ -49,9 +50,10 @@ public final class ClassHelper {
      * subdirs.
      *
      * @param path
-     *            The base directory
+     *                        The base directory
      * @param packageName
-     *            The package name for classes found inside the base directory
+     *                        The package name for classes found inside the base
+     *                        directory
      * @return The classes
      * @throws ClassNotFoundException
      */

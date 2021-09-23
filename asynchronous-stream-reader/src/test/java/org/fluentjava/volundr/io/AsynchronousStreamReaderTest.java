@@ -96,5 +96,6 @@ public class AsynchronousStreamReaderTest {
     }
 
     private final static class FailIHave extends RuntimeException {
+        // nothing to add
     }
 }
