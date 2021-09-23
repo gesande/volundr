@@ -20,7 +20,7 @@ plugins {
     id "org.owasp.dependencycheck" version "6.3.1"
     id "org.ajoberstar.grgit" version "4.1.0"
     // lint build
-    id "nebula.lint" version "17.2.1"
+    id "nebula.lint" version "17.2.2"
     id "nebula.resolution-rules" version "8.0.0"
 }
 
@@ -78,9 +78,7 @@ ext {
     spotbugsVersion="4.4.1"
 }
 
-apply plugin : org.fluentjava.volundr.ReportingPlugin
-apply plugin : org.fluentjava.volundr.JavaDistributionPlugin
-apply plugin : org.fluentjava.volundr.BuildPlugin
+apply plugin : "volundr.build-conventions"
 apply plugin : "volundr.lint-conventions"
 apply plugin : "volundr.dependencycheck-conventions"
 apply plugin : "volundr.dependencyupdates-conventions"
