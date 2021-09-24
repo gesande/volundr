@@ -8,6 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.fluentjava.volundr.junit.predicates.Not;
 import org.fluentjava.volundr.junit.predicates.Predicate;
@@ -27,6 +28,7 @@ public class JUnitUtilsTest {
         final TestSet<Annotation> pred = new TestSet<>(present());
         JUnitUtils.removeTestMethods(annotatedAsTest, new Not<>(pred));
         assertEquals(1, annotatedAsTest.size());
+        assertEquals("annotionPresent", annotatedAsTest.get(0).getName());
     }
 
     @Collect
@@ -39,7 +41,7 @@ public class JUnitUtilsTest {
         final TestSet<Annotation> pred = new TestSet<>(notPresent());
         JUnitUtils.removeTestMethods(annotatedAsTest, new Not<>(pred));
         assertEquals(1, annotatedAsTest.size());
-
+        assertEquals("annotionNotPresent", annotatedAsTest.get(0).getName());
     }
 
     @SuppressWarnings({ "unchecked", "static-method" })
