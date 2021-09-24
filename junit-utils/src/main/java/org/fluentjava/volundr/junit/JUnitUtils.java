@@ -2,8 +2,8 @@ package org.fluentjava.volundr.junit;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
-import org.fluentjava.volundr.junit.predicates.Predicate;
 import org.junit.runners.model.FrameworkMethod;
 
 /**
@@ -22,7 +22,7 @@ public final class JUnitUtils {
         final Iterator<T> iter = iterable.iterator();
 
         while (iter.hasNext()) {
-            if (predicate.apply(iter.next())) {
+            if (predicate.test(iter.next())) {
                 iter.remove();
             }
         }
