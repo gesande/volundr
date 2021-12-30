@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id "com.github.spotbugs" version "4.7.5"
+    id "com.github.spotbugs" version "5.0.3"
     //dependency updates
     id "com.github.ben-manes.versions" version "0.39.0"
     id "pmd"
@@ -75,7 +75,7 @@ ext {
     commonsIoVersion="2.11.0"
     commonsCollectionsVersion="3.2.2"
     jfreechartVersion="1.5.3"
-    spotbugsVersion="4.4.1"
+    spotbugsVersion="4.5.2"
 }
 
 apply plugin : "volundr.build-conventions"

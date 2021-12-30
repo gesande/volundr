@@ -42,8 +42,8 @@ dependencies {
         implementation "commons-io:commons-io:${commonsIoVersion}"
         implementation "commons-collections:commons-collections:$commonsCollectionsVersion"
         implementation "org.jfree:jfreechart:${jfreechartVersion}"
-        compileOnly "com.github.spotbugs:spotbugs-annotations:$spotbugsVersion"
-        testCompileOnly "com.github.spotbugs:spotbugs-annotations:$spotbugsVersion"
+        compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
+        testCompileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
     }
     //logging abstraction
     implementation group: "org.slf4j", name: "slf4j-api"
