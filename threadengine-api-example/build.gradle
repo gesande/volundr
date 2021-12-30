@@ -2,6 +2,5 @@ version = project.properties.artifactVersion
 
 dependencies {
     testImplementation project(':concurrent')
-    testImplementation "org.slf4j:slf4j-api"
 }
 artifacts { archives testSourcesJar }
