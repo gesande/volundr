@@ -25,9 +25,20 @@ public class StronglyTypedSortedBagTest {
     public void add() {
         final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
                 .treeBag();
-        bag.add("value1");
+        assertTrue(bag.add("value1"));
         assertEquals(1, bag.uniqueSamples().size());
         assertEquals(1, bag.count("value1"));
+        assertFalse(bag.isEmpty());
+    }
+
+    @Test
+    public void testAddUniqueness() {
+        final StronglyTypedSortedBag<String> bag = StronglyTypedSortedBag
+                .treeBag();
+        assertTrue(bag.add("value1"));
+        assertFalse(bag.add("value1"));
+        assertEquals(1, bag.uniqueSamples().size());
+        assertEquals(2, bag.count("value1"));
         assertFalse(bag.isEmpty());
     }
 

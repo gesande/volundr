@@ -95,6 +95,7 @@ public class InputStreamToLinesTest {
             assertEquals(FailIHave.class, ex.getClass());
             assertEquals("Visiting line:line1 failed!", ex.getMessage());
         }
+        assertTrue(failed.get());
     }
 
     @Test
