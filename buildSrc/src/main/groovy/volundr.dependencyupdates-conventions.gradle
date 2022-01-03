@@ -1,5 +1,7 @@
 def isNonStable = { String group, String module, String version ->
-    return (version ==~ /(?i).*[-.](alpha|beta|SNAP|milestone|M1|rc)-?[0-9]*$/)
+    return (version ==~ /(?i).*[-.](alpha|beta|SNAP|milestone|M1|rc)-?[0-9]*$/) ||
+            (version.startsWith("2003") && module=='commons-io') ||
+            ( (version.startsWith("2004") || version.startsWith("2003"))  && module=='commons-collections')
 }
 
 tasks.named("dependencyUpdates").configure {

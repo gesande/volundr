@@ -1,11 +1,11 @@
 buildscript {
     dependencies {
-        classpath "com.google.guava:guava:29.0-jre"
+        classpath "com.google.guava:guava:31.0.1-jre"
     }
 }
 
 plugins {
-    id "com.github.spotbugs" version "4.7.5"
+    id "com.github.spotbugs" version "5.0.3"
     //dependency updates
     id "com.github.ben-manes.versions" version "0.39.0"
     id "pmd"
@@ -14,11 +14,11 @@ plugins {
     //brings versionDetails
     id "com.palantir.git-version" version "0.12.3"
     // formatting
-    id "com.diffplug.spotless" version "5.15.1"
+    id "com.diffplug.spotless" version "6.1.0"
     id "jacoco"
     // CVE check
     id "org.owasp.dependencycheck" version "6.5.1"
-    id "org.ajoberstar.grgit" version "4.1.0"
+    id "org.ajoberstar.grgit" version "4.1.1"
     // lint build
     id "nebula.lint" version "17.5.0"
     id "nebula.resolution-rules" version "9.0.0"
@@ -75,7 +75,7 @@ ext {
     commonsIoVersion="2.11.0"
     commonsCollectionsVersion="3.2.2"
     jfreechartVersion="1.5.3"
-    spotbugsVersion="4.4.1"
+    spotbugsVersion="4.5.2"
 }
 
 apply plugin : "volundr.build-conventions"
