@@ -1,15 +1,5 @@
 package org.fluentjava.volundr.graph.frequency;
 
-import static java.util.Objects.requireNonNull;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.fluentjava.volundr.graph.jfreechart.DefaultDatasetAdapterFactory;
 import org.fluentjava.volundr.graph.jfreechart.ImageFactoryUsingJFreeChart;
 import org.fluentjava.volundr.graph.jfreechart.JFreeChartWriter;
@@ -21,6 +11,15 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+
 @SuppressWarnings("PMD.UseProperClassLoader")
 public class FrequencyGraphBuilderTest {
 
@@ -29,10 +28,10 @@ public class FrequencyGraphBuilderTest {
     private static ImageFactoryUsingJFreeChart imageFactory;
 
     @BeforeClass
-    public static void loadGoldenMaster() throws IOException {
+    public static void loadGoldenMaster() throws IOException, URISyntaxException {
         File goldenMaster = new File(
-                requireNonNull(FrequencyGraphBuilderTest.class.getClassLoader()
-                        .getResource("goldenMaster.png")).getFile());
+                FrequencyGraphBuilderTest.class
+                        .getResource("/goldenMaster.png").toURI());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";
