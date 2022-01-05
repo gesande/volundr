@@ -28,11 +28,9 @@ public class FileUtil {
 
     private static void writeAndClose(final OutputStream fos, final byte[] data)
             throws IOException {
-        try {
+        try (fos) {
             fos.write(data);
             fos.flush();
-        } finally {
-            fos.close();
         }
     }
 

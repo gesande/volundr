@@ -39,10 +39,8 @@ public final class FileWriter {
 
     private static void write(final Writer out, final String contents)
             throws IOException {
-        try {
+        try (out) {
             out.write(contents);
-        } finally {
-            out.close();
         }
     }
 }

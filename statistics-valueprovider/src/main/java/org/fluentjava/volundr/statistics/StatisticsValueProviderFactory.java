@@ -9,7 +9,7 @@ public final class StatisticsValueProviderFactory {
     }
 
     public static AbstractStatisticsValueProvider<Long> longValues() {
-        return new AbstractStatisticsValueProvider<Long>(
+        return new AbstractStatisticsValueProvider<>(
                 StronglyTypedSortedBag.synchronizedTreeBag()) {
 
             @Override
