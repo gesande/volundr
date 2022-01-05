@@ -1,10 +1,12 @@
 package org.fluentjava.volundr.concurrent;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.junit.Test;
+import static org.awaitility.Awaitility.await;
+import static org.junit.Assert.assertTrue;
 
 public class ThreadEngineApiTest {
 
@@ -30,10 +32,13 @@ public class ThreadEngineApiTest {
     }
 
     @Test
-    public void interruptThreads() throws InterruptedException {
+    public void interruptThreads() {
         final AtomicBoolean wasInterrupted = new AtomicBoolean(false);
+        final AtomicBoolean running = new AtomicBoolean(false);
         final Runnable r = () -> {
             try {
+                running.set(true);
+                //sleepy thread
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 wasInterrupted.set(true);
@@ -42,9 +47,12 @@ public class ThreadEngineApiTest {
         ThreadEngineApi<Runnable> threadEngineApi = ThreadEngineApi.builder()
                 .threadNamePrefix("my-test-threads-").runnables(r).build();
         new Thread(threadEngineApi::run).start();
-        Thread.sleep(100);
+        await().pollDelay(25, TimeUnit.MILLISECONDS).atMost(100, TimeUnit.MILLISECONDS).until(
+                running::get
+        );
         new Thread(threadEngineApi::interrupt).start();
-        Thread.sleep(100);
-        assertTrue(wasInterrupted.get());
+        await().pollDelay(25, TimeUnit.MILLISECONDS).atMost(100, TimeUnit.MILLISECONDS).until(
+                wasInterrupted::get
+        );
     }
 }

@@ -76,6 +76,7 @@ ext {
     commonsCollectionsVersion="3.2.2"
     jfreechartVersion="1.5.3"
     spotbugsVersion="4.5.2"
+    awaitilityVersion="4.1.1"
 }
 
 apply plugin : "volundr.build-conventions"
