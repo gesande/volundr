@@ -1,11 +1,11 @@
 package org.fluentjava.volundr.io;
 
-import static org.junit.Assert.assertArrayEquals;
+import org.junit.Test;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-import org.junit.Test;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertArrayEquals;
 
 public class StringToBytesTest {
 
@@ -13,7 +13,7 @@ public class StringToBytesTest {
     public void convertToBytes() {
         assertArrayEquals(
                 println(new byte[] { 118, -61, -74, 108, 117, 110, 100, 114 }),
-                println(StringToBytes.forCharset(StandardCharsets.UTF_8)
+                println(StringToBytes.forCharset(UTF_8)
                         .convert("völundr")));
     }
 

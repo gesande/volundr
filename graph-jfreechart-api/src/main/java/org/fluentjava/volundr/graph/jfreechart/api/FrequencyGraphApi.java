@@ -19,7 +19,7 @@ public final class FrequencyGraphApi {
                 new DefaultDatasetAdapterFactory());
     }
 
-    protected FrequencyGraphApi(ImageFactory imageFactory,
+    FrequencyGraphApi(ImageFactory imageFactory,
             DefaultDatasetAdapterFactory defaultDatasetAdapterFactory) {
         this.imageFactory = imageFactory;
         this.defaultDatasetAdapterFactory = defaultDatasetAdapterFactory;
