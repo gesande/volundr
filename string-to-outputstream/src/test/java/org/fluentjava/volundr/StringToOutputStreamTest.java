@@ -1,13 +1,13 @@
 package org.fluentjava.volundr;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
-import org.junit.Test;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
 
 public class StringToOutputStreamTest {
 
@@ -30,6 +30,6 @@ public class StringToOutputStreamTest {
         final String data = "line1\n" + "line2\n" + "line3\n" + "line3\n"
                 + "line4\n";
         writer.write(data);
-        assertEquals(data, stream.toString(StandardCharsets.UTF_8.name()));
+        assertEquals(data, stream.toString(UTF_8));
     }
 }

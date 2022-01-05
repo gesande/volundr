@@ -1,19 +1,19 @@
 package org.fluentjava.volundr.smithy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.fluentjava.volundr.LineVisitor;
 import org.fluentjava.volundr.io.StreamReader;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class BigFileReadTest {
     private static final Logger LOGGER = LoggerFactory
@@ -21,8 +21,7 @@ public class BigFileReadTest {
 
     @Test
     public void readOnePointFiveMillionRows() throws IOException {
-        final VolundrSmithy volundrSmithy = new VolundrSmithy(
-                StandardCharsets.UTF_8);
+        final VolundrSmithy volundrSmithy = new VolundrSmithy(UTF_8);
         final AtomicInteger lines = new AtomicInteger(0);
         final long start = System.currentTimeMillis();
         volundrSmithy.inputStreamToLines(new LineVisitor() {
@@ -46,8 +45,7 @@ public class BigFileReadTest {
 
     @Test
     public void readingWith() {
-        final VolundrSmithy volundrSmithy = new VolundrSmithy(
-                StandardCharsets.UTF_8);
+        final VolundrSmithy volundrSmithy = new VolundrSmithy(UTF_8);
         final AtomicInteger lines = new AtomicInteger(0);
         final long start = System.currentTimeMillis();
         StreamReader reader = volundrSmithy

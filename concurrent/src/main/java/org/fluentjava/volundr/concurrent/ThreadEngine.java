@@ -45,7 +45,7 @@ final class ThreadEngine {
     }
 
     @SafeVarargs
-    private final <T extends Runnable> void initializeWith(
+    private <T extends Runnable> void initializeWith(
             final T... runnables) {
         Arrays.asList(runnables)
                 .forEach(t -> threads.add(threadFactory().newThread(t)));

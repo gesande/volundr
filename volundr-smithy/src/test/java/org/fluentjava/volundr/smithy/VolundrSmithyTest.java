@@ -1,15 +1,5 @@
 package org.fluentjava.volundr.smithy;
 
-import static org.junit.Assert.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.fluentjava.volundr.LineVisitor;
 import org.fluentjava.volundr.asexpected.AsExpected;
 import org.fluentjava.volundr.bag.StronglyTypedSortedBag;
@@ -21,13 +11,26 @@ import org.fluentjava.volundr.io.VisitingInputStreamsHandler;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class VolundrSmithyTest {
 
     private VolundrSmithy volundrSmithy;
 
     @Before
     public void before() {
-        this.volundrSmithy = new VolundrSmithy(StandardCharsets.UTF_8);
+        this.volundrSmithy = new VolundrSmithy(UTF_8);
     }
 
     @Test
@@ -109,7 +112,7 @@ public class VolundrSmithyTest {
         final ByteArrayOutputStream streamToWrite = new ByteArrayOutputStream();
         smithy().stringToOutputStream(streamToWrite).write("völundr");
         final AsExpected<Void> expected = expected(
-                streamToWrite.toString("UTF-8"));
+                streamToWrite.toString(UTF_8));
         expected.string("völundr").end();
     }
 
@@ -231,7 +234,7 @@ public class VolundrSmithyTest {
                     }
                 }, (stream, t) -> {
                     throw new RuntimeException(t);
-                }, new InputStreamReaderFactory(StandardCharsets.UTF_8));
+                }, new InputStreamReaderFactory(UTF_8));
         reader.readFrom(resourceAsStream("file-with-lines"),
                 resourceAsStream("second-file-with-lines"));
         reader.waitUntilDone();

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -38,7 +39,7 @@ public final class ClassHelper {
         while (resources.hasMoreElements()) {
             final URL resource = resources.nextElement();
             final File f = new File(
-                    URLDecoder.decode(resource.getPath(), "UTF-8"));
+                    URLDecoder.decode(resource.getPath(), UTF_8));
             classes.addAll(
                     findClasses(Paths.get(f.getAbsolutePath()), packageName));
         }

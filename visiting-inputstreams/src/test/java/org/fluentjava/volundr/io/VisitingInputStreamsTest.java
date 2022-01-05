@@ -1,25 +1,25 @@
 package org.fluentjava.volundr.io;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.fluentjava.volundr.LineVisitor;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.fluentjava.volundr.LineVisitor;
-import org.junit.Test;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class VisitingInputStreamsTest {
 
     @Test
     public void visitStreams() {
-        final Charset charset = StandardCharsets.UTF_8;
+        final Charset charset = UTF_8;
         final List<String> lines = new ArrayList<>();
         final InputStream stream1 = new ByteArrayInputStream(
                 "1first line\n1second line\n".getBytes(charset));
