@@ -214,9 +214,8 @@ public final class StatisticsApiBuilderImpl implements StatisticsApiBuilder {
                         xAxisTitle, graphName, statistics);
             }
             if (scatterPlotGraphName != null
-                    && scatterReporter instanceof ScatterStatisticsReporterImpl) {
+                    && scatterReporter instanceof ScatterStatisticsReporterImpl scatterStatisticsReporterImpl) {
                 // hackish, but don't want to spread völundr data types around
-                ScatterStatisticsReporterImpl scatterStatisticsReporterImpl = (ScatterStatisticsReporterImpl) scatterReporter;
                 chartGraphApi.createScatterPlot(
                         scatterStatisticsReporterImpl.scatterPlotData,
                         scatterPlotGraphName);
