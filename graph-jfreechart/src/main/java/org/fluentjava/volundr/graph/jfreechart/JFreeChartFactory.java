@@ -1,18 +1,16 @@
 package org.fluentjava.volundr.graph.jfreechart;
 
-import java.awt.Color;
-import java.awt.Font;
-
+import lombok.extern.slf4j.Slf4j;
 import org.fluentjava.volundr.graph.ImageData;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.awt.Color;
+import java.awt.Font;
+
+@Slf4j
 final class JFreeChartFactory {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(ImageFactoryUsingJFreeChart.class);
 
     private static final String FONT_FAMILY_NAME = "Monospaced";
     private static final Font TITLE_FONT = new Font(FONT_FAMILY_NAME, Font.BOLD,
@@ -28,7 +26,7 @@ final class JFreeChartFactory {
 
     @SuppressWarnings("static-method")
     public JFreeChart newBarChart(final ImageData imageData) {
-        LOGGER.info("Create bar chart...");
+        log.info("Create bar chart...");
         JFreeChart barChart = ChartFactory.createBarChart(imageData.title(),
                 imageData.xAxisLabel(), null, null, PlotOrientation.VERTICAL,
                 showLegend(), noTooltips(), noUrls());
@@ -47,7 +45,7 @@ final class JFreeChartFactory {
 
     @SuppressWarnings("static-method")
     public JFreeChart newScatterPlot(final ImageData imageData) {
-        LOGGER.info("Create scatter plot...");
+        log.info("Create scatter plot...");
         final XYSeriesAdapterForScatterPlot adapter = (XYSeriesAdapterForScatterPlot) imageData
                 .adapter();
         final ScatterPlotGraphData graphData = adapter.graphData(Color.RED, 0);
@@ -71,7 +69,7 @@ final class JFreeChartFactory {
 
     @SuppressWarnings("static-method")
     public JFreeChart newXYLineChart(final ImageData imageData) {
-        LOGGER.info("Create XY linechart...");
+        log.info("Create XY linechart...");
         JFreeChart lineChart = ChartFactory.createXYLineChart(imageData.title(),
                 imageData.xAxisLabel(), null, null, PlotOrientation.VERTICAL,
                 showLegend(), noTooltips(), noUrls());

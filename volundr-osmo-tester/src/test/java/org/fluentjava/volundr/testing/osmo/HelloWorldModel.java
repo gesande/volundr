@@ -1,16 +1,15 @@
 package org.fluentjava.volundr.testing.osmo;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import osmo.tester.annotation.Guard;
 import osmo.tester.annotation.TestStep;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressFBWarnings("EI_EXPOSE_REP2")
+@Slf4j
 public class HelloWorldModel implements OsmoModel {
-    private final static Logger LOGGER = LoggerFactory.getLogger(HelloWorldModel.class);
     private final AtomicInteger calls;
 
     public HelloWorldModel(AtomicInteger calls) {
@@ -25,6 +24,6 @@ public class HelloWorldModel implements OsmoModel {
     @TestStep("hello")
     public void hello() {
         calls.incrementAndGet();
-        LOGGER.info("Hello {}", calls.get());
+        log.info("Hello {}", calls.get());
     }
 }

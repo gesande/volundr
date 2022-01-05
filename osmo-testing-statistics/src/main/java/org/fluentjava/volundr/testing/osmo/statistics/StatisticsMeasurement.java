@@ -1,6 +1,6 @@
 package org.fluentjava.volundr.testing.osmo.statistics;
 
-import static java.util.Objects.requireNonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.Clock;
 import java.util.Collection;
@@ -8,14 +8,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.util.Objects.requireNonNull;
 
+@Slf4j
 public class StatisticsMeasurement {
-
-    private final static Logger LOGGER = LoggerFactory
-            .getLogger(StatisticsMeasurement.class);
-
     private final Map<String, TestStepStatistics> stats = new ConcurrentHashMap<>();
     private final Consumer<String> statsConsumer;
     private final Clock clock;
@@ -40,7 +36,7 @@ public class StatisticsMeasurement {
         if (stats.containsKey(currentStep)) {
             testStepStatistics = stats.get(currentStep);
         } else {
-            LOGGER.debug("{} creating TestStepStatistics...", currentStep);
+            log.debug("{} creating TestStepStatistics...", currentStep);
             testStepStatistics = new TestStepStatistics(currentStep, clock,
                     statisticsApiBuilder);
             stats.put(currentStep, testStepStatistics);

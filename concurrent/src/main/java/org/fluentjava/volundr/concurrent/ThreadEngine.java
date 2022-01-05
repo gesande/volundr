@@ -1,18 +1,16 @@
 package org.fluentjava.volundr.concurrent;
 
-import static java.util.Objects.requireNonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.util.Objects.requireNonNull;
 
+@Slf4j
 final class ThreadEngine {
-    private final static Logger LOGGER = LoggerFactory
-            .getLogger(ThreadEngine.class);
     private final ThreadFactory threadFactory;
     private final List<Thread> threads = new ArrayList<>();
 
@@ -29,7 +27,7 @@ final class ThreadEngine {
             final RUNNABLE... runnables) {
         requireNonNull(runnables);
         if (runnables.length == 0) {
-            LOGGER.info(
+            log.info(
                     "There was nothing to do, no runnables were given. Exiting.");
             return;
         }
@@ -41,7 +39,7 @@ final class ThreadEngine {
 
     private void clearThreads() {
         this.threads.clear();
-        LOGGER.debug("Threads 'cleared'.");
+        log.debug("Threads 'cleared'.");
     }
 
     @SafeVarargs
@@ -56,9 +54,9 @@ final class ThreadEngine {
     }
 
     private void startThreads() {
-        LOGGER.debug("Starting  threads...");
+        log.debug("Starting  threads...");
         threads.forEach(Thread::start);
-        LOGGER.debug("Threads started.");
+        log.debug("Threads started.");
     }
 
     private void joinThreads() {
@@ -66,15 +64,15 @@ final class ThreadEngine {
             try {
                 t.join();
             } catch (InterruptedException ignore) {
-                LOGGER.warn("Thread join interrupted");
+                log.warn("Thread join interrupted");
             }
         });
     }
 
     public void interruptThreads() {
-        LOGGER.debug("Interrupting threads...");
+        log.debug("Interrupting threads...");
         threads.forEach(Thread::interrupt);
-        LOGGER.debug("Threads interrupted.");
+        log.debug("Threads interrupted.");
     }
 
 }

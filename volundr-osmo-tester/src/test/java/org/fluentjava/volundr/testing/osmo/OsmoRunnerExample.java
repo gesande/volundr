@@ -1,13 +1,12 @@
 package org.fluentjava.volundr.testing.osmo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.fluentjava.volundr.testing.osmo.model.logging.LoggingModel;
 import org.fluentjava.volundr.testing.osmo.model.statistics.StatisticsModel;
 import org.fluentjava.volundr.testing.osmo.statistics.SleepValueProvider;
 import org.fluentjava.volundr.testing.osmo.statistics.StatisticsConsumer;
 import org.fluentjava.volundr.testing.osmo.statistics.StatisticsMeasurement;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import osmo.tester.generator.endcondition.Length;
 
 import java.time.Clock;
@@ -17,9 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.fluentjava.volundr.testing.osmo.statistics.SleepValueProvider.calculateNextSleepValue;
 import static org.junit.Assert.assertEquals;
 
+@Slf4j
 public class OsmoRunnerExample {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(OsmoRunnerExample.class);
 
     @Test
     public void testOsmoRunnerWithAllItsBellsAndWhistles() {
@@ -31,7 +29,7 @@ public class OsmoRunnerExample {
         Clock clock = Clock.systemDefaultZone();
         StatisticsConsumer statsConsumer = new StatisticsConsumer();
         SleepValueProvider sleepValueProvider = () -> calculateNextSleepValue(200L, random);
-        AtomicInteger calls=new AtomicInteger(0);
+        AtomicInteger calls = new AtomicInteger(0);
         OSMOTesterBuilder.builder().weightedBalancingAlgorithm().oneSuite()
 
                 .models(new LoggingModel(),
@@ -45,7 +43,7 @@ public class OsmoRunnerExample {
                 .withJenkinsReport(jenkinsReportName)
 
                 .build(seed).run();
-        LOGGER.info(statsConsumer.stats());
+        log.info(statsConsumer.stats());
         assertEquals(30, calls.get());
     }
 }

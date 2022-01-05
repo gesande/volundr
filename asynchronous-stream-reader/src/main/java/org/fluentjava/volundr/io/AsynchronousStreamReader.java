@@ -1,18 +1,16 @@
 package org.fluentjava.volundr.io;
 
+import lombok.extern.slf4j.Slf4j;
+import org.fluentjava.volundr.LineVisitor;
+import org.fluentjava.volundr.concurrent.NamedThreadFactory;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
 
-import org.fluentjava.volundr.LineVisitor;
-import org.fluentjava.volundr.concurrent.NamedThreadFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+@Slf4j
 public final class AsynchronousStreamReader {
-    private final static Logger LOGGER = LoggerFactory
-            .getLogger(AsynchronousStreamReader.class);
     private final LineVisitor visitor;
     private final List<Thread> tasks = new ArrayList<>();
     private final ThreadFactory threadFactory;
@@ -37,12 +35,12 @@ public final class AsynchronousStreamReader {
         for (final InputStream stream : streams) {
             final Thread thread = threadFactory().newThread(() -> {
                 try {
-                    LOGGER.info("Reading the stream...");
+                    log.info("Reading the stream...");
                     streamReaderFactory().streamReader(visitor())
                             .readFrom(stream);
-                    LOGGER.info("Stream has been read successfully.");
+                    log.info("Stream has been read successfully.");
                 } catch (Throwable t) {
-                    LOGGER.error("Reading the stream failed!", t);
+                    log.error("Reading the stream failed!", t);
                     readFailNotifier().readFailed(stream, t);
                 }
             });
@@ -64,11 +62,11 @@ public final class AsynchronousStreamReader {
     }
 
     public void waitUntilDone() throws InterruptedException {
-        LOGGER.info("Waiting until done...");
+        log.info("Waiting until done...");
         for (final Thread thread : tasks()) {
             thread.join();
         }
-        LOGGER.info("Done.");
+        log.info("Done.");
         tasks().clear();
     }
 

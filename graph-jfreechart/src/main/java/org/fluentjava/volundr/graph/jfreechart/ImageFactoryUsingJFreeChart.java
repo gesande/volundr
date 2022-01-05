@@ -1,12 +1,7 @@
 package org.fluentjava.volundr.graph.jfreechart;
 
-import java.awt.Color;
-import java.awt.Paint;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import lombok.extern.slf4j.Slf4j;
 import org.fluentjava.volundr.graph.ChartWriter;
 import org.fluentjava.volundr.graph.DatasetAdapter;
 import org.fluentjava.volundr.graph.GraphStatisticsProvider;
@@ -21,14 +16,16 @@ import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.awt.Color;
+import java.awt.Paint;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+@Slf4j
 public final class ImageFactoryUsingJFreeChart implements ImageFactory {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(ImageFactoryUsingJFreeChart.class);
     private final JFreeChartFactory jFreeChartFactory;
     private final ChartWriter<JFreeChart> chartWriter;
 
@@ -41,10 +38,10 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
 
     @Override
     public void createXYLineChart(final String id, final ImageData imageData) {
-        LOGGER.info("Create line chart for: {}", id);
+        log.info("Create line chart for: {}", id);
         final JFreeChart chart = jfreeChartFactory().newXYLineChart(imageData);
         final XYPlot plot = chart.getXYPlot();
-        LOGGER.info("Processing data...");
+        log.info("Processing data...");
         final LineChartGraphData mainData = lineChartGraphData(imageData,
                 Color.GRAY);
         if (imageData.hasStatistics()) {
@@ -59,10 +56,10 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
 
     @Override
     public void createBarChart(final String id, final ImageData imageData) {
-        LOGGER.info("Create bar chart for:  {}", id);
+        log.info("Create bar chart for:  {}", id);
         final JFreeChart chart = jfreeChartFactory().newBarChart(imageData);
         final CategoryPlot plot = chart.getCategoryPlot();
-        LOGGER.info("Processing data...");
+        log.info("Processing data...");
         final BarChartGraphData mainData = barGraphData(imageData, Color.GRAY);
         addMainDataGraphToPlot(plot, mainData, 0);
         writeChartToFile(id, chart);
@@ -70,7 +67,7 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
 
     @Override
     public void createScatterPlot(final String id, final ImageData imageData) {
-        LOGGER.info("Create scatter plot chart for: {}", id);
+        log.info("Create scatter plot chart for: {}", id);
         writeChartToFile(id, jfreeChartFactory().newScatterPlot(imageData));
     }
 
@@ -80,13 +77,13 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
 
     private static void addMainDataGraphToPlot(final CategoryPlot plot,
             final BarChartGraphData data, final int index) {
-        LOGGER.info("Processing main data...");
+        log.info("Processing main data...");
         final Paint paint = data.paint();
         final CategoryDataset dataset = data.categoryDataset();
         final ValueAxis axis = new NumberAxis(data.title());
         axis.setLabelPaint(paint);
         axis.setTickLabelPaint(paint);
-        LOGGER.debug("Setting axis '{}' range to '{}'", data.title(),
+        log.debug("Setting axis '{}' range to '{}'", data.title(),
                 data.range());
         axis.setRange(data.range());
 
@@ -94,23 +91,23 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
         plot.setRangeAxis(index, axis);
         plot.mapDatasetToRangeAxis(index, index);
 
-        LOGGER.info("Main data processed.");
+        log.info("Main data processed.");
     }
 
     private static void addStatisticsGraphDataToPlot(final XYPlot plot,
             final LineGraphStatisticsGraphData statistics, final int index,
             final Range range) {
-        LOGGER.info("Processing statistics ...");
+        log.info("Processing statistics ...");
         XYSeriesCollection dataset = newXYSeriesCollection();
         StandardXYItemRenderer renderer = newXYItemRenderer();
         final ValueAxis axis = newNumberAxis(statistics.title());
         axis.setLabelPaint(statistics.paint());
         axis.setTickLabelPaint(statistics.paint());
-        LOGGER.debug("Setting statistics axis '{}' range to '{}'",
+        log.debug("Setting statistics axis '{}' range to '{}'",
                 statistics.title(), range);
         axis.setRange(range);
         int i = 0;
-        LOGGER.info("Processing statistics data series...");
+        log.info("Processing statistics data series...");
         for (final LineChartGraphData data : statistics.values()) {
             dataset.addSeries(data.series());
             renderer.setSeriesPaint(i, data.paint());
@@ -120,7 +117,7 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
         plot.setRangeAxis(index, axis);
         plot.setRenderer(index, renderer);
         plot.mapDatasetToRangeAxis(index, 0);
-        LOGGER.info("Statistics processed...");
+        log.info("Statistics processed...");
     }
 
     private static ValueAxis newNumberAxis(final String title) {
@@ -134,7 +131,7 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
     private static LineGraphStatisticsGraphData statistics(
             final ImageData imageData,
             final LineChartGraphData lineChartGraphData) {
-        LOGGER.debug("Gathering statistics");
+        log.debug("Gathering statistics");
         final GraphStatisticsProvider statistics = imageData.statistics();
         final double median = statistics.median();
         final double meanValue = statistics.mean();
@@ -146,26 +143,26 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
                 Color.CYAN, lineChartGraphData.range());
         final LineChartGraphData mean = data.newSeries("Mean", Color.RED,
                 lineChartGraphData.range());
-        LOGGER.debug("Creating statistics data series...");
+        log.debug("Creating statistics data series...");
         for (int i = 0; i < lineChartGraphData.size(); i++) {
             average.addSeries(i, median);
             mean.addSeries(i, meanValue);
             percentile95.addSeries(i, percentile95Value);
         }
-        LOGGER.debug("Statistics graph data ready.");
+        log.debug("Statistics graph data ready.");
         return data;
     }
 
     private static void addMainDataGraphToPlot(final XYPlot plot,
             final LineChartGraphData data, final int index) {
-        LOGGER.info("Processing main data...");
+        log.info("Processing main data...");
         Paint paint = data.paint();
         final XYSeriesCollection dataset = newXYSeriesCollection();
         dataset.addSeries(data.series());
         final ValueAxis axis = new NumberAxis(data.title());
         axis.setLabelPaint(paint);
         axis.setTickLabelPaint(paint);
-        LOGGER.debug("Setting axis '{}' range to '{}'", data.title(),
+        log.debug("Setting axis '{}' range to '{}'", data.title(),
                 data.range());
         axis.setRange(data.range());
 
@@ -176,7 +173,7 @@ public final class ImageFactoryUsingJFreeChart implements ImageFactory {
         plot.setRangeAxis(index, axis);
         plot.setRenderer(index, renderer);
         plot.mapDatasetToRangeAxis(index, index);
-        LOGGER.info("Main data processed.");
+        log.info("Main data processed.");
     }
 
     private static StandardXYItemRenderer newXYItemRenderer() {
