@@ -25,8 +25,8 @@ public final class ClassHelper {
      * @param packageName
      *                        The base package
      * @return The classes
-     * @throws ClassNotFoundException
-     * @throws IOException
+     * @throws ClassNotFoundException class not found
+     * @throws IOException IO exception
      */
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static Class<?>[] getClasses(final String packageName)
@@ -56,7 +56,7 @@ public final class ClassHelper {
      *                        The package name for classes found inside the base
      *                        directory
      * @return The classes
-     * @throws ClassNotFoundException
+     * @throws ClassNotFoundException class not found
      */
     private static List<Class<?>> findClasses(final Path path,
             final String packageName) throws ClassNotFoundException {
