@@ -1,7 +1,9 @@
 package org.fluentjava.volundr.concurrent;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
@@ -27,10 +29,13 @@ public class ThreadEngineTest {
     }
 
     @Test
-    public void interruptThreads() throws InterruptedException {
+    public void interruptThreads() {
         final AtomicBoolean wasInterrupted = new AtomicBoolean(false);
+        final AtomicBoolean running = new AtomicBoolean(false);
         final Runnable r = () -> {
             try {
+                running.set(true);
+                //sleepy thread
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 wasInterrupted.set(true);
@@ -38,10 +43,13 @@ public class ThreadEngineTest {
         };
         final ThreadEngine newEngineWithNamedThreadFactory = newEngineWithNamedThreadFactory();
         new Thread(() -> newEngineWithNamedThreadFactory.run(r)).start();
-        Thread.sleep(100);
+        await().pollDelay(25, TimeUnit.MILLISECONDS).atMost(100, TimeUnit.MILLISECONDS).until(
+                running::get
+        );
         new Thread(newEngineWithNamedThreadFactory::interruptThreads).start();
-        Thread.sleep(100);
-        assertTrue(wasInterrupted.get());
+        await().pollDelay(25, TimeUnit.MILLISECONDS).atMost(100, TimeUnit.MILLISECONDS).until(
+                wasInterrupted::get
+        );
     }
 
     private static ThreadEngine newEngineWithNamedThreadFactory() {
