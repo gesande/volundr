@@ -1,10 +1,9 @@
 package org.fluentjava.volundr.smithy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.fluentjava.volundr.LineVisitor;
 import org.fluentjava.volundr.io.StreamReader;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +14,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@Slf4j
 public class BigFileReadTest {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(BigFileReadTest.class);
 
     @Test
     public void readOnePointFiveMillionRows() throws IOException {
@@ -37,7 +35,7 @@ public class BigFileReadTest {
             }
         }).readFrom(resourceAsStream("file-with-1point5million-lines"));
         final long duration = System.currentTimeMillis() - start;
-        LOGGER.info("1,5 million lines read at {} ms.", duration);
+        log.info("1,5 million lines read at {} ms.", duration);
         assertTrue("Duration should be no more 600 ms for 1,5 million rows",
                 duration <= 600);
         assertEquals(1500000, lines.get());
@@ -67,7 +65,7 @@ public class BigFileReadTest {
                 resourceAsStream("file-with-1point5million-lines3"),
                 resourceAsStream("file-with-1point5million-lines4"));
         final long duration = System.currentTimeMillis() - start;
-        LOGGER.info("6 million lines read at {} ms.", duration);
+        log.info("6 million lines read at {} ms.", duration);
         assertTrue("Duration should be no more that 1500 ms for 6 million rows",
                 duration <= 2000);
 

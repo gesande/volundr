@@ -45,6 +45,12 @@ dependencies {
         implementation "org.jfree:jfreechart:${jfreechartVersion}"
         compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
         testCompileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
+
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+        testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
     //logging abstraction
     implementation group: "org.slf4j", name: "slf4j-api"
@@ -57,6 +63,14 @@ dependencies {
     //logging impl
     testRuntimeOnly "org.slf4j:slf4j-log4j12"
     testRuntimeOnly "log4j:log4j"
+
+    //lombok support
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
+
+    testCompileOnly "org.projectlombok:lombok"
+    testAnnotationProcessor "org.projectlombok:lombok"
+
 }
 
 forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }

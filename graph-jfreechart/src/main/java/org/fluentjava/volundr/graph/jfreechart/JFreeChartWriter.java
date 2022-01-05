@@ -2,17 +2,14 @@ package org.fluentjava.volundr.graph.jfreechart;
 
 import java.io.File;
 
+import lombok.extern.slf4j.Slf4j;
 import org.fluentjava.volundr.fileio.FileUtil;
 import org.fluentjava.volundr.graph.ChartWriter;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public final class JFreeChartWriter implements ChartWriter<JFreeChart> {
-
-    private final static Logger LOGGER = LoggerFactory
-            .getLogger(JFreeChartWriter.class);
 
     private final String reportRootDirectory;
 
@@ -24,15 +21,17 @@ public final class JFreeChartWriter implements ChartWriter<JFreeChart> {
     public void write(final String id, final JFreeChart chart, final int height,
             final int width) {
         final String outputFilePath = reportRootDirectory() + "/" + id + ".png";
-        LOGGER.info("Writing chart as an image to file {}", outputFilePath);
+        log.info("Writing chart as an image to file {}", outputFilePath);
         try {
             FileUtil.ensureDirectoryExists(newFile(reportRootDirectory()));
             ChartUtils.saveChartAsPNG(newFile(outputFilePath), chart, width,
                     height);
-            LOGGER.info("Chart image successfully written to {}",
+            log.info("Chart image successfully written to {}",
                     outputFilePath);
         } catch (final Exception e) {
-            throw new VolundrRuntimeException(logError(outputFilePath, e), e);
+            final String errorMsg = "Writing file '" + outputFilePath + "' failed!";
+            log.error(errorMsg, e);
+            throw new VolundrRuntimeException(errorMsg, e);
         }
     }
 
@@ -42,13 +41,6 @@ public final class JFreeChartWriter implements ChartWriter<JFreeChart> {
 
     private String reportRootDirectory() {
         return this.reportRootDirectory;
-    }
-
-    private static String logError(final String outputFilePath,
-            final Throwable t) {
-        final String errorMsg = "Writing file '" + outputFilePath + "' failed!";
-        LOGGER.error(errorMsg, t);
-        return errorMsg;
     }
 
 }
