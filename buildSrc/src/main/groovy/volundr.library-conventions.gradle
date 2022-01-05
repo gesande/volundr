@@ -25,7 +25,7 @@ dependencies {
     constraints {
         implementation group: "org.slf4j", name: "slf4j-api", version: "${slf4jVersion}"
         testImplementation group: "org.slf4j", name: "slf4j-api", version: "${slf4jVersion}"
-        testImplementation group: "org.awaitility", name:"awaitility", version: "${awaitilityVersion}"
+        testImplementation group: "org.awaitility", name: "awaitility", version: "${awaitilityVersion}"
 
         testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
         testRuntimeOnly "log4j:log4j:${log4jVersion}"
@@ -76,7 +76,7 @@ dependencies {
 
 }
 
-forkJdt { jdtInputFile = "${project.properties.jdtInputFile}"  }
+forkJdt { jdtInputFile = "${project.properties.jdtInputFile}" }
 
 version = rootProject.artifactVersion
 
