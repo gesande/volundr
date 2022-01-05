@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static java.util.Objects.requireNonNull;
+
 @SuppressWarnings("PMD.UseProperClassLoader")
 public class FrequencyGraphBuilderTest {
 
@@ -30,8 +32,8 @@ public class FrequencyGraphBuilderTest {
     @BeforeClass
     public static void loadGoldenMaster() throws IOException, URISyntaxException {
         File goldenMaster = new File(
-                FrequencyGraphBuilderTest.class
-                        .getResource("/goldenMaster.png").toURI());
+                requireNonNull(FrequencyGraphBuilderTest.class
+                        .getResource("/goldenMaster.png")).toURI());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";

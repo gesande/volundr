@@ -14,6 +14,8 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static java.util.Objects.requireNonNull;
+
 @SuppressWarnings("PMD.UseProperClassLoader")
 public class ScatterPlotBuilderTest {
 
@@ -24,8 +26,8 @@ public class ScatterPlotBuilderTest {
     @BeforeClass
     public static void loadGoldenMaster() throws IOException, URISyntaxException {
         File goldenMaster = new File(
-                FrequencyGraphBuilderTest.class
-                        .getResource("/plotGoldenMaster.png").toURI());
+                requireNonNull(FrequencyGraphBuilderTest.class
+                        .getResource("/plotGoldenMaster.png")).toURI());
         goldenMasterBytes = Files
                 .readAllBytes(Paths.get(goldenMaster.getPath()));
         targetPath = System.getProperty("user.dir") + "/target";
