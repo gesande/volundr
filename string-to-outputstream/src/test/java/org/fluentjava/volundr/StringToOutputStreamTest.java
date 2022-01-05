@@ -16,8 +16,13 @@ public class StringToOutputStreamTest {
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
         final StringToOutputStream writer = StringToOutputStream
                 .usingDefaultCharset(stream);
-        final String data = "line1\n" + "line2\n" + "line3\n" + "line3\n"
-                + "line4\n";
+        final String data = """
+                line1
+                line2
+                line3
+                line3
+                line4
+                """;
         writer.write(data);
         assertEquals(data, stream.toString(Charset.defaultCharset().name()));
     }
@@ -27,8 +32,13 @@ public class StringToOutputStreamTest {
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
         final StringToOutputStream writer = StringToOutputStream
                 .usingUtf8(stream);
-        final String data = "line1\n" + "line2\n" + "line3\n" + "line3\n"
-                + "line4\n";
+        final String data = """
+                line1
+                line2
+                line3
+                line3
+                line4
+                """;
         writer.write(data);
         assertEquals(data, stream.toString(UTF_8));
     }

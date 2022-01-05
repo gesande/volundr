@@ -18,12 +18,17 @@ public class StatisticsBuilderTest {
         }
         StatisticsBuilder.withIntegerValues(values).title("title").samples()
                 .max().min().mean().median().percentile95().std().variance()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "samples       : 100\n" + "max           : 99\n"
-                        + "min           : 0\n" + "mean          : 49.5\n"
-                        + "median        : 49\n" + "95 percentile : 95\n"
-                        + "std           : 28.86607004772212\n"
-                        + "variance      : 833.25\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        samples       : 100
+                        max           : 99
+                        min           : 0
+                        mean          : 49.5
+                        median        : 49
+                        95 percentile : 95
+                        std           : 28.86607004772212
+                        variance      : 833.25
+                        """, stats));
     }
 
     @Test
@@ -36,12 +41,17 @@ public class StatisticsBuilderTest {
                 .integerValues(values);
         StatisticsBuilder.with(provider).title("title").samples().max().min()
                 .mean().median().percentile95().std().variance()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "samples       : 100\n" + "max           : 99\n"
-                        + "min           : 0\n" + "mean          : 49.5\n"
-                        + "median        : 49\n" + "95 percentile : 95\n"
-                        + "std           : 28.86607004772212\n"
-                        + "variance      : 833.25\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        samples       : 100
+                        max           : 99
+                        min           : 0
+                        mean          : 49.5
+                        median        : 49
+                        95 percentile : 95
+                        std           : 28.86607004772212
+                        variance      : 833.25
+                        """, stats));
     }
 
     @Test
@@ -52,11 +62,16 @@ public class StatisticsBuilderTest {
         }
         StatisticsBuilder.withIntegerValues(values).title("title").samples()
                 .max().min().mean().median().percentile95().std()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "samples       : 100\n" + "max           : 99\n"
-                        + "min           : 0\n" + "mean          : 49.5\n"
-                        + "median        : 49\n" + "95 percentile : 95\n"
-                        + "std           : 28.86607004772212\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        samples       : 100
+                        max           : 99
+                        min           : 0
+                        mean          : 49.5
+                        median        : 49
+                        95 percentile : 95
+                        std           : 28.86607004772212
+                        """, stats));
     }
 
     @Test
@@ -67,11 +82,16 @@ public class StatisticsBuilderTest {
         }
         StatisticsBuilder.withIntegerValues(values).title("title").samples()
                 .max().min().mean().median().percentile95().variance()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "samples       : 100\n" + "max           : 99\n"
-                        + "min           : 0\n" + "mean          : 49.5\n"
-                        + "median        : 49\n" + "95 percentile : 95\n"
-                        + "variance      : 833.25\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        samples       : 100
+                        max           : 99
+                        min           : 0
+                        mean          : 49.5
+                        median        : 49
+                        95 percentile : 95
+                        variance      : 833.25
+                        """, stats));
     }
 
     @Test
@@ -82,12 +102,16 @@ public class StatisticsBuilderTest {
         }
         StatisticsBuilder.withIntegerValues(values).title("title").samples()
                 .max().min().mean().median().std().variance()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "samples       : 100\n" + "max           : 99\n"
-                        + "min           : 0\n" + "mean          : 49.5\n"
-                        + "median        : 49\n"
-                        + "std           : 28.86607004772212\n"
-                        + "variance      : 833.25\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        samples       : 100
+                        max           : 99
+                        min           : 0
+                        mean          : 49.5
+                        median        : 49
+                        std           : 28.86607004772212
+                        variance      : 833.25
+                        """, stats));
     }
 
     @Test
@@ -98,12 +122,16 @@ public class StatisticsBuilderTest {
         }
         StatisticsBuilder.withIntegerValues(values).title("title").samples()
                 .max().min().mean().percentile95().std().variance()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "samples       : 100\n" + "max           : 99\n"
-                        + "min           : 0\n" + "mean          : 49.5\n"
-                        + "95 percentile : 95\n"
-                        + "std           : 28.86607004772212\n"
-                        + "variance      : 833.25\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        samples       : 100
+                        max           : 99
+                        min           : 0
+                        mean          : 49.5
+                        95 percentile : 95
+                        std           : 28.86607004772212
+                        variance      : 833.25
+                        """, stats));
     }
 
     @Test
@@ -114,12 +142,16 @@ public class StatisticsBuilderTest {
         }
         StatisticsBuilder.withIntegerValues(values).title("title").samples()
                 .max().min().median().percentile95().std().variance()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "samples       : 100\n" + "max           : 99\n"
-                        + "min           : 0\n" + "median        : 49\n"
-                        + "95 percentile : 95\n"
-                        + "std           : 28.86607004772212\n"
-                        + "variance      : 833.25\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        samples       : 100
+                        max           : 99
+                        min           : 0
+                        median        : 49
+                        95 percentile : 95
+                        std           : 28.86607004772212
+                        variance      : 833.25
+                        """, stats));
     }
 
     @Test
@@ -130,12 +162,16 @@ public class StatisticsBuilderTest {
         }
         StatisticsBuilder.withIntegerValues(values).title("title").samples()
                 .max().mean().median().percentile95().std().variance()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "samples       : 100\n" + "max           : 99\n"
-                        + "mean          : 49.5\n" + "median        : 49\n"
-                        + "95 percentile : 95\n"
-                        + "std           : 28.86607004772212\n"
-                        + "variance      : 833.25\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        samples       : 100
+                        max           : 99
+                        mean          : 49.5
+                        median        : 49
+                        95 percentile : 95
+                        std           : 28.86607004772212
+                        variance      : 833.25
+                        """, stats));
     }
 
     @Test
@@ -146,12 +182,16 @@ public class StatisticsBuilderTest {
         }
         StatisticsBuilder.withIntegerValues(values).title("title").samples()
                 .min().mean().median().percentile95().std().variance()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "samples       : 100\n" + "min           : 0\n"
-                        + "mean          : 49.5\n" + "median        : 49\n"
-                        + "95 percentile : 95\n"
-                        + "std           : 28.86607004772212\n"
-                        + "variance      : 833.25\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        samples       : 100
+                        min           : 0
+                        mean          : 49.5
+                        median        : 49
+                        95 percentile : 95
+                        std           : 28.86607004772212
+                        variance      : 833.25
+                        """, stats));
     }
 
     @Test
@@ -162,12 +202,16 @@ public class StatisticsBuilderTest {
         }
         StatisticsBuilder.withIntegerValues(values).title("title").max().min()
                 .mean().median().percentile95().std().variance()
-                .consumedBy(stats -> assertEquals("title\n"
-                        + "max           : 99\n" + "min           : 0\n"
-                        + "mean          : 49.5\n" + "median        : 49\n"
-                        + "95 percentile : 95\n"
-                        + "std           : 28.86607004772212\n"
-                        + "variance      : 833.25\n" + "", stats));
+                .consumedBy(stats -> assertEquals("""
+                        title
+                        max           : 99
+                        min           : 0
+                        mean          : 49.5
+                        median        : 49
+                        95 percentile : 95
+                        std           : 28.86607004772212
+                        variance      : 833.25
+                        """, stats));
     }
 
 }
