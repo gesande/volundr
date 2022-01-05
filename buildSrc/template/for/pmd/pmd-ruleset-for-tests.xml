@@ -8,73 +8,76 @@
     <rule ref="category/java/design.xml/ExcessivePublicCount">
         <properties>
             <!-- integration test classes might get long, right-->
-            <property name="minimum" value="75.0" />
+            <property name="minimum" value="75.0"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/NcssCount">
         <properties>
             <!-- integration test methods might get long, right-->
-            <property name="methodReportLevel" value="70" />
-            <property name="classReportLevel" value="1500" />
-            <property name="ncssOptions" value="" />
+            <property name="methodReportLevel" value="70"/>
+            <property name="classReportLevel" value="1500"/>
+            <property name="ncssOptions" value=""/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/ImmutableField">
         <properties>
-            <property name="ignoredAnnotations" value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.mockito.Mock" />
+            <property name="ignoredAnnotations"
+                      value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombok.NoArgsConstructor|org.mockito.Mock"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/SingularField">
         <properties>
-            <property name="ignoredAnnotations" value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombk.NoArgsConstructor|lombok.experimental.Delegate|org.mockito.Mock" />
-            <property name="checkInnerClasses" value="false" />
-            <property name="disallowNotAssignment" value="true" />
+            <property name="ignoredAnnotations"
+                      value="lombok.Setter|lombok.Getter|lombok.Builder|lombok.Data|lombok.RequiredArgsConstructor|lombok.AllArgsConstructor|lombok.Value|lombk.NoArgsConstructor|lombok.experimental.Delegate|org.mockito.Mock"/>
+            <property name="checkInnerClasses" value="false"/>
+            <property name="disallowNotAssignment" value="true"/>
         </properties>
     </rule>
     <rule ref="category/java/codestyle.xml/ClassNamingConventions">
         <properties>
-            <property name="classPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="abstractClassPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="interfacePattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="enumPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="annotationPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]*" />
+            <property name="classPattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="abstractClassPattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="interfacePattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="enumPattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="annotationPattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]*"/>
         </properties>
     </rule>
     <rule ref="category/java/errorprone.xml/CloseResource">
         <properties>
-            <property name="allowedResourceTypes" value="java.io.ByteArrayOutputStream | java.io.ByteArrayInputStream | java.io.StringWriter | java.io.CharArrayWriter | java.util.stream.Stream | io.prometheus.client.Histogram.Timer | com.rabbitmq.client.Channel" />
+            <property name="allowedResourceTypes"
+                      value="java.io.ByteArrayOutputStream | java.io.ByteArrayInputStream | java.io.StringWriter | java.io.CharArrayWriter | java.util.stream.Stream | io.prometheus.client.Histogram.Timer | com.rabbitmq.client.Channel"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/TooManyFields">
         <properties>
-            <property name="maxfields" value="20" />
+            <property name="maxfields" value="20"/>
         </properties>
     </rule>
     <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts">
         <properties>
-            <property name="maximumAsserts" value="20" />
+            <property name="maximumAsserts" value="20"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/ExcessiveParameterList">
         <properties>
-            <property name="minimum" value="20.0" />
+            <property name="minimum" value="20.0"/>
         </properties>
     </rule>
     <rule ref="category/java/codestyle.xml/TooManyStaticImports">
         <properties>
-            <property name="maximumStaticImports" value="50" />
+            <property name="maximumStaticImports" value="50"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/ExcessiveImports">
         <properties>
             <!-- tests might have excessive amount of import, e.g. integration tests-->
-            <property name="minimum" value="100.0" />
+            <property name="minimum" value="100.0"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/CouplingBetweenObjects">
         <properties>
-            <property name="threshold" value="30" />
+            <property name="threshold" value="30"/>
         </properties>
     </rule>
     <!-- rule exclusions -->
@@ -104,7 +107,7 @@
         <exclude name="LocalVariableNamingConventions"/>
     </rule>
 
-    <rule ref="category/java/design.xml" >
+    <rule ref="category/java/design.xml">
         <exclude name="LawOfDemeter"/>
         <exclude name="DataClass"/>
         <exclude name="TooManyMethods"/>

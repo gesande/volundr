@@ -38,7 +38,7 @@ public class ReportingPlugin implements Plugin<Project> {
                         name: 'junitreport',
                         classname: 'org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator',
                         classpath: project.configurations.antClasspath.asPath
-                        )
+                )
 
                 ant.junitreport(todir: resultsDir) {
                     fileset(dir: "${project.projectDir}", includes: '**/build/test-results/**/TEST-*.xml')

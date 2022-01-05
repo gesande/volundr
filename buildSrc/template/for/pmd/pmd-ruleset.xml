@@ -6,45 +6,45 @@
     <description>production code rules</description>
     <rule ref="category/java/codestyle.xml/ClassNamingConventions">
         <properties>
-            <property name="classPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="abstractClassPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="interfacePattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="enumPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="annotationPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]*" />
+            <property name="classPattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="abstractClassPattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="interfacePattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="enumPattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="annotationPattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]*"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/CyclomaticComplexity">
         <properties>
-            <property name="classReportLevel" value="80" />
-            <property name="methodReportLevel" value="20" />
-            <property name="cycloOptions" value="" />
+            <property name="classReportLevel" value="80"/>
+            <property name="methodReportLevel" value="20"/>
+            <property name="cycloOptions" value=""/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/SingularField">
         <properties>
-            <property name="checkInnerClasses" value="false" />
-            <property name="disallowNotAssignment" value="false" />
+            <property name="checkInnerClasses" value="false"/>
+            <property name="disallowNotAssignment" value="false"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/TooManyFields">
         <properties>
-            <property name="maxfields" value="20" />
+            <property name="maxfields" value="20"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/ExcessiveParameterList">
         <properties>
-            <property name="minimum" value="20.0" />
+            <property name="minimum" value="20.0"/>
         </properties>
     </rule>
     <rule ref="category/java/codestyle.xml/TooManyStaticImports">
         <properties>
-            <property name="maximumStaticImports" value="10" />
+            <property name="maximumStaticImports" value="10"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/ExcessiveImports">
         <properties>
-            <property name="minimum" value="50.0" />
+            <property name="minimum" value="50.0"/>
         </properties>
     </rule>
 
@@ -76,7 +76,7 @@
         <exclude name="MethodNamingConventions"/>
     </rule>
 
-    <rule ref="category/java/design.xml" >
+    <rule ref="category/java/design.xml">
         <exclude name="LawOfDemeter"/>
         <exclude name="DataClass"/>
         <exclude name="TooManyMethods"/>

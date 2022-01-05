@@ -58,35 +58,35 @@ def parseVersion = {
 }
 
 ext {
-    buildScripts="$projectDir/buildSrc"
+    buildScripts = "$projectDir/buildSrc"
     //make sure these files exist
-    jdtInputFile="${buildScripts}/template/for/eclipse/org.eclipse.jdt.core.prefs"
+    jdtInputFile = "${buildScripts}/template/for/eclipse/org.eclipse.jdt.core.prefs"
 
-    distributionDir="$buildDir/distributions"
+    distributionDir = "$buildDir/distributions"
 
     artifactVersion = parseVersion()
 
     distributionExcludes = ["*-lib.jar"]
     distributionBasename = 'völundr-distribution'
 
-    slf4jVersion="1.7.32"
-    log4jVersion="1.2.17"
-    junitVersion="4.13.2"
-    commonsIoVersion="2.11.0"
-    commonsCollectionsVersion="3.2.2"
-    jfreechartVersion="1.5.3"
-    spotbugsVersion="4.5.2"
-    awaitilityVersion="4.1.1"
-    lombokVersion="1.18.22"
+    slf4jVersion = "1.7.32"
+    log4jVersion = "1.2.17"
+    junitVersion = "4.13.2"
+    commonsIoVersion = "2.11.0"
+    commonsCollectionsVersion = "3.2.2"
+    jfreechartVersion = "1.5.3"
+    spotbugsVersion = "4.5.2"
+    awaitilityVersion = "4.1.1"
+    lombokVersion = "1.18.22"
 }
 
-apply plugin : "volundr.build-conventions"
-apply plugin : "volundr.lint-conventions"
-apply plugin : "volundr.dependencycheck-conventions"
-apply plugin : "volundr.dependencyupdates-conventions"
+apply plugin: "volundr.build-conventions"
+apply plugin: "volundr.lint-conventions"
+apply plugin: "volundr.dependencycheck-conventions"
+apply plugin: "volundr.dependencyupdates-conventions"
 
 subprojects {
-    apply plugin : "volundr.library-conventions"
+    apply plugin: "volundr.library-conventions"
     tasks.withType(com.github.spotbugs.snom.SpotBugsTask) { task ->
         task.reports {
             xml.enabled = project.hasProperty('CI') && "${CI}".toBoolean()
