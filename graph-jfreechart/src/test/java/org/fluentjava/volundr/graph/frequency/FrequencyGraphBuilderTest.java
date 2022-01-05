@@ -58,20 +58,12 @@ public class FrequencyGraphBuilderTest {
 
             @Override
             public long countFor(long value) {
-                switch ((int) value) {
-                case 2:
-                case 3:
-                case 7:
-                case 8:
-                    return 1;
-                case 4:
-                case 6:
-                    return 2;
-                case 5:
-                    return 3;
-                default:
-                    return 0;
-                }
+                return switch ((int) value) {
+                    case 2, 3, 7, 8 -> 1;
+                    case 4, 6 -> 2;
+                    case 5 -> 3;
+                    default -> 0;
+                };
             }
         };
         DefaultDatasetAdapterFactory lineChartAdapterProvider = new DefaultDatasetAdapterFactory();
