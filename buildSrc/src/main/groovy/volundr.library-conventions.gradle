@@ -58,7 +58,10 @@ dependencies {
     compileOnly "com.github.spotbugs:spotbugs-annotations"
     testCompileOnly "com.github.spotbugs:spotbugs-annotations"
     //unit tests
-    testImplementation("junit:junit")
+    testImplementation("junit:junit") {
+        exclude module: "hamcrest-core"
+    }
+
     testImplementation("org.awaitility:awaitility")
     //logging impl
     testRuntimeOnly "org.slf4j:slf4j-log4j12"
