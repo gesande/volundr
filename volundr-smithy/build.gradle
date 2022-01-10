@@ -10,5 +10,4 @@ dependencies {
     implementation project(':visiting-inputstreams')
     implementation project(':bytes-to-string')
     testImplementation project(':as-expected')
-    testRuntimeOnly "org.slf4j:slf4j-api"
 }
