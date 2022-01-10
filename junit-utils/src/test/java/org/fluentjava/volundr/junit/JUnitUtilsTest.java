@@ -1,14 +1,18 @@
 package org.fluentjava.volundr.junit;
 
-import org.junit.Test;
-import org.junit.runners.model.FrameworkMethod;
-import org.junit.runners.model.TestClass;
+import static org.junit.Assert.assertEquals;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import org.junit.runners.model.FrameworkMethod;
+import org.junit.runners.model.TestClass;
 
 public class JUnitUtilsTest {
 
@@ -38,28 +42,28 @@ public class JUnitUtilsTest {
         assertEquals("annotionNotPresent", annotatedAsTest.get(0).getName());
     }
 
-    @SuppressWarnings({"unchecked", "static-method"})
+    @SuppressWarnings({ "unchecked", "static-method" })
     private <T extends Annotation> Class<T> notPresent() {
         return (Class<T>) NotPresent.class;
     }
 
-    @SuppressWarnings({"unchecked", "static-method"})
+    @SuppressWarnings({ "unchecked", "static-method" })
     private <T extends Annotation> Class<T> present() {
         return (Class<T>) Present.class;
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD})
+    @Target({ ElementType.METHOD })
     @interface Collect { //
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD})
+    @Target({ ElementType.METHOD })
     @interface NotPresent { //
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD})
+    @Target({ ElementType.METHOD })
     @interface Present { //
     }
 
@@ -72,7 +76,7 @@ public class JUnitUtilsTest {
             this.testSet = testSet;
         }
 
-        //this is not a test but a predicate implementation
+        // this is not a test but a predicate implementation
         @SuppressWarnings("PMD.JUnit4TestShouldUseTestAnnotation")
         @Override
         public boolean test(final FrameworkMethod m) {

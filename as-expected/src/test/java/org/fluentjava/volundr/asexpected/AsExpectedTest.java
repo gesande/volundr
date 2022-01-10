@@ -29,12 +29,10 @@ public class AsExpectedTest {
         try {
             expected.line("not actual").end();
         } catch (final Throwable t) {
-            assertEquals(
-                    """
-                            expected:<[not ]actual
-                            > but was:<[]actual
-                            >""",
-                    t.getMessage());
+            assertEquals("""
+                    expected:<[not ]actual
+                    > but was:<[]actual
+                    >""", t.getMessage());
             failed.set(true);
         }
         assertTrue(failed.get());
@@ -48,10 +46,9 @@ public class AsExpectedTest {
             expected.line("actual").end();
         } catch (final Throwable t) {
             assertEquals("""
-                            expected:<actu[a]l
-                            > but was:<actu[á]l
-                            >""",
-                    t.getMessage());
+                    expected:<actu[a]l
+                    > but was:<actu[á]l
+                    >""", t.getMessage());
             failed.set(true);
         }
         assertTrue(failed.get());

@@ -1,13 +1,13 @@
 package org.fluentjava.volundr.concurrent;
 
-import lombok.extern.slf4j.Slf4j;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
 
-import static java.util.Objects.requireNonNull;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 final class ThreadEngine {
@@ -43,8 +43,7 @@ final class ThreadEngine {
     }
 
     @SafeVarargs
-    private <T extends Runnable> void initializeWith(
-            final T... runnables) {
+    private <T extends Runnable> void initializeWith(final T... runnables) {
         Arrays.asList(runnables)
                 .forEach(t -> threads.add(threadFactory().newThread(t)));
     }

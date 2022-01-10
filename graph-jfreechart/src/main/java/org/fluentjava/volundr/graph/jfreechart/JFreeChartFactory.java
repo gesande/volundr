@@ -1,13 +1,14 @@
 package org.fluentjava.volundr.graph.jfreechart;
 
-import lombok.extern.slf4j.Slf4j;
+import java.awt.Color;
+import java.awt.Font;
+
 import org.fluentjava.volundr.graph.ImageData;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 
-import java.awt.Color;
-import java.awt.Font;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 final class JFreeChartFactory {
@@ -49,10 +50,10 @@ final class JFreeChartFactory {
         final XYSeriesAdapterForScatterPlot adapter = (XYSeriesAdapterForScatterPlot) imageData
                 .adapter();
         final ScatterPlotGraphData graphData = adapter.graphData(Color.RED, 0);
-        JFreeChart scatterPlot = ChartFactory.createScatterPlot(imageData.title(),
-                imageData.xAxisLabel(), graphData.yAxisTitle(),
-                graphData.dataset(), PlotOrientation.VERTICAL, showLegend(),
-                noTooltips(), noUrls());
+        JFreeChart scatterPlot = ChartFactory.createScatterPlot(
+                imageData.title(), imageData.xAxisLabel(),
+                graphData.yAxisTitle(), graphData.dataset(),
+                PlotOrientation.VERTICAL, showLegend(), noTooltips(), noUrls());
 
         scatterPlot.getTitle().setFont(TITLE_FONT);
         scatterPlot.getLegend().setItemFont(LEGEND_FONT);

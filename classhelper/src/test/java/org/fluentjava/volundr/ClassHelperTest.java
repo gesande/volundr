@@ -1,9 +1,7 @@
 package org.fluentjava.volundr;
 
-import lombok.extern.slf4j.Slf4j;
-import org.fluentjava.shouldfind.ThisShouldBeFound;
-import org.fluentjava.völundr.ContainingUtf8Characters;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +9,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.fluentjava.shouldfind.ThisShouldBeFound;
+import org.fluentjava.völundr.ContainingUtf8Characters;
+import org.junit.Test;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ClassHelperTest {

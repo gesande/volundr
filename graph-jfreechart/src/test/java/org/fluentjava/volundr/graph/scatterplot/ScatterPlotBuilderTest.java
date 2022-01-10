@@ -1,12 +1,6 @@
 package org.fluentjava.volundr.graph.scatterplot;
 
-import org.fluentjava.volundr.graph.frequency.FrequencyGraphBuilderTest;
-import org.fluentjava.volundr.graph.jfreechart.DefaultDatasetAdapterFactory;
-import org.fluentjava.volundr.graph.jfreechart.ImageFactoryUsingJFreeChart;
-import org.fluentjava.volundr.graph.jfreechart.JFreeChartWriter;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +8,13 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static java.util.Objects.requireNonNull;
+import org.fluentjava.volundr.graph.frequency.FrequencyGraphBuilderTest;
+import org.fluentjava.volundr.graph.jfreechart.DefaultDatasetAdapterFactory;
+import org.fluentjava.volundr.graph.jfreechart.ImageFactoryUsingJFreeChart;
+import org.fluentjava.volundr.graph.jfreechart.JFreeChartWriter;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 @SuppressWarnings("PMD.UseProperClassLoader")
 public class ScatterPlotBuilderTest {
@@ -24,7 +24,8 @@ public class ScatterPlotBuilderTest {
     private static ImageFactoryUsingJFreeChart imageFactory;
 
     @BeforeClass
-    public static void loadGoldenMaster() throws IOException, URISyntaxException {
+    public static void loadGoldenMaster()
+            throws IOException, URISyntaxException {
         File goldenMaster = new File(
                 requireNonNull(FrequencyGraphBuilderTest.class
                         .getResource("/plotGoldenMaster.png")).toURI());

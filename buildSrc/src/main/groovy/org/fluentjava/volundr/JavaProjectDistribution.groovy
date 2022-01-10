@@ -41,8 +41,8 @@ class JavaProjectDistribution implements Plugin<Project> {
         }
 
         project.task('testCodeRelease', dependsOn: [
-                'testCodeDist',
-                'testSourcesJar'
+            'testCodeDist',
+            'testSourcesJar'
         ]) {
             group = 'Distribution'
             description = "Defines the project specific test code release distributions."

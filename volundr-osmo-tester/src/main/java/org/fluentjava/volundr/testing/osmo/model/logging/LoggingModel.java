@@ -1,8 +1,9 @@
 package org.fluentjava.volundr.testing.osmo.model.logging;
 
-import lombok.extern.slf4j.Slf4j;
 import org.fluentjava.volundr.testing.osmo.AbstractOsmoModel;
 import org.fluentjava.volundr.testing.osmo.model.statistics.StatisticsModel;
+
+import lombok.extern.slf4j.Slf4j;
 import osmo.tester.annotation.AfterStep;
 import osmo.tester.annotation.AfterSuite;
 import osmo.tester.annotation.BeforeStep;

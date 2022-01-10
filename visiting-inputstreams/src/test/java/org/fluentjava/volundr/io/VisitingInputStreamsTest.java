@@ -1,7 +1,8 @@
 package org.fluentjava.volundr.io;
 
-import org.fluentjava.volundr.LineVisitor;
-import org.junit.Test;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -11,9 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.fluentjava.volundr.LineVisitor;
+import org.junit.Test;
 
 public class VisitingInputStreamsTest {
 

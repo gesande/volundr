@@ -1,10 +1,11 @@
 package org.fluentjava.volundr.testing.osmo.model.statistics;
 
-import lombok.extern.slf4j.Slf4j;
 import org.fluentjava.volundr.testing.osmo.AbstractOsmoModel;
 import org.fluentjava.volundr.testing.osmo.VolundrOsmoException;
 import org.fluentjava.volundr.testing.osmo.statistics.SleepValueProvider;
 import org.fluentjava.volundr.testing.osmo.statistics.StatisticsMeasurement;
+
+import lombok.extern.slf4j.Slf4j;
 import osmo.tester.annotation.AfterStep;
 import osmo.tester.annotation.AfterTest;
 import osmo.tester.annotation.BeforeStep;

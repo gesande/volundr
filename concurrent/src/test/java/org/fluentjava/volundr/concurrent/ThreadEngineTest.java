@@ -35,7 +35,7 @@ public class ThreadEngineTest {
         final Runnable r = () -> {
             try {
                 running.set(true);
-                //sleepy thread
+                // sleepy thread
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 wasInterrupted.set(true);
@@ -43,13 +43,11 @@ public class ThreadEngineTest {
         };
         final ThreadEngine newEngineWithNamedThreadFactory = newEngineWithNamedThreadFactory();
         new Thread(() -> newEngineWithNamedThreadFactory.run(r)).start();
-        await().pollDelay(25, TimeUnit.MILLISECONDS).atMost(100, TimeUnit.MILLISECONDS).until(
-                running::get
-        );
+        await().pollDelay(25, TimeUnit.MILLISECONDS)
+                .atMost(100, TimeUnit.MILLISECONDS).until(running::get);
         new Thread(newEngineWithNamedThreadFactory::interruptThreads).start();
-        await().pollDelay(25, TimeUnit.MILLISECONDS).atMost(100, TimeUnit.MILLISECONDS).until(
-                wasInterrupted::get
-        );
+        await().pollDelay(25, TimeUnit.MILLISECONDS)
+                .atMost(100, TimeUnit.MILLISECONDS).until(wasInterrupted::get);
     }
 
     private static ThreadEngine newEngineWithNamedThreadFactory() {

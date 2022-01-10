@@ -1,12 +1,5 @@
 package org.fluentjava.volundr.testing.osmo.statistics;
 
-import org.fluentjava.volundr.graph.jfreechart.api.ChartGraphApi;
-import org.fluentjava.volundr.graph.scatterplot.ScatterPlotData;
-import org.fluentjava.volundr.statistics.StatisticsBuilder;
-import org.fluentjava.volundr.statistics.StatisticsListProvider;
-import org.fluentjava.volundr.statistics.StatisticsListProviderFactory;
-import org.fluentjava.volundr.statistics.summary.csv.StatisticsSummaryToCsv;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +11,13 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import org.fluentjava.volundr.graph.jfreechart.api.ChartGraphApi;
+import org.fluentjava.volundr.graph.scatterplot.ScatterPlotData;
+import org.fluentjava.volundr.statistics.StatisticsBuilder;
+import org.fluentjava.volundr.statistics.StatisticsListProvider;
+import org.fluentjava.volundr.statistics.StatisticsListProviderFactory;
+import org.fluentjava.volundr.statistics.summary.csv.StatisticsSummaryToCsv;
+
 final class CsvFileSummaryConsumer implements CsvSummaryConsumer {
     private final String targetPath;
 
@@ -27,7 +27,7 @@ final class CsvFileSummaryConsumer implements CsvSummaryConsumer {
 
     private void writeListToFile(String fileName, String value) {
         try {
-            Files.writeString(csvFile(fileName),value);
+            Files.writeString(csvFile(fileName), value);
         } catch (Exception e) {
             throw new StatisticsApiRuntimeException(e);
         }

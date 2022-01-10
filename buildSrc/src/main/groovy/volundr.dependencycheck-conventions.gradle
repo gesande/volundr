@@ -1,9 +1,9 @@
 dependencyCheck {
     skipConfigurations = [
-            'jacocoAgent',
-            'pmd',
-            'spotbugs',
-            'antClasspath'
+        'jacocoAgent',
+        'pmd',
+        'spotbugs',
+        'antClasspath'
     ]
     skipProjects = [":buildSrc"]
     cve {

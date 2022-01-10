@@ -8,18 +8,18 @@ allprojects {
     gradleLint.alwaysRun = false
     gradleLint {
         rules = [
-                'duplicate-dependency-class',
-                'transitive-duplicate-dependency-class',
-                'recommended-versions'
+            'duplicate-dependency-class',
+            'transitive-duplicate-dependency-class',
+            'recommended-versions'
         ]
         criticalRules = [
-                'dependency-parentheses',
-                'minimum-version-rule',
-                'undeclared-dependency',
-                'overridden-dependency-version',
-                'unused-dependency',
-                'unused-exclude-by-dep',
-                'unused-exclude-by-conf'
+            'dependency-parentheses',
+            'minimum-version-rule',
+            'undeclared-dependency',
+            'overridden-dependency-version',
+            'unused-dependency',
+            'unused-exclude-by-dep',
+            'unused-exclude-by-conf'
         ]
         /*
          all-dependency replaces
