@@ -1,11 +1,11 @@
 package org.fluentjava.volundr.testing.osmo;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import osmo.tester.annotation.Guard;
 import osmo.tester.annotation.TestStep;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressFBWarnings("EI_EXPOSE_REP2")
 @Slf4j
@@ -16,9 +16,9 @@ public class HelloWorldModel implements OsmoModel {
         this.calls = calls;
     }
 
-    @Guard({ "hello"})
+    @Guard({ "hello" })
     public boolean helloGuard() {
-        return true; //you can always call hello step
+        return true; // you can always call hello step
     }
 
     @TestStep("hello")

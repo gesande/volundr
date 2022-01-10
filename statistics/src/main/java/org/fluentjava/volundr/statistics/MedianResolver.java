@@ -10,7 +10,7 @@ public final class MedianResolver {
      * http://en.wikipedia.org/wiki/Median
      *
      * @param list
-     *                 list of values
+     *            list of values
      * @return the middle value if number of entries is not even in the list
      *         otherwise the middle two values and an average of them
      */

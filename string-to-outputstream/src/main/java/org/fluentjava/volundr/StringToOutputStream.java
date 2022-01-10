@@ -1,10 +1,10 @@
 package org.fluentjava.volundr;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class StringToOutputStream {
 

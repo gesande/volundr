@@ -181,9 +181,9 @@ public class ChartGraphApiTest {
 
     private static byte[] goldenMasterBytesOf(String goldenMasterNamePrefix)
             throws IOException {
-        File goldenMaster = new File(requireNonNull(
-                ChartGraphApiTest.class.getResource("/"+
-                        goldenMasterNamePrefix + "-goldenMaster.png"))
+        File goldenMaster = new File(
+                requireNonNull(ChartGraphApiTest.class.getResource(
+                        "/" + goldenMasterNamePrefix + "-goldenMaster.png"))
                                 .getFile());
         return Files.readAllBytes(Paths.get(goldenMaster.getPath()));
     }

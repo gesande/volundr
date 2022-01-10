@@ -1,13 +1,14 @@
 package org.fluentjava.volundr.io;
 
-import lombok.extern.slf4j.Slf4j;
-import org.fluentjava.volundr.LineVisitor;
-import org.fluentjava.volundr.concurrent.NamedThreadFactory;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
+
+import org.fluentjava.volundr.LineVisitor;
+import org.fluentjava.volundr.concurrent.NamedThreadFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class AsynchronousStreamReader {

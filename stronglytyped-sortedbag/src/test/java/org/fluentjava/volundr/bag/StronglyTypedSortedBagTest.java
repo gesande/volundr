@@ -1,15 +1,15 @@
 package org.fluentjava.volundr.bag;
 
-import org.awaitility.Awaitility;
-import org.junit.Test;
-
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.concurrent.TimeUnit;
+
+import org.awaitility.Awaitility;
+import org.junit.Test;
 
 public class StronglyTypedSortedBagTest {
 
@@ -99,9 +99,9 @@ public class StronglyTypedSortedBagTest {
         final Runnable runnable2 = () -> bag.add("value2");
         new Thread(runnable1).start();
         new Thread(runnable2).start();
-        Awaitility.await().pollDelay(25, TimeUnit.MILLISECONDS).atMost(100, TimeUnit.MILLISECONDS).until(
-                () -> bag.uniqueSamples().size() == 2
-        );
+        Awaitility.await().pollDelay(100, TimeUnit.MILLISECONDS)
+                .atMost(1000, TimeUnit.MILLISECONDS)
+                .until(() -> bag.uniqueSamples().size() == 2);
         assertEquals(1, bag.count("value1"));
         assertEquals(1, bag.count("value2"));
 

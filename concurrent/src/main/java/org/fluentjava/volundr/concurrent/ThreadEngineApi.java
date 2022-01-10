@@ -45,7 +45,7 @@ public final class ThreadEngineApi<RUNNABLE extends Runnable> {
          * When a thread is created this prefix is used as a part for its name.
          *
          * @param threadNamePrefix
-         *                             thread name prefix
+         *            thread name prefix
          * @return Builder
          */
         public Builder<RUNNABLE> threadNamePrefix(String threadNamePrefix) {

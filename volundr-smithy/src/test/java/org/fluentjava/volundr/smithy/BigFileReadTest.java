@@ -1,18 +1,19 @@
 package org.fluentjava.volundr.smithy;
 
-import lombok.extern.slf4j.Slf4j;
-import org.fluentjava.volundr.LineVisitor;
-import org.fluentjava.volundr.io.StreamReader;
-import org.junit.Test;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.fluentjava.volundr.LineVisitor;
+import org.fluentjava.volundr.io.StreamReader;
+import org.junit.Test;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class BigFileReadTest {

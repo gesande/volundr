@@ -1,6 +1,6 @@
 package org.fluentjava.volundr.testing.osmo.statistics;
 
-import lombok.extern.slf4j.Slf4j;
+import static java.util.Objects.requireNonNull;
 
 import java.time.Clock;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-import static java.util.Objects.requireNonNull;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class StatisticsMeasurement {
@@ -55,7 +55,7 @@ public class StatisticsMeasurement {
     }
 
     public static StatisticsMeasurement create(StatisticsConsumer statsConsumer,
-                                               Clock clock, String targetPath) {
+            Clock clock, String targetPath) {
         return new StatisticsMeasurement(statsConsumer, clock,
                 StatisticsApiBuilderImpl.withTargetPath(targetPath));
     }

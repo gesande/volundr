@@ -1,13 +1,13 @@
 package org.fluentjava.volundr.concurrent;
 
-import org.junit.Test;
+import static org.awaitility.Awaitility.await;
+import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class ExecutorServiceFactoryTest {
 

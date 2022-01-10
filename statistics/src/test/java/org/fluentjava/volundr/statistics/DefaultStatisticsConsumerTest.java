@@ -16,18 +16,17 @@ public class DefaultStatisticsConsumerTest {
         DefaultStatisticsConsumer consumer = DefaultStatisticsConsumer
                 .statsConsumer("title", latencies);
 
-        consumer.consumeStatistics(
-                stats -> assertEquals("""
-                        title
-                        samples       : 0
-                        max           : 0
-                        min           : 0
-                        mean          : 0.0
-                        median        : 0
-                        95 percentile : 0
-                        std           : NaN
-                        variance      : NaN
-                        """, stats));
+        consumer.consumeStatistics(stats -> assertEquals("""
+                title
+                samples       : 0
+                max           : 0
+                min           : 0
+                mean          : 0.0
+                median        : 0
+                95 percentile : 0
+                std           : NaN
+                variance      : NaN
+                """, stats));
     }
 
     @Test
@@ -39,19 +38,17 @@ public class DefaultStatisticsConsumerTest {
         DefaultStatisticsConsumer consumer = DefaultStatisticsConsumer
                 .statsConsumer("title", latencies);
 
-        consumer.consumeStatistics(stats -> assertEquals(
-                """
-                        title
-                        samples       : 100
-                        max           : 99
-                        min           : 0
-                        mean          : 49.5
-                        median        : 49
-                        95 percentile : 95
-                        std           : 28.86607004772212
-                        variance      : 833.25
-                        """,
-                stats));
+        consumer.consumeStatistics(stats -> assertEquals("""
+                title
+                samples       : 100
+                max           : 99
+                min           : 0
+                mean          : 49.5
+                median        : 49
+                95 percentile : 95
+                std           : 28.86607004772212
+                variance      : 833.25
+                """, stats));
     }
 
 }

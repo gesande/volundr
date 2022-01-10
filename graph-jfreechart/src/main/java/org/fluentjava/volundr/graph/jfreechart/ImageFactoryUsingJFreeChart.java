@@ -1,7 +1,12 @@
 package org.fluentjava.volundr.graph.jfreechart;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import lombok.extern.slf4j.Slf4j;
+import java.awt.Color;
+import java.awt.Paint;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.fluentjava.volundr.graph.ChartWriter;
 import org.fluentjava.volundr.graph.DatasetAdapter;
 import org.fluentjava.volundr.graph.GraphStatisticsProvider;
@@ -17,12 +22,8 @@ import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import java.awt.Color;
-import java.awt.Paint;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class ImageFactoryUsingJFreeChart implements ImageFactory {
