@@ -3,10 +3,16 @@ dependencies {
         version {
             strictly "4.11"
         }
+        gradleLint.ignore("unused-exclude-by-dep") {
+            exclude module: "hamcrest-core"
+        }
     }
     testImplementation("junit:junit") {
         version {
             strictly "4.11"
+        }
+        gradleLint.ignore("unused-exclude-by-dep") {
+            exclude module: "hamcrest-core"
         }
     }
 }
