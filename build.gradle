@@ -82,6 +82,7 @@ apply plugin : "volundr.build-conventions"
 apply plugin : "volundr.lint-conventions"
 apply plugin : "volundr.dependencycheck-conventions"
 apply plugin : "volundr.dependencyupdates-conventions"
+apply plugin : "volundr.spotless-conventions"
 
 subprojects {
     apply plugin : "volundr.library-conventions"
@@ -96,7 +97,7 @@ subprojects {
 }
 
 /*
-    Don't put {} around subprojects.findAll(), it'll be resolved totally different way
+ Don't put {} around subprojects.findAll(), it'll be resolved totally different way
  */
 def publishedProjects = subprojects.findAll()
 
