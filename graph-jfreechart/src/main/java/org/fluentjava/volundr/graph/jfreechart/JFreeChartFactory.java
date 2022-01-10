@@ -51,10 +51,10 @@ final class JFreeChartFactory {
         final XYSeriesAdapterForScatterPlot adapter = (XYSeriesAdapterForScatterPlot) imageData
                 .adapter();
         final ScatterPlotGraphData graphData = adapter.graphData(Color.RED, 0);
-        JFreeChart scatterPlot = ChartFactory.createScatterPlot(imageData.title(),
-                imageData.xAxisLabel(), graphData.yAxisTitle(),
-                graphData.dataset(), PlotOrientation.VERTICAL, showLegend(),
-                noTooltips(), noUrls());
+        JFreeChart scatterPlot = ChartFactory.createScatterPlot(
+                imageData.title(), imageData.xAxisLabel(),
+                graphData.yAxisTitle(), graphData.dataset(),
+                PlotOrientation.VERTICAL, showLegend(), noTooltips(), noUrls());
 
         scatterPlot.getTitle().setFont(TITLE_FONT);
         scatterPlot.getLegend().setItemFont(LEGEND_FONT);

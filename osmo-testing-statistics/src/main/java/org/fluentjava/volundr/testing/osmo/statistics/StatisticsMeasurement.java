@@ -59,7 +59,7 @@ public class StatisticsMeasurement {
     }
 
     public static StatisticsMeasurement create(StatisticsConsumer statsConsumer,
-                                               Clock clock, String targetPath) {
+            Clock clock, String targetPath) {
         return new StatisticsMeasurement(statsConsumer, clock,
                 StatisticsApiBuilderImpl.withTargetPath(targetPath));
     }

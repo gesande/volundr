@@ -53,8 +53,8 @@ task makeOsmoTester(type: Exec) {
         //we're using a bit newer version of commons-collections
         delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "commons-collections*.jar")
         /* if we need to remove log4j / commons-lang libraries later on, we do it like this
-        delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "log4j*.jar")
-        delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "commons-lang*.jar")
+         delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "log4j*.jar")
+         delete fileTree(dir: "${projectDir}/osmo-tester/libs", include: "commons-lang*.jar")
          */
     }
 }

@@ -7,20 +7,20 @@ allprojects {
     //turn it off, since default true makes IDEA to run it all the time
     gradleLint.alwaysRun = false
     gradleLint {
-         rules = [
-         'duplicate-dependency-class',
-         'transitive-duplicate-dependency-class',
-         'recommended-versions'
-         ]
-         criticalRules = [
-         'dependency-parentheses',
-         'minimum-version-rule',
-         'undeclared-dependency',
-         'overridden-dependency-version',
-         'unused-dependency',
-         'unused-exclude-by-dep',
-         'unused-exclude-by-conf'
-         ]
+        rules = [
+            'duplicate-dependency-class',
+            'transitive-duplicate-dependency-class',
+            'recommended-versions'
+        ]
+        criticalRules = [
+            'dependency-parentheses',
+            'minimum-version-rule',
+            'undeclared-dependency',
+            'overridden-dependency-version',
+            'unused-dependency',
+            'unused-exclude-by-dep',
+            'unused-exclude-by-conf'
+        ]
         /*
          all-dependency replaces
          'overridden-dependency-version',

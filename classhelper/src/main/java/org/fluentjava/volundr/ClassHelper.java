@@ -1,5 +1,7 @@
 package org.fluentjava.volundr;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -11,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * Improved version of https://dzone.com/articles/get-all-classes-within-package
  */
@@ -22,7 +22,7 @@ public final class ClassHelper {
      * to the given package and sub packages.
      *
      * @param packageName
-     *                        The base package
+     *            The base package
      * @return The classes
      * @throws ClassNotFoundException
      * @throws IOException
@@ -50,10 +50,9 @@ public final class ClassHelper {
      * subdirs.
      *
      * @param path
-     *                        The base directory
+     *            The base directory
      * @param packageName
-     *                        The package name for classes found inside the base
-     *                        directory
+     *            The package name for classes found inside the base directory
      * @return The classes
      * @throws ClassNotFoundException
      */

@@ -8,9 +8,9 @@ public final class PercentileRankCalculator {
      * http://en.wikipedia.org/wiki/Percentile
      *
      * @param percentile
-     *                        percentile (0-100)
+     *            percentile (0-100)
      * @param sampleCount
-     *                        number of samples
+     *            number of samples
      */
     public static double nearestRank(final int percentile,
             final long sampleCount) {
