@@ -3,8 +3,11 @@ package org.fluentjava.volundr.testing.osmo;
 import static org.fluentjava.volundr.testing.osmo.statistics.SleepValueProvider.calculateNextSleepValue;
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.Clock;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.fluentjava.volundr.testing.osmo.model.logging.LoggingModel;
@@ -21,12 +24,15 @@ import osmo.tester.generator.endcondition.Length;
 public class OsmoRunnerExample {
 
     @Test
-    public void testOsmoRunnerWithAllItsBellsAndWhistles() {
+    public void testOsmoRunnerWithAllItsBellsAndWhistles() throws IOException {
         Length endCondition = new Length(30); // 30 steps
         long seed = System.currentTimeMillis();
         Random random = new Random(seed);
-        String targetPath = System.getProperty("user.dir") + "/target";
-        String jenkinsReportName = "jenkins-report.xml";
+
+        String targetPath = Files
+                .createTempDirectory(UUID.randomUUID().toString()).toFile()
+                .getAbsolutePath();
+        String jenkinsReportName = targetPath + "/jenkins-report.xml";
         Clock clock = Clock.systemDefaultZone();
         StatisticsConsumer statsConsumer = new StatisticsConsumer();
         SleepValueProvider sleepValueProvider = () -> calculateNextSleepValue(
