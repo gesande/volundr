@@ -37,6 +37,7 @@ final class CsvFileSummaryConsumer implements CsvSummaryConsumer {
 
     @Override
     public void consume(String graphName, String csvSummary) {
+        log.debug("Write csv summary: {}", graphName);
         try {
             writeString(csvFile(graphName), csvSummary);
         } catch (Exception e) {
@@ -46,6 +47,7 @@ final class CsvFileSummaryConsumer implements CsvSummaryConsumer {
 
     @Override
     public void consume(String graphName, List<String> values) {
+        log.debug("Write values: {}, {} records", graphName, values.size());
         try {
             write(csvFile(graphName), values);
         } catch (Exception e) {
