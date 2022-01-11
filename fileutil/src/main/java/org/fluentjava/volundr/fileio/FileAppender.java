@@ -3,6 +3,9 @@ package org.fluentjava.volundr.fileio;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import org.fluentjava.volundr.io.StringToBytes;
 
@@ -23,7 +26,8 @@ public final class FileAppender {
         log.debug("appendToFile file:{} data length:{}", file, data.length());
         handler.start(file);
         try {
-            FileUtil.appendToFile(file, toBytes.convert(data));
+            Files.write(Paths.get(file), toBytes.convert(data),
+                    StandardOpenOption.APPEND);
             handler.ok(file);
         } catch (final IOException e) {
             handler.failed(file, e);
