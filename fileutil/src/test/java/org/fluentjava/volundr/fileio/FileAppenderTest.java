@@ -1,11 +1,14 @@
 package org.fluentjava.volundr.fileio;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.fluentjava.volundr.fileio.FileUtil.ensureDirectoryExists;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,15 +20,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class FileAppenderTest {
+
     @Test
-    public void appendTest() throws WritingFileFailed, IOException {
+    public void appendTest() throws IOException {
         AtomicInteger failures = new AtomicInteger(0);
         AtomicInteger ok = new AtomicInteger(0);
         AtomicInteger started = new AtomicInteger(0);
         FileAppender appender = new FileAppender(
                 StringToBytes.forCharset(UTF_8), new FileAppendHandler() {
                     @Override
-                    public void failed(String file, AppendToFileFailed e) {
+                    public void failed(String file, IOException e) {
                         failures.incrementAndGet();
                         log.error("Append failed", e);
                     }
@@ -41,14 +45,19 @@ public class FileAppenderTest {
                     }
                 });
 
-        String file = UUID.randomUUID().toString();
-        String fileName = "./target/append-test-" + file;
-        FileUtil.writeToFile(fileName, "first".getBytes(UTF_8));
-        appender.appendToFile(fileName, "appended");
+        Path dir = Files.createTempDirectory(UUID.randomUUID().toString());
+        String file = "append-test-" + UUID.randomUUID();
+        String fileNameWithParent = dir.toFile().getAbsolutePath() + "/" + file;
+        File parent = dir.toFile();
+        ensureDirectoryExists(parent);
+
+        new FileWriter().writeToFile(parent, "first", file, UTF_8);
+
+        appender.appendToFile(fileNameWithParent, "appended");
         assertEquals(0, failures.get());
         assertEquals(1, started.get());
         assertEquals(1, ok.get());
-        byte[] actual = Files.readAllBytes(Paths.get(fileName));
+        byte[] actual = Files.readAllBytes(Paths.get(fileNameWithParent));
         byte[] expected = "firstappended".getBytes(UTF_8);
         assertArrayEquals(expected, actual);
     }
