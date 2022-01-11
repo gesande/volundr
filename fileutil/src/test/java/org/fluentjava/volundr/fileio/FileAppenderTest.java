@@ -1,7 +1,6 @@
 package org.fluentjava.volundr.fileio;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.fluentjava.volundr.fileio.FileUtil.ensureDirectoryExists;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -49,9 +48,10 @@ public class FileAppenderTest {
         String file = "append-test-" + UUID.randomUUID();
         String fileNameWithParent = dir.toFile().getAbsolutePath() + "/" + file;
         File parent = dir.toFile();
-        ensureDirectoryExists(parent);
 
-        new FileWriter().writeToFile(parent, "first", file, UTF_8);
+        Files.createDirectories(Paths.get(parent.toURI()));
+        Files.writeString(Paths.get(new File(parent, file).toURI()), "first",
+                UTF_8);
 
         appender.appendToFile(fileNameWithParent, "appended");
         assertEquals(0, failures.get());

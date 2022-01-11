@@ -1,10 +1,12 @@
 package org.fluentjava.volundr.graph.jfreechart;
 
-import java.io.File;
+import static java.nio.file.Files.createDirectories;
+import static org.jfree.chart.ChartUtils.saveChartAsPNG;
 
-import org.fluentjava.volundr.fileio.FileUtil;
+import java.io.File;
+import java.nio.file.Paths;
+
 import org.fluentjava.volundr.graph.ChartWriter;
-import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +26,9 @@ public final class JFreeChartWriter implements ChartWriter<JFreeChart> {
         final String outputFilePath = reportRootDirectory() + "/" + id + ".png";
         log.info("Writing chart as an image to file {}", outputFilePath);
         try {
-            FileUtil.ensureDirectoryExists(newFile(reportRootDirectory()));
-            ChartUtils.saveChartAsPNG(newFile(outputFilePath), chart, width,
-                    height);
+            final File dir = newFile(reportRootDirectory());
+            createDirectories(Paths.get(dir.toURI()));
+            saveChartAsPNG(newFile(outputFilePath), chart, width, height);
             log.info("Chart image successfully written to {}", outputFilePath);
         } catch (final Exception e) {
             final String errorMsg = "Writing file '" + outputFilePath

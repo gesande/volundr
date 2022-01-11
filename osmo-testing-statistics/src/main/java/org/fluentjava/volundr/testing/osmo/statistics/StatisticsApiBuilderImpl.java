@@ -1,9 +1,10 @@
 package org.fluentjava.volundr.testing.osmo.statistics;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.write;
+import static java.nio.file.Files.writeString;
+
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ import org.fluentjava.volundr.statistics.StatisticsListProvider;
 import org.fluentjava.volundr.statistics.StatisticsListProviderFactory;
 import org.fluentjava.volundr.statistics.summary.csv.StatisticsSummaryToCsv;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 final class CsvFileSummaryConsumer implements CsvSummaryConsumer {
     private final String targetPath;
 
@@ -25,59 +29,28 @@ final class CsvFileSummaryConsumer implements CsvSummaryConsumer {
         this.targetPath = targetPath;
     }
 
-    private void writeListToFile(String fileName, String value) {
-        try {
-            Files.writeString(csvFile(fileName), value);
-        } catch (Exception e) {
-            throw new StatisticsApiRuntimeException(e);
-        }
-    }
-
     private Path csvFile(String fileName) throws IOException {
-        ensureDirectoryExists(new File(targetPath));
+        log.debug("csvFile {}", fileName);
+        createDirectories(Paths.get(targetPath));
         return Paths.get(targetPath, fileName + ".csv");
-    }
-
-    private void ensureDirectoryExists(File dir) throws IOException {
-        final File parent = dir.getParentFile();
-        if (!dir.exists()) {
-            if (parent == null) {
-                throw new FileNotFoundException(
-                        "Parent directory didn't exist!");
-            }
-            ensureDirectoryExists(parent);
-            if (!dir.mkdir()) {
-                throw new DirectoryNotCreatedException(
-                        "Directory '" + dir.getName() + "' wasn't created!");
-            }
-        }
-
-    }
-
-    final static class DirectoryNotCreatedException extends IOException {
-
-        public DirectoryNotCreatedException(String message) {
-            super(message);
-        }
-
-    }
-
-    private void writeListToFile(String fileName, List<String> values) {
-        try {
-            Files.write(csvFile(fileName), values);
-        } catch (Exception e) {
-            throw new StatisticsApiRuntimeException(e);
-        }
     }
 
     @Override
     public void consume(String graphName, String csvSummary) {
-        writeListToFile(graphName, csvSummary);
+        try {
+            writeString(csvFile(graphName), csvSummary);
+        } catch (Exception e) {
+            throw new StatisticsApiRuntimeException(e);
+        }
     }
 
     @Override
     public void consume(String graphName, List<String> values) {
-        writeListToFile(graphName, values);
+        try {
+            write(csvFile(graphName), values);
+        } catch (Exception e) {
+            throw new StatisticsApiRuntimeException(e);
+        }
     }
 
 }

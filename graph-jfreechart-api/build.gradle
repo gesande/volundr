@@ -14,7 +14,6 @@ publishing {
 }
 
 dependencies {
-    implementation project(':fileutil')
     implementation project(':graph-jfreechart')
     implementation project(':statistics')
     implementation project(':stronglytyped-sortedbag')
