@@ -64,6 +64,7 @@ DONE
 + Gradle 7 #build
 + charts use monospaced font
 + replace Thread.sleep in tests with awaitility library #test-refactoring
++ use temporary dirs and files with fileutil tests #test-refactoring
 
 IN PROGRESS
 

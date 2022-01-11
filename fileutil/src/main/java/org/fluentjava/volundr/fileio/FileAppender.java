@@ -1,32 +1,33 @@
 package org.fluentjava.volundr.fileio;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+
 import org.fluentjava.volundr.io.StringToBytes;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public final class FileAppender {
     private final FileAppendHandler handler;
     private final StringToBytes toBytes;
 
     public FileAppender(final StringToBytes toBytes,
             final FileAppendHandler handler) {
-        this.toBytes = toBytes;
-        this.handler = handler;
+        this.toBytes = requireNonNull(toBytes);
+        this.handler = requireNonNull(handler);
     }
 
     public void appendToFile(final String file, final String data) {
-        handler().start(file);
+        log.debug("appendToFile file:{} data length:{}", file, data.length());
+        handler.start(file);
         try {
-            FileUtil.appendToFile(file, toBytes(data));
-            handler().ok(file);
-        } catch (final AppendToFileFailed e) {
-            handler().failed(file, e);
+            FileUtil.appendToFile(file, toBytes.convert(data));
+            handler.ok(file);
+        } catch (final IOException e) {
+            handler.failed(file, e);
         }
     }
 
-    private byte[] toBytes(final String data) {
-        return this.toBytes.convert(data);
-    }
-
-    private FileAppendHandler handler() {
-        return this.handler;
-    }
 }
