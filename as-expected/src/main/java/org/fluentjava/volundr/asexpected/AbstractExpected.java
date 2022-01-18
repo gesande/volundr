@@ -1,13 +1,16 @@
 package org.fluentjava.volundr.asexpected;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * Original idea for this was got from Ville Oikarinen.
  */
 @SuppressWarnings("PMD.AvoidStringBufferField")
 public abstract class AbstractExpected<PARENT> implements Expected<PARENT> {
     private final StringBuilder expected = new StringBuilder();
+    private final AssertFunc assertFunc;
+
+    protected AbstractExpected(AssertFunc assertFunc) {
+        this.assertFunc = assertFunc;
+    }
 
     @Override
     public Expected<PARENT> string(final String string) {
@@ -21,11 +24,13 @@ public abstract class AbstractExpected<PARENT> implements Expected<PARENT> {
         final String buildExpected = buildExpected();
         final String actual = actual();
         if (!buildExpected.equals(actual)) {
-            System.err.println(
-                    "If the actual output is what you want, copy-paste this to the test:\n"
-                            + toTestExpectationCode(actual));
+            String msg = actual != null
+                    ? "If the actual output is what you want, copy-paste this to the test:\n"
+                            + toTestExpectationCode(actual)
+                    : "Expectation was null";
+            System.err.println(msg);
         }
-        assertEquals(buildExpected, actual);
+        assertFunc.assertEquals(buildExpected, actual);
         return parent();
     }
 

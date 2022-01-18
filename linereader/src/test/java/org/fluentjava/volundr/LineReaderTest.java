@@ -1,8 +1,9 @@
 package org.fluentjava.volundr;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LineReaderTest {
 
@@ -73,36 +74,38 @@ public class LineReaderTest {
         assertEquals("line3", lines.get(2));
     }
 
-    @Test(expected = FailIHave.class)
-    public void exceptionDuringVisit() throws IOException {
-        new LineReader(Charset.defaultCharset()).read(inputStreamWith3Lines(),
-                new LineVisitor() {
+    @Test
+    public void exceptionDuringVisit() {
+        assertThrows(FailIHave.class,
+                () -> new LineReader(Charset.defaultCharset())
+                        .read(inputStreamWith3Lines(), new LineVisitor() {
 
-                    @Override
-                    public void visit(final String line) {
-                        throw new FailIHave();
-                    }
+                            @Override
+                            public void visit(final String line) {
+                                throw new FailIHave();
+                            }
 
-                    @Override
-                    public void emptyLine() {//
-                    }
-                });
+                            @Override
+                            public void emptyLine() {//
+                            }
+                        }));
     }
 
-    @Test(expected = FailIHave.class)
-    public void exceptionDuringEmptyLine() throws IOException {
-        new LineReader(Charset.defaultCharset()).read(contentsWithEmptyLine(),
-                new LineVisitor() {
+    @Test
+    public void exceptionDuringEmptyLine() {
+        assertThrows(FailIHave.class,
+                () -> new LineReader(Charset.defaultCharset())
+                        .read(contentsWithEmptyLine(), new LineVisitor() {
 
-                    @Override
-                    public void visit(final String line) {//
-                    }
+                            @Override
+                            public void visit(final String line) {//
+                            }
 
-                    @Override
-                    public void emptyLine() {
-                        throw new FailIHave();
-                    }
-                });
+                            @Override
+                            public void emptyLine() {
+                                throw new FailIHave();
+                            }
+                        }));
     }
 
     private final static class FailIHave extends RuntimeException {//

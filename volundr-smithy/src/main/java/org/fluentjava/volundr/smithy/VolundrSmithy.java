@@ -99,7 +99,8 @@ public final class VolundrSmithy {
     }
 
     @SuppressWarnings({ "static-method", "PMD.CloseResource" })
-    public void readStreamsWith(final int threads, final int awaitTermination,
+    public boolean readStreamsWith(final int threads,
+            final int awaitTermination,
             final TimeUnit timeUnitForAwaitTermination,
             final StreamReader reader, final InputStream... streams) {
         final ExecutorService executor = Executors.newFixedThreadPool(threads,
@@ -117,15 +118,16 @@ public final class VolundrSmithy {
                 }
             });
         }
-        shutdown(awaitTermination, timeUnitForAwaitTermination, executor);
+        return shutdown(awaitTermination, timeUnitForAwaitTermination,
+                executor);
     }
 
-    private static void shutdown(final int awaitTermination,
+    private static boolean shutdown(final int awaitTermination,
             final TimeUnit timeUnitForAwaitTermination,
             final ExecutorService executor) {
         executor.shutdown();
         try {
-            executor.awaitTermination(awaitTermination,
+            return executor.awaitTermination(awaitTermination,
                     timeUnitForAwaitTermination);
         } catch (InterruptedException e) {
             throw new VolundrSmithyException(e);

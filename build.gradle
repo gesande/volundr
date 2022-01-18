@@ -78,6 +78,7 @@ ext {
     spotbugsVersion = "4.5.2"
     awaitilityVersion = "4.1.1"
     lombokVersion = "1.18.22"
+    junit5Version = "5.8.2"
 }
 
 apply plugin: "volundr.build-conventions"

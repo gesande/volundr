@@ -1,16 +1,16 @@
 package org.fluentjava.volundr.concurrent;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ThreadEngineApiExample {
+public class ThreadEngineApiExampleTest {
 
     @Test
     public void example() throws InterruptedException {
