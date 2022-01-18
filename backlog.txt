@@ -65,13 +65,14 @@ DONE
 + charts use monospaced font
 + replace Thread.sleep in tests with awaitility library #test-refactoring
 + use temporary dirs and files with fileutil tests #test-refactoring
++ update to JUnit5
 
 IN PROGRESS
 
 WAITING
+- introduce Mockito
 - introduce graph-jfreechart-fileapi
 - refactoring range stuff around LineChartGraphData #refactoring
-- update to Junit5
 - investigate https://docs.gradle.org/current/samples/sample_jvm_multi_project_with_code_coverage.html #build #gradle7
 - introduce license plugins #build
 - introduce readme.md #docs

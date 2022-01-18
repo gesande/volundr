@@ -1,10 +1,10 @@
 package org.fluentjava.volundr.smithy;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,20 +15,22 @@ import java.util.concurrent.TimeUnit;
 
 import org.fluentjava.volundr.LineVisitor;
 import org.fluentjava.volundr.asexpected.AsExpected;
+import org.fluentjava.volundr.asexpected.Expected;
 import org.fluentjava.volundr.bag.StronglyTypedSortedBag;
 import org.fluentjava.volundr.concurrent.ThreadEngineApi;
 import org.fluentjava.volundr.io.AsynchronousStreamReader;
 import org.fluentjava.volundr.io.InputStreamReaderFactory;
 import org.fluentjava.volundr.io.StreamReader;
 import org.fluentjava.volundr.io.VisitingInputStreamsHandler;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class VolundrSmithyTest {
 
     private VolundrSmithy volundrSmithy;
 
-    @Before
+    @BeforeEach
     public void before() {
         this.volundrSmithy = new VolundrSmithy(UTF_8);
     }
@@ -89,18 +91,15 @@ public class VolundrSmithyTest {
                     }
                 });
 
-        final AsExpected<Void> expected = expected(result.toString());
-        expected.line("line1");
-        expected.line("line2");
-        expected.line("line3");
+        final Expected<Void> expected = expected(result.toString())
+                .line("line1").line("line2").line("line3");
         expected.end();
     }
 
     @Test
     public void inputStreamToString() throws IOException {
-        final AsExpected<Void> expected = expected(
-                smithy().inputStreamToString()
-                        .toString(resourceAsStream("file-with-lines")));
+        final Expected<Void> expected = expected(smithy().inputStreamToString()
+                .toString(resourceAsStream("file-with-lines")));
         expected.line("line1");
         expected.line("line2");
         expected.line("line3");
@@ -111,8 +110,7 @@ public class VolundrSmithyTest {
     public void stringToOutputStream() throws IOException {
         final ByteArrayOutputStream streamToWrite = new ByteArrayOutputStream();
         smithy().stringToOutputStream(streamToWrite).write("völundr");
-        final AsExpected<Void> expected = expected(
-                streamToWrite.toString(UTF_8));
+        final Expected<Void> expected = expected(streamToWrite.toString(UTF_8));
         expected.string("völundr").end();
     }
 
@@ -132,7 +130,7 @@ public class VolundrSmithyTest {
                         "No empty lines should have been there!");
             }
         }).readFrom(resourceAsStream("file-with-lines"));
-        final AsExpected<Void> expected = expected(result.toString());
+        final Expected<Void> expected = expected(result.toString());
         expected.line("line1");
         expected.line("line2");
         expected.line("line3");
@@ -169,7 +167,7 @@ public class VolundrSmithyTest {
                         "No empty lines should have been there!");
             }
         }, resourceAsStream("file-with-lines"));
-        final AsExpected<Void> expected = expected(result.toString());
+        final Expected<Void> expected = expected(result.toString());
         expected.line("line1");
         expected.line("line2");
         expected.line("line3");
@@ -206,10 +204,8 @@ public class VolundrSmithyTest {
                         "No empty lines should have been there!");
             }
         }, resourceAsStream("file-with-lines.gz"));
-        final AsExpected<Void> expected = expected(result.toString());
-        expected.line("line1");
-        expected.line("line2");
-        expected.line("line3");
+        final Expected<Void> expected = expected(result.toString())
+                .line("line1").line("line2").line("line3");
         expected.end();
     }
 
@@ -263,10 +259,8 @@ public class VolundrSmithyTest {
                         "No empty lines should have been there!");
             }
         }).readFrom(resourceAsStream("file-with-lines.gz"));
-        final AsExpected<Void> expected = expected(result.toString());
-        expected.line("line1");
-        expected.line("line2");
-        expected.line("line3");
+        final Expected<Void> expected = expected(result.toString())
+                .line("line1").line("line2").line("line3");
         expected.end();
     }
 
@@ -288,7 +282,8 @@ public class VolundrSmithyTest {
                                 "No empty lines should have been there!");
                     }
                 });
-        smithy().readStreamsWith(2, 5, TimeUnit.SECONDS, reader,
+        boolean readStreamsWith = smithy().readStreamsWith(2, 5,
+                TimeUnit.SECONDS, reader,
                 resourceAsStream("big-file-with-lines"),
                 resourceAsStream("big-file-with-lines"));
         assertEquals(3182764, values.size());
@@ -297,19 +292,19 @@ public class VolundrSmithyTest {
             result.append(values.count(sample)).append(',').append(sample)
                     .append('\n');
         }
-        final AsExpected<Void> expected = expected(result.toString());
-        expected.line("1060928,line1");
-        expected.line("1060918,line2");
-        expected.line("1060918,line3");
+        final Expected<Void> expected = expected(result.toString())
+                .line("1060928,line1").line("1060918,line2")
+                .line("1060918,line3");
         expected.end();
+        assertTrue(readStreamsWith);
     }
 
     private VolundrSmithy smithy() {
         return this.volundrSmithy;
     }
 
-    private static AsExpected<Void> expected(final String actual) {
-        return AsExpected.expected(actual);
+    private static Expected<Void> expected(final String actual) {
+        return AsExpected.expected(actual, Assertions::assertEquals);
     }
 
     private static InputStream resourceAsStream(final String resource) {

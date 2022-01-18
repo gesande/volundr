@@ -1,6 +1,7 @@
 package org.fluentjava.volundr.graph.scatterplot;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +13,8 @@ import org.fluentjava.volundr.graph.frequency.FrequencyGraphBuilderTest;
 import org.fluentjava.volundr.graph.jfreechart.DefaultDatasetAdapterFactory;
 import org.fluentjava.volundr.graph.jfreechart.ImageFactoryUsingJFreeChart;
 import org.fluentjava.volundr.graph.jfreechart.JFreeChartWriter;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("PMD.UseProperClassLoader")
 public class ScatterPlotBuilderTest {
@@ -23,7 +23,7 @@ public class ScatterPlotBuilderTest {
     private static String targetPath;
     private static ImageFactoryUsingJFreeChart imageFactory;
 
-    @BeforeClass
+    @BeforeAll
     public static void loadGoldenMaster()
             throws IOException, URISyntaxException {
         File goldenMaster = new File(
@@ -64,7 +64,6 @@ public class ScatterPlotBuilderTest {
 
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytes, bytes);
-
+        assertArrayEquals(goldenMasterBytes, bytes);
     }
 }

@@ -1,6 +1,7 @@
 package org.fluentjava.volundr.graph.frequency;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,9 +19,8 @@ import org.fluentjava.volundr.statistics.AbstractStatisticsValueProvider;
 import org.fluentjava.volundr.statistics.StatisticsListProvider;
 import org.fluentjava.volundr.statistics.StatisticsListProviderFactory;
 import org.fluentjava.volundr.statistics.StatisticsValueProviderFactory;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("PMD.UseProperClassLoader")
 public class FrequencyGraphBuilderTest {
@@ -29,7 +29,7 @@ public class FrequencyGraphBuilderTest {
     private static String targetPath;
     private static ImageFactoryUsingJFreeChart imageFactory;
 
-    @BeforeClass
+    @BeforeAll
     public static void loadGoldenMaster()
             throws IOException, URISyntaxException {
         File goldenMaster = new File(
@@ -76,7 +76,7 @@ public class FrequencyGraphBuilderTest {
 
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytes, bytes);
+        assertArrayEquals(goldenMasterBytes, bytes);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class FrequencyGraphBuilderTest {
         frequencyGraphBuilder.writeGraph(imageFactory, graphName);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytes, bytes);
+        assertArrayEquals(goldenMasterBytes, bytes);
     }
 
     @Test
@@ -174,7 +174,7 @@ public class FrequencyGraphBuilderTest {
 
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytes, bytes);
+        assertArrayEquals(goldenMasterBytes, bytes);
     }
 
     @Test
@@ -227,7 +227,7 @@ public class FrequencyGraphBuilderTest {
         frequencyGraphBuilder.writeGraph(imageFactory, graphName);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytes, bytes);
+        assertArrayEquals(goldenMasterBytes, bytes);
     }
 
 }

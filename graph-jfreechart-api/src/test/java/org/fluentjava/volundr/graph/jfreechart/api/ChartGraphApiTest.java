@@ -1,6 +1,7 @@
 package org.fluentjava.volundr.graph.jfreechart.api;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,15 +16,14 @@ import org.fluentjava.volundr.statistics.AbstractStatisticsValueProvider;
 import org.fluentjava.volundr.statistics.StatisticsListProvider;
 import org.fluentjava.volundr.statistics.StatisticsListProviderFactory;
 import org.fluentjava.volundr.statistics.StatisticsValueProviderFactory;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("PMD.UseProperClassLoader")
 public class ChartGraphApiTest {
     private static String targetPath;
 
-    @BeforeClass
+    @BeforeAll
     public static void loadGoldenMaster() {
         targetPath = System.getProperty("user.dir") + "/target";
     }
@@ -44,7 +44,7 @@ public class ChartGraphApiTest {
                 "graphTitle", "xAxisTitle", graphName, stats);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytesOf("samples"), bytes);
+        assertArrayEquals(goldenMasterBytesOf("samples"), bytes);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class ChartGraphApiTest {
                 "graphTitle", "xAxisTitle", graphName, bag);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytesOf("barGraphFromBagOfValues"),
+        assertArrayEquals(goldenMasterBytesOf("barGraphFromBagOfValues"),
                 bytes);
     }
 
@@ -94,7 +94,7 @@ public class ChartGraphApiTest {
                 "graphTitle", "xAxisTitle", graphName, stats);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytesOf("barGraphFromBagOfValues"),
+        assertArrayEquals(goldenMasterBytesOf("barGraphFromBagOfValues"),
                 bytes);
     }
 
@@ -122,7 +122,7 @@ public class ChartGraphApiTest {
         chartGraphApi.createScatterPlot(scatterPlotData, graphName);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytesOf("plot"), bytes);
+        assertArrayEquals(goldenMasterBytesOf("plot"), bytes);
     }
 
     @Test
@@ -149,7 +149,7 @@ public class ChartGraphApiTest {
                 "xAxisTitle", graphName, stats);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytesOf("frequency"), bytes);
+        assertArrayEquals(goldenMasterBytesOf("frequency"), bytes);
     }
 
     @Test
@@ -176,7 +176,7 @@ public class ChartGraphApiTest {
                 "graphTitle", "xAxisTitle", graphName, stats);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytesOf("frequency"), bytes);
+        assertArrayEquals(goldenMasterBytesOf("frequency"), bytes);
     }
 
     private static byte[] goldenMasterBytesOf(String goldenMasterNamePrefix)

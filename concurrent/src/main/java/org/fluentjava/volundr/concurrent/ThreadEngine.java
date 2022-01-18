@@ -44,8 +44,9 @@ final class ThreadEngine {
 
     @SafeVarargs
     private <T extends Runnable> void initializeWith(final T... runnables) {
-        Arrays.asList(runnables)
-                .forEach(t -> threads.add(threadFactory().newThread(t)));
+        List<T> list = Arrays.asList(runnables);
+        log.debug("initializeWith {}", list.size());
+        list.forEach(t -> threads.add(threadFactory().newThread(t)));
     }
 
     private ThreadFactory threadFactory() {
@@ -53,12 +54,13 @@ final class ThreadEngine {
     }
 
     private void startThreads() {
-        log.debug("Starting  threads...");
+        log.debug("Starting {} threads...", threads.size());
         threads.forEach(Thread::start);
-        log.debug("Threads started.");
+        log.debug("All threads started.");
     }
 
     private void joinThreads() {
+        log.debug("joinThreads");
         threads.forEach(t -> {
             try {
                 t.join();

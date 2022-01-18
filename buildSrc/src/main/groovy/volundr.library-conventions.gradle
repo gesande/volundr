@@ -29,16 +29,6 @@ dependencies {
 
         testRuntimeOnly "org.slf4j:slf4j-log4j12:${slf4jVersion}"
         testRuntimeOnly "log4j:log4j:${log4jVersion}"
-        implementation("junit:junit") {
-            version {
-                prefer "$junitVersion"
-            }
-        }
-        testImplementation("junit:junit") {
-            version {
-                prefer "$junitVersion"
-            }
-        }
 
         implementation "commons-io:commons-io:${commonsIoVersion}"
         implementation "commons-collections:commons-collections:$commonsCollectionsVersion"
@@ -52,6 +42,8 @@ dependencies {
         testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
         testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
+    testImplementation(platform("org.junit:junit-bom:${junit5Version}"))
+
     //logging abstraction
     implementation group: "org.slf4j", name: "slf4j-api"
 
@@ -59,11 +51,9 @@ dependencies {
     compileOnly "com.github.spotbugs:spotbugs-annotations"
     testCompileOnly "com.github.spotbugs:spotbugs-annotations"
 
-    //unit tests
-    testImplementation("junit:junit") {
-        exclude module: "hamcrest-core"
-    }
     testImplementation("org.awaitility:awaitility")
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
 
     //logging impl
     testRuntimeOnly "org.slf4j:slf4j-log4j12"
@@ -130,4 +120,7 @@ pmd {
     //this is an incubating feature and seems to have some issues
     // disabling it for now
     //incrementalAnalysis = true
+}
+test {
+    useJUnitPlatform()
 }

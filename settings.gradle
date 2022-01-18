@@ -1,4 +1,4 @@
-include 'junit-utils','classhelper','linereader','stronglytyped-sortedbag'
+include 'junit4-utils','classhelper','linereader','stronglytyped-sortedbag'
 include 'fileutil','concurrent','threadengine-api-example','stream-reader'
 include 'asynchronous-stream-reader','string-to-outputstream'
 include 'inputstream-to-string','visiting-inputstreams'

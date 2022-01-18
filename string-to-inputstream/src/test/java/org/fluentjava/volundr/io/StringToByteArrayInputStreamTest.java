@@ -1,7 +1,7 @@
 package org.fluentjava.volundr.io;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,7 +9,7 @@ import java.nio.charset.Charset;
 
 import org.fluentjava.volundr.LineReader;
 import org.fluentjava.volundr.LineVisitor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class StringToByteArrayInputStreamTest {
 

@@ -1,6 +1,7 @@
 package org.fluentjava.volundr.graph.jfreechart.api;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,16 +12,15 @@ import java.util.List;
 
 import org.fluentjava.volundr.statistics.StatisticsListProvider;
 import org.fluentjava.volundr.statistics.StatisticsListProviderFactory;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("PMD.UseProperClassLoader")
 public class FrequencyGraphApiTest {
     private static byte[] goldenMasterBytes;
     private static String targetPath;
 
-    @BeforeClass
+    @BeforeAll
     public static void loadGoldenMaster() throws IOException {
         File goldenMaster = new File(requireNonNull(FrequencyGraphApiTest.class
                 .getResource("/frequency-goldenMaster.png")).getFile());
@@ -53,7 +53,7 @@ public class FrequencyGraphApiTest {
                 "xAxisTitle", graphName, stats);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytes, bytes);
+        assertArrayEquals(goldenMasterBytes, bytes);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class FrequencyGraphApiTest {
                 "graphTitle", "xAxisTitle", graphName, stats);
         byte[] bytes = Files
                 .readAllBytes(Paths.get(targetPath, graphName + ".png"));
-        Assert.assertArrayEquals(goldenMasterBytes, bytes);
+        assertArrayEquals(goldenMasterBytes, bytes);
     }
 
 }

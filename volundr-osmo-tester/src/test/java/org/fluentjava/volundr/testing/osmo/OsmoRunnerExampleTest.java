@@ -1,7 +1,7 @@
 package org.fluentjava.volundr.testing.osmo;
 
 import static org.fluentjava.volundr.testing.osmo.statistics.SleepValueProvider.calculateNextSleepValue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,13 +15,13 @@ import org.fluentjava.volundr.testing.osmo.model.statistics.StatisticsModel;
 import org.fluentjava.volundr.testing.osmo.statistics.SleepValueProvider;
 import org.fluentjava.volundr.testing.osmo.statistics.StatisticsConsumer;
 import org.fluentjava.volundr.testing.osmo.statistics.StatisticsMeasurement;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
 import osmo.tester.generator.endcondition.Length;
 
 @Slf4j
-public class OsmoRunnerExample {
+public class OsmoRunnerExampleTest {
 
     @Test
     public void testOsmoRunnerWithAllItsBellsAndWhistles() throws IOException {

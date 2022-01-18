@@ -1,8 +1,8 @@
 package org.fluentjava.volundr.smithy;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.fluentjava.volundr.LineVisitor;
 import org.fluentjava.volundr.io.StreamReader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,8 +37,8 @@ public class BigFileReadTest {
         }).readFrom(resourceAsStream("file-with-1point5million-lines"));
         final long duration = System.currentTimeMillis() - start;
         log.info("1,5 million lines read at {} ms.", duration);
-        assertTrue("Duration should be no more 600 ms for 1,5 million rows",
-                duration <= 600);
+        assertTrue(duration <= 600,
+                "Duration should be no more 600 ms for 1,5 million rows");
         assertEquals(1500000, lines.get());
     }
 
@@ -60,17 +60,19 @@ public class BigFileReadTest {
                         lines.incrementAndGet();
                     }
                 });
-        volundrSmithy.readStreamsWith(1, 5000, TimeUnit.MILLISECONDS, reader,
+        boolean result = volundrSmithy.readStreamsWith(1, 5000,
+                TimeUnit.MILLISECONDS, reader,
                 resourceAsStream("file-with-1point5million-lines"),
                 resourceAsStream("file-with-1point5million-lines2"),
                 resourceAsStream("file-with-1point5million-lines3"),
                 resourceAsStream("file-with-1point5million-lines4"));
         final long duration = System.currentTimeMillis() - start;
         log.info("6 million lines read at {} ms.", duration);
-        assertTrue("Duration should be no more that 1500 ms for 6 million rows",
-                duration <= 2000);
+        assertTrue(duration <= 2000,
+                "Duration should be no more that 1500 ms for 6 million rows");
 
         assertEquals(6000000, lines.get());
+        assertTrue(result);
     }
 
     private static InputStream resourceAsStream(final String resource) {
