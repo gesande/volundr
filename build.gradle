@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id "com.github.spotbugs" version "5.0.3"
+    id "com.github.spotbugs" version "5.0.13"
     //dependency updates
     id "com.github.ben-manes.versions" version "0.40.0"
     id "pmd"
