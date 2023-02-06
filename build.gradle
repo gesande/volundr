@@ -20,7 +20,7 @@ plugins {
     id "org.owasp.dependencycheck" version "6.5.1"
     id "org.ajoberstar.grgit" version "4.1.1"
     // lint build
-    id "nebula.lint" version "17.5.0"
+    id "nebula.lint" version "18.0.1"
     id "nebula.resolution-rules" version "9.0.0"
 }
 
