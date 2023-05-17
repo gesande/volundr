@@ -12,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.Clock;
 import java.util.Base64;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -20,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ClockControllerTest {
+public class ClockApiTest {
     @Autowired
     private MockMvc mockMvc;
 

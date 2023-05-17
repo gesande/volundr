@@ -1,4 +1,4 @@
-package org.fluentjava.volundr.springbootexample;
+package org.fluentjava.volundr.springbootexample.dto;
 
 import java.time.Clock;
 
